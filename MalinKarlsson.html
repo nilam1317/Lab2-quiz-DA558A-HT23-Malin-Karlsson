@@ -3,82 +3,292 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="quiz">
-	<meta name="author" content="Malin Karlsson">
-	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="description" content="quiz">
+    <meta name="author" content="Malin Karlsson">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
-	<!--[if lt IE 9]> 
+    <!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
+    <!--[if lt IE 9]> 
 <script src="https://raw.githubusercontent.com/aFarkas/html5shiv/master/dist/html5shiv.min.js"></script>
  <![endif]-->
 
 
-	<title>Quiz</title>
+    <title>Quiz</title>
 
 </head>
 <style>
-  .flex-container {
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-    display: flex;
-     
-    align-items: flex-start; 
-    /* flex-flow: row wrap; */ 
-    flex-direction: row; 
-    flex-wrap: wrap; 
-    align-content: flex-start;
+    /* The hero image */
+    .hero-image {
+        /* Use "linear-gradient" to add a darken background effect to the image This will make the text easier to read */
+        /*background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/flygplan.jpg.jpg");*/
+        background-image: url("images/flygplan.jpg.jpg");
+        /* Set a specific height */
+        height: 50%;
 
-    background-color: #bbdefb;
-    height: 100%;
-    padding: 15px;
-    gap: 5px;
+        /* Position and center the image to scale nicely on all screens */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
 
-  }
+    /* Place text in the middle of the image */
+    .hero-text {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
 
-  .flex-container > div{
-    background: #ffecb3;
-    border: 3px solid #ffcc80;
-    border-radius: 5px;
-    padding: 8px;
-  }
+    }
 
 
-  .item1 { 
-    /* flex:0 1 auto; */
-    align-self:auto;
-  }
-			
 
+
+    main {
+        width: 100%;
+    }
+
+    .flex-container {
+
+        display: flex;
+        width: 100%;
+        align-items: stretch;
+        /* flex-flow: row wrap; */
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        background-color: #bbdefb;
+        height: 100%;
+        padding: 15px;
+        gap: 5px;
+
+    }
+
+    .flex-container>div {
+
+        background: #ffecb3;
+        border: 3px solid #ffcc80;
+        border-radius: 5px;
+        padding: 8px;
+        align-self: auto;
+    }
+
+
+    .item1 {
+        /* flex:0 1 auto; */
+        align-self: auto;
+        width: 800px;
+    }
+
+    .item2 {
+
+        align-self: auto;
+        width: 300px;
+    }
+
+
+    .hero-text h1 {
+        font-size: 5em;
+        color: darkblue;
+    }
+
+
+    .hero-text p {
+        font-size: 3em;
+        color: darkslateblue;
+    }
+
+    /* On screens that are 600px or less, set the background color to olive */
+    @media screen and (max-width: 1300px) {
+        .hero-text h1 {
+            font-size: 3em;
+
+
+        }
+
+        .hero-text p {
+            font-size: 2em;
+
+        }
+
+
+
+        .hero-image {
+
+            height: 30%;
+
+
+        }
+    }
+
+
+    /* On screens that are 600px or less, set the background color to olive */
+    @media screen and (max-width: 999px) {
+        .hero-text h1 {
+            font-size: 2em;
+
+
+        }
+
+        .hero-text p {
+            font-size: 1em;
+
+        }
+
+
+        .hero-image {
+
+            height: 25%;
+
+
+        }
+
+
+
+    }
+    
+    
+    /*-- form*/
+
+#form_div {
+	width: 730px;
+	text-align: center;
+
+}
+
+
+
+form {
+	width: 630px;
+	text-align: left;
+}
+
+input,
+textarea,
+button {
+	font-family: 'Lora', serif;
+	font-size: 0.8em;
+	font-weight: 400;
+	color: #333;
+
+}
+
+input:focus,
+textarea:focus {
+	background-color: #e3f6f9;
+
+
+}
+
+input:hover,
+textarea:hover {
+	background-color: #f8f9e4;
+
+
+}
+
+legend,
+.legend {
+	font-family: 'Lora', serif;
+	font-size: 1em;
+	font-weight: 400;
+	padding: 20px 0 20px 0;
+	color: #333;
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+
+}
+
+.legend {
+
+	font-size: 1em;
+
+
+}
+
+input {
+	margin-top: 10px;
+}
+    
+    
+    
 </style>
+
 <body>
-	<header>
-		<nav>
+    <header class="hero-image">
+        <div class="hero-text">
+            <h1>Travel Quiz</h1>
+            <p>Test Your Wanderlust:<br>Take the Ultimate Travel Quiz!</p>
+          
+        </div>
 
-			
-		</nav>
-	
-	</header>
-	<main>
-<div class="flex-container">
-   
-    <div class="item1">item 1</div>
-    <div class="item2">item 2</div>
-
-</div>
-
-	</main>
-
-	<footer>
-	
-	
-	</footer>
+        <nav>
 
 
+        </nav>
+
+    </header>
+    <main>
+        <div class="flex-container">
+
+            <div class="item1">
+                <div id="form_div">
+
+                    <form action="mailto:karlssonmalin@hotmail.com" method="get" enctype="text/plain">
+                        <fieldset>
+                            <legend>Please register to take the quiz</legend>
+                            <div class="form_column">
+                                <div class="form-contact">
+                                    <label for="first_name">First Name</label>
+                                    <input id="first_name" name="first_name" type="text" class="form-control">
+                                </div>
+                                <div class="form-contact">
+                                    <label for="last_name">Last Name</label>
+                                    <input id="last_name" name="last_name" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-contact">
+                                <label for="phone_number">Phone number</label>
+                                <input id="phone_number" name="phone_number" type="text" class="form-control">
+                            </div>
+                            <div class="form-contact">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="text" class="form-control">
+                            </div>
+                            <button>Send</button>
+                        </fieldset>
+                    </form>
 
 
 
-</body>
+                </div>
+            </div>
+            <div class="item2">item 2</div>
 
-</html>
+        </div>
 
+    </main>
+
+    <footer>
+
+
+    </footer>
+
+
+
+
+
+</body></html>

@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+
+/*---Structural*/
+
+header,
+section,
+footer,
+aside,
+nav,
+article,
+figure,
+small,
+address,
+figcaption {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
