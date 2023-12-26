@@ -250,24 +250,26 @@
 							<div class="form_column">
 								<div class="form-contact">
 									<label for="firstName">First Name</label>
-									<input id="firstName" name="firstName" type="text" class="form-control">
+									<input id="firstName" name="firstName" type="text" class="form-control" required>
 								</div>
 								<div class="form-contact">
 									<label for="lastName">Last Name</label>
-									<input id="lastName" name="lastName" type="text" class="form-control">
+									<input id="lastName" name="lastName" type="text" class="form-control" required>
+									
 								</div>
 							</div>
 							<div class="form-contact">
 								<label for="phoneNumber">Phone number</label>
-								<input id="phoneNumber" name="phoneNumber" type="text" class="form-control">
+								<input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
 							</div>
 							<div class="form-contact">
 								<label for="email">Email</label>
-								<input id="email" name="email" type="text" class="form-control">
+								<input id="email" name="email" type="text" class="form-control" required>
 							</div>
 							<button>Set local storage item</button>
 						</fieldset>
 					</form>
+					<span id="error"></span>
 				</div>
 			</div>
 
@@ -296,9 +298,59 @@
 						e.preventDefault()
 
 						//call on function to validate inputs
-						checkInputs()
+						//checkInputs()
+						//validate(firstName)
 
+						//create variables from inputs
+						let firstName = document.getElementById("firstName")
+						let lastName = document.getElementById("lastName")
+						let phoneNumber = document.getElementById("phoneNumber")
+						let email = document.getElementById("email")
+						document.getElementById("error").innerHTML = ""
+						
+						const objectToPass = {
+							firstName: '' + firstName.value,
+							lastName: '' + lastName.value,
+							phoneNumber: '' + phoneNumber.value,
+							email: '' + email.value
+						}
+
+						useRegex(objectToPass)
 					})
+
+
+
+
+
+					function useRegex(objectToPass) {
+
+
+						let regex1 = /[0-9]+/;
+						let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s/
+				
+						
+						
+						for (const key in objectToPass) {
+
+							console.log(`${key}: ${objectToPass[key]}`);
+							let toTest = objectToPass[key]
+							
+							
+							if (toTest.match(regex1)) {
+							document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no numbers are allowed'
+							break;
+							} else if (toTest.match(regex2)) {
+							document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters are allowed'
+							break;
+							}
+						}
+
+
+
+						
+						
+						
+					}
 
 
 					//function to validate inputs
@@ -309,12 +361,24 @@
 						let lastName = document.getElementById("lastName")
 						let phoneNumber = document.getElementById("phoneNumber")
 						let email = document.getElementById("email")
+						var letters = /^[A-Za-z]+$/
+
+
 
 
 						//check that they all have a value submitted
 						if (firstName.value == "" || lastName.value == "" || phoneNumber.value == "" || email.value == "") {
 							alert("Ensure you input a value in all fields!")
-						} else {
+						} else if ((email.value.indexOf('@') === -1) ||
+							(email.value.indexOf('.') === -1)) {
+							alert('Please Enter A Valid Email Address')
+							event.preventDefault()
+						}
+
+
+
+						//check that they all have a value submitted
+						else {
 							//if everything validates ok go on to the following function(s)
 
 							storeUserInfo()
@@ -325,7 +389,7 @@
 							console.log(
 								`This form has a firstName of ${firstName.value} and lastName of ${lastName.value}and phoneNumber of ${email.value}and email of ${phoneNumber.value}`)
 
-							then empty the inputs
+							//then empty the inputs
 							firstName.value = ""
 							lastName.value = ""
 							phoneNumber.value =
