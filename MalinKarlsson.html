@@ -21,7 +21,7 @@
 
 	<title>Quiz</title>
 
-</head>
+
 <style>
 	*,
 	*::before,
@@ -207,6 +207,16 @@
 		width: 760px;
 		text-align: left;
 	}
+    
+    form p{
+		font-family: 'Lora', serif;
+		font-size: 0.7em;
+		font-weight: 400;
+        margin:0px;
+        padding:0px;
+        color:darkred;
+	}
+
 
 	input,
 	textarea {
@@ -348,7 +358,7 @@
 		/* font-family: 'Ubuntu', sans-serif;*/
 		letter-spacing: 1px;
 		text-transform: uppercase;
-		margin-bottom: 17px;
+		margin-bottom: 5px;
 
 	}
 
@@ -509,7 +519,7 @@
 
 	}
 </style>
-
+</head>
 <body>
 	<header class="hero-image">
 		<div class="hero-text">
@@ -530,27 +540,30 @@
 			<div class="item1">
 				<div id="form_div">
 
-					<form action="" id="registerForm">
+					<form  id="registerForm">
 						<fieldset>
 							<legend>Please register to take the quiz</legend>
 							<div class="form_column">
-								<div class="form-contact">
+                                <div class="form-contact"><p>*Required Fields</p>
 									<label for="firstName">First Name</label>
 									<input id="firstName" name="firstName" type="text" class="form-control" required>
+									<p>* A-Ö a-ö `´  allowed</p>
 								</div>
 								<div class="form-contact">
 									<label for="lastName">Last Name</label>
 									<input id="lastName" name="lastName" type="text" class="form-control" required>
-
+									<p>* * A-Ö a-ö `´  allowed</p>
 								</div>
 							</div>
 							<div class="form-contact">
 								<label for="phoneNumber">Phone number</label>
 								<input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
+								<p>* Please enter only digits 0-9</p>
 							</div>
 							<div class="form-contact">
 								<label for="email">Email</label>
 								<input id="email" name="email" type="text" class="form-control" required>
+								<p>* Please enter a valid email address</p>
 							</div>
 							<button>Register</button>
 						</fieldset>
