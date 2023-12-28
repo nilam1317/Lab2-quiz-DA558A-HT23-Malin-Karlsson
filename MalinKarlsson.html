@@ -677,53 +677,6 @@
                         }
                     }
 
-                    //function to validate inputs
-                    function checkInputs() {
-
-                        //create variables from inputs
-                        let firstName = document.getElementById("firstName")
-                        let lastName = document.getElementById("lastName")
-                        let phoneNumber = document.getElementById("phoneNumber")
-                        let email = document.getElementById("email")
-                        var letters = /^[A-Za-z]+$/
-
-
-
-
-                        //check that they all have a value submitted
-                        if (firstName.value == "" || lastName.value == "" || phoneNumber.value == "" || email.value == "") {
-                            alert("Ensure you input a value in all fields!")
-                        } else if ((email.value.indexOf('@') === -1) ||
-                            (email.value.indexOf('.') === -1)) {
-                            alert('Please Enter A Valid Email Address')
-                            event.preventDefault()
-                        }
-
-
-
-                        //check that they all have a value submitted
-                        else {
-                            //if everything validates ok go on to the following function(s)
-
-                            storeUserInfo()
-
-
-
-                            //send a message to console log
-                            console.log(
-                                `This form has a firstName of ${firstName.value} and lastName of ${lastName.value}and phoneNumber of ${email.value}and email of ${phoneNumber.value}`)
-
-                            //then empty the inputs
-                            firstName.value = ""
-                            lastName.value = ""
-                            phoneNumber.value =
-                                email.value = ""
-
-                        }
-
-
-
-                    }
 
 
 
@@ -768,10 +721,10 @@
 
 
 
-                        const userInfoObject = JSON.parse(localStorage.getItem('userInfo'));
+                        const userInfoObject = JSON.parse(localStorage.getItem('userInfo'))
 
                         for (const key in userInfoObject) {
-                            console.log(key + ': ' + userInfoObject[key]);
+                            console.log(key + ': ' + userInfoObject[key])
                         }
 
                         document.getElementById("demo").innerHTML = localStorage.getItem('userInfo')
@@ -779,25 +732,81 @@
                     }
 
 
+                    const inputNameLabel = ["QuestionsNumber"]
+                    let j = 1
+
+                    function addQuestion() {
+                        document.getElementById("QuestionsForm").addEventListener("click", function(event) {
+                                event.preventDefault()
+});
+
+                                var labelx = document.createElement("LABEL")
+                                
+                                inputNameLabel.push("Question" + j)
+
+                                
+                                
+                                labelx.setAttribute("for", "test")
+                                document.getElementById("QuestionsForm").appendChild(labelx)
 
 
+                               
+
+                                var inputz = document.createElement("INPUT")
+                                inputz.setAttribute("type", "text")
+                                inputz.setAttribute("id", "Question" + j)
+                                inputz.setAttribute("value", "Donald")
+                                document.getElementById("QuestionsForm").appendChild(inputz)
+
+                                let questionNumberToPass = inputNameLabel[j]
+
+                                console.log('svaret du söker' + questionNumberToPass)
+                        
+                                const buttonX = document.getElementById("Question" + j)
+                                console.log("buttonX")
+                                let htmlToInsert = '<button onclick="deleteQuestion()" id="'+inputNameLabel[j] + '"> Delete</button>'
+                                buttonX.insertAdjacentHTML("afterend", htmlToInsert)
+
+                     
+                                j = ++j
 
 
-                    function myFunction() {
-                        var x = document.createElement("FORM");
-                        x.setAttribute("id", "myForm");
-                        document.body.appendChild(x);
-
-                        var y = document.createElement("INPUT");
-                        y.setAttribute("type", "text");
-                        y.setAttribute("value", "Donald");
-                        document.getElementById("myForm").appendChild(y);
-                    }
-
+                            }
+                    
+                      function deleteQuestion(){  
+                     let k= inputNameLabel.length
+                     
+                     ()
+                          let questionIdtoDelete = document.getElementById("firstName")
+                          
+                        var parent = document.getElementById("QuestionsForm");
+                        
+                        var child = document.getElementById("inputNameLabel[j]");
+                      console.log(child)
+                        parent.removeChild(child);
+                          
+                      }
+                    
                 </script>
+               
+                <form id="QuestionsForm">
+                    <fieldset>
+                        <legend>Start here to add a question</legend>
+                        <p>*Required Fields</p>
+
+                        <button onclick="addQuestion()"> Add another question </button>
 
 
-                <button onclick="myFunction()"> Try it </button>
+
+                    </fieldset>
+
+                </form>
+
+
+
+
+
+
 
 
 
