@@ -3,939 +3,1089 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="quiz">
-    <meta name="author" content="Malin Karlsson">
+	<meta charset="UTF-8">
+	<meta name="description" content="quiz">
+	<meta name="author" content="Malin Karlsson">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Add  googlefonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;700&family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
-    <!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
-    <!--[if lt IE 9]> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Add  googlefonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;700&family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
+	<!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
+	<!--[if lt IE 9]> 
 <script src="https://raw.githubusercontent.com/aFarkas/html5shiv/master/dist/html5shiv.min.js"></script>
  <![endif]-->
 
 
-    <title></title>
-
-
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-
-        /*---Structural*/
+	<title></title>
+
+
+	<style>
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box;
+		}
+
 
-        header,
-        section,
-        footer,
-        aside,
-        nav,
-        article,
-        figure,
-        small,
-        address,
-        figcaption {
-            display: block;
-            margin: 0;
-            padding: 0;
-        }
+		/*---Structural*/
 
+		header,
+		section,
+		footer,
+		aside,
+		nav,
+		article,
+		figure,
+		small,
+		address,
+		figcaption {
+			display: block;
+			margin: 0;
+			padding: 0;
+		}
 
 
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
 
-        /* The hero image */
-        .hero-image {
-            /* Use "linear-gradient" to add a darken background effect to the image This will make the text easier to read */
-            /*background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/flygplan.jpg.jpg");*/
-            background-image: url("images/flygplan.jpg.jpg");
-            /* Set a specific height */
-            height: 50%;
+		body,
+		html {
+			height: 100%;
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
 
-            /* Position and center the image to scale nicely on all screens */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-        }
+		/* The hero image */
+		.hero-image {
+			/* Use "linear-gradient" to add a darken background effect to the image This will make the text easier to read */
+			/*background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/flygplan.jpg.jpg");*/
+			background-image: url("images/flygplan.jpg.jpg");
+			/* Set a specific height */
+			height: 50%;
 
-        /* Place text in the middle of the image */
-        .hero-text {
-            text-align: center;
-            position: absolute;
-            width: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid red;
-        }
+			/* Position and center the image to scale nicely on all screens */
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
+			position: relative;
+		}
 
+		/* Place text in the middle of the image */
+		.hero-text {
+			text-align: center;
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 
+		}
 
 
-        main {
-            width: 100%;
-        }
 
-        .flex-container {
 
-            display: flex;
-            width: 100%;
-            align-items: stretch;
-            /* flex-flow: row wrap; */
-            flex-direction: row;
-            flex-wrap: wrap;
+		main {
+			width: 100%;
+		}
 
-            justify-content: center;
+		.flex-container {
 
-            background-color: #bbdefb;
-            height: 100%;
-            padding: 15px;
-            gap: 5px;
+			display: flex;
+			width: 100%;
+			align-items: stretch;
+			/* flex-flow: row wrap; */
+			flex-direction: row;
+			flex-wrap: wrap;
 
-        }
+			justify-content: center;
 
-        .flex-container>div {
+			background-color: #bbdefb;
+			height: 100%;
+			padding: 15px;
+			gap: 5px;
 
-            background: #ffecb3;
-            border: 3px solid #ffcc80;
-            border-radius: 5px;
-            padding: 8px;
-            align-self: auto;
-        }
+		}
 
+		.flex-container>div {
 
-        .item1 {
-            /* flex:0 1 auto; */
-            align-self: auto;
-            width: 800px;
-        }
+			background: #ffecb3;
+			border: 3px solid #ffcc80;
+			border-radius: 5px;
+			padding: 8px;
+			align-self: auto;
+		}
 
-        .item2 {
 
-            align-self: auto;
-            width: 300px;
-        }
+		.item1 {
+			/* flex:0 1 auto; */
+			align-self: auto;
+			width: 800px;
+		}
 
+		.item2 {
 
-        .hero-text h1 {
-            font-size: 5em;
-            color: darkblue;
-        }
+			align-self: auto;
+			width: 300px;
+		}
 
 
-        .hero-text p {
-            font-size: 3em;
-            color: darkslateblue;
-        }
+		.hero-text h1 {
+			font-size: 5em;
+			color: darkblue;
+		}
 
-        /* On screens that are 600px or less, set the background color to olive */
-        @media screen and (max-width: 1300px) {
-            .hero-text h1 {
-                font-size: 3em;
 
+		.hero-text p {
+			font-size: 3em;
+			color: darkslateblue;
+		}
 
-            }
+		/* On screens that are 600px or less, set the background color to olive */
+		@media screen and (max-width: 1300px) {
+			.hero-text h1 {
+				font-size: 3em;
 
-            .hero-text p {
-                font-size: 2em;
 
-            }
+			}
 
+			.hero-text p {
+				font-size: 2em;
 
+			}
 
-            .hero-image {
 
-                height: 30%;
 
+			.hero-image {
 
-            }
-        }
+				height: 30%;
 
 
-        /* On screens that are 600px or less, set the background color to olive */
-        @media screen and (max-width: 999px) {
-            .hero-text h1 {
-                font-size: 2em;
+			}
+		}
 
 
-            }
+		/* On screens that are 600px or less, set the background color to olive */
+		@media screen and (max-width: 999px) {
+			.hero-text h1 {
+				font-size: 2em;
 
-            .hero-text p {
-                font-size: 1em;
 
-            }
+			}
 
+			.hero-text p {
+				font-size: 1em;
 
-            .hero-image {
+			}
 
-                height: 25%;
 
+			.hero-image {
 
-            }
+				height: 25%;
 
 
+			}
 
-        }
 
 
-        /*-- form*/
+		}
 
-        #form_div {
-            width: 790px;
-            padding: 10px;
-            text-align: center;
 
-        }
+		/*-- form*/
 
-        #registerForm {
-            background-color: #ffecb3;
-        }
+		#form_div {
+			width: 790px;
+			padding: 10px;
+			text-align: center;
 
-        form {
-            width: 760px;
-            text-align: left;
-        }
+		}
 
-        form p {
-            font-family: 'Lora', serif;
-            font-size: 0.7em;
-            font-weight: 400;
-            margin: 0px;
-            padding: 0px;
-            color: darkred;
-        }
+		#registerForm {
+			background-color: #ffecb3;
+		}
 
+		form {
+			width: 760px;
+			text-align: left;
+		}
 
-        input,
-        textarea {
-            font-family: 'Lora', serif;
-            font-size: 0.8em;
-            font-weight: 400;
-            color: #333;
+		form p {
+			font-family: 'Lora', serif;
+			font-size: 0.7em;
+			font-weight: 400;
+			margin: 0px;
+			padding: 0px;
+			color: darkred;
+		}
 
-        }
 
-        input:focus,
-        textarea:focus {
-            background-color: #e3f6f9;
+		input,
+		textarea {
+			font-family: 'Lora', serif;
+			font-size: 0.8em;
+			font-weight: 400;
+			color: #333;
 
+		}
 
-        }
+		input:focus,
+		textarea:focus {
+			background-color: #e3f6f9;
 
 
+		}
 
-        input:hover,
-        textarea:hover {
-            background-color: #f8f9e4;
 
 
-        }
+		input:hover,
+		textarea:hover {
+			background-color: #f8f9e4;
 
-        legend,
-        .legend {
-            font-family: 'Lora', serif;
-            font-size: 1em;
-            font-weight: 400;
-            padding: 20px 0 20px 0;
-            color: #333;
-            width: 100%;
-            text-align: center;
-            margin: 0 auto;
 
-        }
+		}
 
-        .legend {
+		legend,
+		.legend {
+			font-family: 'Lora', serif;
+			font-size: 1em;
+			font-weight: 400;
+			padding: 20px 0 20px 0;
+			color: #333;
+			width: 100%;
+			text-align: center;
+			margin: 0 auto;
 
-            font-size: 1em;
+		}
 
+		.legend {
 
-        }
+			font-size: 1em;
 
-        input {
-            margin-top: 10px;
-        }
 
-        #contact_ p,
-        #contact_ h2,
-        #contact_form h2,
-        #contact_form h4,
-        #contact_form h5,
-        #contact_form h6 ul {
-            margin: 0;
-        }
+		}
 
-        ul {
-            padding-left: 0;
-            margin-bottom: 0;
-        }
+		input {
+			margin-top: 10px;
+		}
 
+		#contact_ p,
+		#contact_ h2,
+		#contact_form h2,
+		#contact_form h4,
+		#contact_form h5,
+		#contact_form h6 ul {
+			margin: 0;
+		}
 
+		ul {
+			padding-left: 0;
+			margin-bottom: 0;
+		}
 
-        fieldset {
-            width: 100%;
-            padding: 0;
-            margin: 0;
-            border: none;
 
-        }
 
-        .form_column {
-            display: flex;
+		fieldset {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			border: none;
 
-        }
+		}
 
-        .form_column .form-contact {
-            width: 50%;
+		.form_column {
+			display: flex;
 
+		}
 
-        }
+		.form_column .form-contact {
+			width: 50%;
 
-        .form_column .form-contact:first-child {
-            margin-right: 40px;
-        }
 
+		}
 
-        .form-contact {
-            margin-bottom: 17px;
-        }
+		.form_column .form-contact:first-child {
+			margin-right: 40px;
+		}
 
-        label {
-            font-family: 'Lora', serif;
-            font-size: 0.8em;
-            font-weight: 400;
-        }
 
-        .form-control {
-            border: 1px solid #ccc;
-            display: block;
-            width: 100%;
-            height: 40px;
-            padding: 0 20px;
-            border-radius: 20px;
-        }
+		.form-contact {
+			margin-bottom: 17px;
+		}
 
+		label {
+			font-family: 'Lora', serif;
+			font-size: 0.8em;
+			font-weight: 400;
+		}
 
+		.form-control {
+			border: 1px solid #ccc;
+			display: block;
+			width: 100%;
+			height: 40px;
+			padding: 0 20px;
+			border-radius: 20px;
+		}
 
 
 
-        input[type=text],
-        select,
-        textarea {
 
 
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            resize: vertical;
-            cursor: pointer;
-            color: #333;
-            width: 100%;
-            padding: 5px;
-        }
+		input[type=text],
+		select,
+		textarea {
 
 
+			border: 1px solid #ccc;
+			border-radius: 20px;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			resize: vertical;
+			cursor: pointer;
+			color: #333;
+			width: 100%;
+			padding: 5px;
+		}
 
 
 
-        input[type=text],
-        select {
-            font-size: 0.7em;
-            text-decoration: none;
-            font-family: Arial, Helvetica, sans-serif;
-            /* font-family: 'Ubuntu', sans-serif;*/
-            letter-spacing: 1px;
-            margin-bottom: 5px;
 
-        }
 
+		input[type=text],
+		select {
+			font-size: 0.7em;
+			text-decoration: none;
+			font-family: Arial, Helvetica, sans-serif;
+			/* font-family: 'Ubuntu', sans-serif;*/
+			letter-spacing: 1px;
+			margin-bottom: 5px;
 
+		}
 
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            margin-top: 12px;
-            /* Add a top margin */
-            margin-bottom: 16px;
-            /* Bottom margin */
-            resize: vertical
-                /* Allow the user to vertically resize the textarea (not horizontally) */
-        }
 
-        /*The container for radio bbuttons */
-        .radiobuttons {
 
-            font-size: 0.9em;
-            text-align: left;
-            display: block;
-            position: relative;
-            padding-left: 30px;
-            margin: 15px 0;
-            cursor: pointer;
-            user-select: none;
-        }
+		textarea {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 20px;
+			margin-top: 12px;
+			/* Add a top margin */
+			margin-bottom: 16px;
+			/* Bottom margin */
+			resize: vertical
+				/* Allow the user to vertically resize the textarea (not horizontally) */
+		}
 
-        /* Hide the browser's default radio button */
-        .radiobuttons input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
+		/*The container for radio bbuttons */
+		.radiobuttons {
 
-        /* Create a custom radio button */
-        .checkmark {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 25px;
-            width: 25px;
-            background-color: #eee;
-            border-radius: 50%;
-        }
+			font-size: 0.9em;
+			text-align: left;
+			display: block;
+			position: relative;
+			padding-left: 30px;
+			margin: 15px 0;
+			cursor: pointer;
+			user-select: none;
+		}
 
-        /* On mouse-over, add a grey background color */
-        .radiobuttons:hover input~.checkmark {
-            background-color: #ccc;
-        }
+		/* Hide the browser's default radio button */
+		.radiobuttons input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+		}
 
-        /* When the radio button is checked, add a blue background */
-        .radiobuttons input:checked~.checkmark {
-            background-color: #2196F3;
-        }
+		/* Create a custom radio button */
+		.checkmark {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 25px;
+			width: 25px;
+			background-color: #eee;
+			border-radius: 50%;
+		}
 
-        /* Create the indicator (the dot/circle - hidden when not checked) */
-        .checkmark:after {
-            content: "";
-            position: absolute;
-            display: none;
-        }
+		/* On mouse-over, add a grey background color */
+		.radiobuttons:hover input~.checkmark {
+			background-color: #ccc;
+		}
 
-        /* Show the indicator (dot/circle) when checked */
-        .radiobuttons input:checked~.checkmark:after {
-            display: block;
-        }
+		/* When the radio button is checked, add a blue background */
+		.radiobuttons input:checked~.checkmark {
+			background-color: #2196F3;
+		}
 
-        /* Style the indicator (dot/circle) */
-        .radiobuttons .checkmark:after {
-            top: 9px;
-            left: 9px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: white;
-        }
+		/* Create the indicator (the dot/circle - hidden when not checked) */
+		.checkmark:after {
+			content: "";
+			position: absolute;
+			display: none;
+		}
 
-        .container_radiobuttons {
-            border: 1px solid #ccc;
-            border-radius: 20px;
-        }
+		/* Show the indicator (dot/circle) when checked */
+		.radiobuttons input:checked~.checkmark:after {
+			display: block;
+		}
 
+		/* Style the indicator (dot/circle) */
+		.radiobuttons .checkmark:after {
+			top: 9px;
+			left: 9px;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: white;
+		}
 
+		.container_radiobuttons {
+			border: 1px solid #ccc;
+			border-radius: 20px;
+		}
 
-        /*--send_button---*/
-        button,
-        .button_link {
-            border: none;
-            padding: 0 20px;
-            text-decoration: none;
-            width: auto;
-            height: 40px;
-            margin: 29px auto;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            /*orig color*/
-            background: #87a19c;
-            color: #fff;
-            border-radius: 15px;
-            transform: perspective(1px) translateZ(0);
-            position: relative;
-            transition-property: color;
-            transition-duration: 0.5s;
-            font-size: 1em;
-            text-decoration: none;
-            font-family: 'Trebuchet MS', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .1rem;
-        }
 
-        button:before,
-        .button_link:before {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* color of moving part*/
-            background: #738c87;
-            transform: scaleX(0);
-            transform-origin: 0 50%;
-            transition-property: transform;
-            transition-duration: 0.5s;
-            transition-timing-function: ease-out;
-        }
 
-        button:hover:before,
-        .button_link:hover:before {
-            color: #80e1f2;
-            transform: scaleX(1);
-            transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
-            transition: all .1s ease;
-            background: rgba(111, 255, 233, 0.9);
+		/*--send_button---*/
+		button,
+		.button_link {
+			border: none;
+			padding: 0 20px;
+			text-decoration: none;
+			width: auto;
+			height: 40px;
+			margin: 29px auto;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			/*orig color*/
+			background: #87a19c;
+			color: #fff;
+			border-radius: 15px;
+			transform: perspective(1px) translateZ(0);
+			position: relative;
+			transition-property: color;
+			transition-duration: 0.5s;
+			font-size: 1em;
+			text-decoration: none;
+			font-family: 'Trebuchet MS', sans-serif;
+			text-transform: uppercase;
+			letter-spacing: .1rem;
+		}
 
+		button:before,
+		.button_link:before {
+			content: "";
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			/* color of moving part*/
+			background: #738c87;
+			transform: scaleX(0);
+			transform-origin: 0 50%;
+			transition-property: transform;
+			transition-duration: 0.5s;
+			transition-timing-function: ease-out;
+		}
 
-        }
+		button:hover:before,
+		.button_link:hover:before {
+			color: #80e1f2;
+			transform: scaleX(1);
+			transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+			transition: all .1s ease;
+			background: rgba(111, 255, 233, 0.9);
 
 
+		}
 
 
 
-        #error {
-            background-color: crimson;
-            border: 6px solid red;
-            color: white;
-            padding: 20px;
-            width: 660px;
-            margin: 0 50px;
 
-        }
 
-    </style>
+		#error {
+			background-color: crimson;
+			border: 6px solid red;
+			color: white;
+			padding: 20px;
+			width: 660px;
+			margin: 0 50px;
+
+		}
+	</style>
 </head>
 
 <body>
-    <header class="hero-image">
-        <div class="hero-text">
-            <h1>Travel Quiz Generator</h1>
-            <p>Test Your Friends Wanderlust with a Quiz From The Ultimate Travel Quiz Generator!</p>
+	<header class="hero-image">
+		<div class="hero-text">
+			<h1>Travel Quiz Generator</h1>
+			<p>Test Your Friends Wanderlust with a Quiz From The Ultimate Travel Quiz Generator!</p>
 
-        </div>
+		</div>
 
-        <nav>
+		<nav>
 
 
-        </nav>
+		</nav>
 
-    </header>
-    <main>
-        <div class="flex-container">
+	</header>
+	<main>
+		<div class="flex-container">
 
-            <div class="item1">
-                <div id="form_div">
-                    <H1 id="headline" style="display:none">Välkommen </H1>
+			<div class="item1">
+				<div id="form_div">
+					<H1 id="headline" style="display:none">Välkommen </H1>
 
-                    <form id="registerForm">
-                        <fieldset>
-                            <legend>Please register to take the quiz</legend>
-                            <p>*Required Fields</p>
-                            <div class="form_column">
-                                <div class="form-contact">
+					<form id="registerForm">
+						<fieldset>
+							<legend>Please register to take the quiz</legend>
+							<p>*Required Fields</p>
+							<div class="form_column">
+								<div class="form-contact">
 
-                                    <label for="firstName">First Name</label>
-                                    <input id="firstName" name="firstName" type="text" class="form-control" required>
-                                    <p>* A-Ö a-ö `´ allowed</p>
-                                </div>
-                                <div class="form-contact">
-                                    <label for="lastName">Last Name</label>
-                                    <input id="lastName" name="lastName" type="text" class="form-control" required>
-                                    <p>* * A-Ö a-ö `´ allowed</p>
-                                </div>
-                            </div>
-                            <div class="form-contact">
-                                <label for="phoneNumber">Phone number</label>
-                                <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
-                                <p>* Please enter only digits 0-9</p>
-                            </div>
-                            <div class="form-contact">
-                                <label for="email">Email</label>
-                                <input id="email" autocomplete="on" name="email" type="text" class="form-control" required>
-                                <p>* Please enter a valid email address</p>
-                            </div>
-                            <button>Register</button>
-                        </fieldset>
-                    </form>
-                    <span id="error" style="display:none;"></span>
-                    <script>
-                        //crate a variable
-                        let registerFormData = document.getElementById("registerForm")
+									<label for="firstName">First Name</label>
+									<input id="firstName" name="firstName" type="text" class="form-control" required>
+									<p>* A-Ö a-ö `´ allowed</p>
+								</div>
+								<div class="form-contact">
+									<label for="lastName">Last Name</label>
+									<input id="lastName" name="lastName" type="text" class="form-control" required>
+									<p>* * A-Ö a-ö `´ allowed</p>
+								</div>
+							</div>
+							<div class="form-contact">
+								<label for="phoneNumber">Phone number</label>
+								<input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
+								<p>* Please enter only digits 0-9</p>
+							</div>
+							<div class="form-contact">
+								<label for="email">Email</label>
+								<input id="email" autocomplete="on" name="email" type="text" class="form-control" required>
+								<p>* Please enter a valid email address</p>
+							</div>
+							<button>Register</button>
+						</fieldset>
+					</form>
+					<span id="error" style="display:none;"></span>
+					<script>
+						//crate a variable
+						let registerFormData = document.getElementById("registerForm")
 
-                        //eventlistner to trigger functions
-                        registerFormData.addEventListener('submit', (e) => {
-                            // prevent form (action) tag from submitting/0pening the URL
-                            e.preventDefault()
+						//eventlistner to trigger functions
+						registerFormData.addEventListener('submit', (e) => {
+							// prevent form (action) tag from submitting/0pening the URL
+							e.preventDefault()
 
 
-                            //create variables from inputs
-                            let firstName = document.getElementById("firstName")
-                            let lastName = document.getElementById("lastName")
-                            let phoneNumber = document.getElementById("phoneNumber")
-                            let email = document.getElementById("email")
-                            document.getElementById("error").innerHTML = ""
+							//create variables from inputs
+							let firstName = document.getElementById("firstName")
+							let lastName = document.getElementById("lastName")
+							let phoneNumber = document.getElementById("phoneNumber")
+							let email = document.getElementById("email")
+							document.getElementById("error").innerHTML = ""
 
-                            const objectToPass = {
-                                firstName: '' + firstName.value,
-                                lastName: '' + lastName.value,
-                                phoneNumber: '' + phoneNumber.value,
-                                email: '' + email.value
-                            }
+							const objectToPass = {
+								firstName: '' + firstName.value,
+								lastName: '' + lastName.value,
+								phoneNumber: '' + phoneNumber.value,
+								email: '' + email.value
+							}
 
-                            useRegexValidation(objectToPass)
-                        })
+							useRegexValidation(objectToPass)
+						})
 
 
 
 
 
-                        function useRegexValidation(objectToPass) {
+						function useRegexValidation(objectToPass) {
 
 
 
-                            let regex1 = /^\d+$/
-                            let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g
-                            let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+							let regex1 = /^\d+$/
+							let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g
+							let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
 
-                            var i = 0
-                            var formLength = Object.keys(objectToPass).length;
+							var i = 0
+							var formLength = Object.keys(objectToPass).length;
 
-                            for (const key in objectToPass) {
+							for (const key in objectToPass) {
 
 
-                                let toTest = objectToPass[key]
+								let toTest = objectToPass[key]
 
 
-                                if (key !== 'phoneNumber' && key !== 'email' && toTest.match(regex2)) {
-                                    document.getElementById("error").style.display = "block"
-                                    document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed'
+								if (key !== 'phoneNumber' && key !== 'email' && toTest.match(regex2)) {
+									document.getElementById("error").style.display = "block"
+									document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed'
 
-                                } else if (key === 'phoneNumber' && !toTest.match(regex1)) {
-                                    document.getElementById("error").style.display = "block"
-                                    document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where only numbers are allowed'
+								} else if (key === 'phoneNumber' && !toTest.match(regex1)) {
+									document.getElementById("error").style.display = "block"
+									document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where only numbers are allowed'
 
-                                } else if (key === 'email' && !toTest.match(regex3)) {
-                                    document.getElementById("error").style.display = "block"
-                                    document.getElementById("error").innerHTML = '" ' + toTest + '" is not a valid email'
-                                } else {
-                                    i = ++i;
+								} else if (key === 'email' && !toTest.match(regex3)) {
+									document.getElementById("error").style.display = "block"
+									document.getElementById("error").innerHTML = '" ' + toTest + '" is not a valid email'
+								} else {
+									i = ++i;
 
-                                }
+								}
 
-                                if (i === formLength) {
-                                    document.getElementById("error").style.display = "none"
-                                    storeUserInfo()
+								if (i === formLength) {
+									document.getElementById("error").style.display = "none"
+									storeUserInfo()
 
 
 
-                                    //send a message to console log
-                                    console.log(
-                                        `This form has a firstName of ${firstName.value} and lastName of ${lastName.value}and phoneNumber of ${email.value}and email of ${phoneNumber.value}`)
+									//send a message to console log
+									console.log(
+										`This form has a firstName of ${firstName.value} and lastName of ${lastName.value}and phoneNumber of ${email.value}and email of ${phoneNumber.value}`)
 
-                                    //then empty the inputs
-                                    firstName.value = ""
-                                    lastName.value = ""
-                                    phoneNumber.value =
-                                        email.value = ""
-                                }
-                            }
-                        }
+									//then empty the inputs
+									firstName.value = ""
+									lastName.value = ""
+									phoneNumber.value =
+										email.value = ""
+								}
+							}
+						}
 
 
 
 
 
 
-                        function storeUserInfo() {
+						function storeUserInfo() {
 
-                            //Get the element where the event occurred ie FORM
-                            const myFormData = new FormData(event.target)
+							//Get the element where the event occurred ie FORM
+							const myFormData = new FormData(event.target)
 
-                            //Creates an object
-                            const registerFormDataObj = {}
+							//Creates an object
+							const registerFormDataObj = {}
 
-                            //fills the keys in the object with value
-                            myFormData.forEach(
-                                (value, key) =>
-                                (registerFormDataObj[key] = value)
-                            )
+							//fills the keys in the object with value
+							myFormData.forEach(
+								(value, key) =>
+								(registerFormDataObj[key] = value)
+							)
 
-                            //Stringify the object
-                            const myJSON = JSON.stringify(registerFormDataObj)
+							//Stringify the object
+							const myJSON = JSON.stringify(registerFormDataObj)
 
 
 
-                            //save the string to localSTorage
-                            localStorage.setItem(
-                                "userInfo",
-                                myJSON
-                            )
+							//save the string to localSTorage
+							localStorage.setItem(
+								"userInfo",
+								myJSON
+							)
 
 
-                            //alert user that data has been successfully stored
-                            alert("This form has been successfully submitted!")
-                            document.getElementById("registerForm").style.display = "none"
-                            document.getElementById("headline").innerHTML = `Välkommen ${firstName.value}!`
-                            document.getElementById("headline").style.display = "block"
-                            document.getElementById("showMyUserInfoButton").style.display = "block"
+							//alert user that data has been successfully stored
+							alert("This form has been successfully submitted!")
+							document.getElementById("registerForm").style.display = "none"
+							document.getElementById("headline").innerHTML = `Välkommen ${firstName.value}!`
+							document.getElementById("headline").style.display = "block"
+							document.getElementById("showMyUserInfoButton").style.display = "block"
 
 
-                        }
+						}
 
 
 
+						function countAnswerLabels() {
 
+							let answerLabels = document.querySelectorAll('#QuestionsForm .answerLabelClass').length;
 
-                        const inputNameLabel = ["QuestionsNumber"]
-                        const inputNameLabelAnswer = ["AnswerNumber"]
-                        let j = 1
+							return answerLabels
 
-                        function addQuestion() {
-                            document.getElementById("QuestionsForm").addEventListener("click", function(event) {
-                                event.preventDefault()
-                            });
 
-                            var labelQuestionField = document.createElement("LABEL")
-                            var labelAnswerField = document.createElement("LABEL")
 
-                            inputNameLabel.push("Question" + j)
-                            inputNameLabelAnswer.push("Answer" + j)
+						}
 
 
 
-                            let labelValueQuestion = inputNameLabel[j].substr(0, 8) + ' ' + inputNameLabel[j].substr(8);
-                            let labelValueAnswer = inputNameLabelAnswer[j].substr(0, 6) + ' ' + inputNameLabel[j].substr(8);
 
 
-                            labelQuestionField.setAttribute("for", 'Your' + inputNameLabel[j])
-                            labelAnswerField.setAttribute("for", 'Your' + inputNameLabelAnswer[j])
+						//check if the number is even
+						function isEven(number) {
+							return number % 2 === 0;
+						}
 
-                            labelQuestionField.setAttribute("id", inputNameLabel[j])
-                            labelAnswerField.setAttribute("id", inputNameLabelAnswer[j])
-                            6
-                            document.getElementById("QuestionsForm").appendChild(labelQuestionField)
-                            document.getElementById("QuestionsForm").appendChild(labelAnswerField)
 
-                            let labelElement = document.getElementById(inputNameLabel[j]);
-                            let labelElement2 = document.getElementById(inputNameLabelAnswer[j]);
 
-                            labelElement.innerHTML = labelValueQuestion;
-                            labelElement2.innerHTML = labelValueAnswer;
 
-                            var inputQuestionField = document.createElement("INPUT")
-                            var inputAnswerField = document.createElement("INPUT")
 
-                            inputQuestionField.setAttribute("type", "text")
-                            inputAnswerField.setAttribute("type", "text")
+						function addQuestion() {
+							const inputNameLabel = ["QuestionsNumber"]
+							const inputNameLabelAnswer = ["AnswerNumber"]
 
-                            inputQuestionField.setAttribute("id", "YourQuestion" + j)
-                            inputAnswerField.setAttribute("id", "YourAnswer" + j)
 
-                            inputQuestionField.setAttribute("value", "Enter your Question")
-                            inputAnswerField.setAttribute("value", "Enter your Answer")
+							let j = countAnswerLabels()
 
-                            document.getElementById("QuestionsForm").appendChild(inputQuestionField)
-                            document.getElementById("QuestionsForm").appendChild(inputAnswerField)
 
+							j += 1
 
+							console.log(j)
 
+							document.getElementById("QuestionsForm").addEventListener("click", function(event) {
+								event.preventDefault()
+							});
 
 
 
 
 
+							var labelQuestionField = document.createElement("LABEL")
+							var inputQuestionField = document.createElement("INPUT")
+							var labelAnswerField = document.createElement("LABEL")
+							var inputAnswerField = document.createElement("INPUT")
 
-                            const buttonX = document.getElementById("Question" + j)
 
-                            let htmlToInsert = '<button style="display=block" onclick="deleteQuestion(this.dataset.value)" id="YourButton' + j + '" data-value="' + j + '">Delete</button>'
-                            buttonX.insertAdjacentHTML("afterend", htmlToInsert)
 
-                            const AddButtonX = document.getElementById("Question" + j)
 
-                            j = ++j
 
+							labelQuestionField.setAttribute("for", 'YourQuestion' + j)
+							labelAnswerField.setAttribute("for", 'YourAnswer' + j)
+							labelAnswerField.setAttribute("class", 'answerLabelClass')
+							labelQuestionField.setAttribute("class", 'questionLabelClass')
 
+							labelQuestionField.setAttribute("id", 'Question' + j)
+							labelAnswerField.setAttribute("id", 'Answer' + j)
 
 
-                        }
 
-                        function deleteQuestion(val) {
+							inputQuestionField.setAttribute("type", "text")
+							inputAnswerField.setAttribute("type", "text")
 
+							inputQuestionField.setAttribute("id", "YourQuestion" + j)
+							inputAnswerField.setAttribute("id", "YourAnswer" + j)
 
-                            const element = document.getElementById('Question' + val)
-                            element.remove()
+							inputQuestionField.setAttribute("value", "Enter your Question " + j)
+							inputAnswerField.setAttribute("value", "Enter your Answer " + j)
 
-                            const element2 = document.getElementById('YourQuestion' + val)
-                            element2.remove()
 
-                            const element3 = document.getElementById('YourAnswer' + val)
-                            element3.remove()
+							document.getElementById("QuestionsForm").appendChild(labelQuestionField)
+							document.getElementById("QuestionsForm").appendChild(inputQuestionField)
+							document.getElementById("QuestionsForm").appendChild(labelAnswerField)
+							document.getElementById("QuestionsForm").appendChild(inputAnswerField)
 
-                            const element4 = document.getElementById('YourButton' + val)
-                            element4.remove()
 
 
-                        }
+							document.getElementById('Question' + j).innerHTML = 'Question ' + j
+							document.getElementById('Answer' + j).innerHTML = 'Answer ' + j
 
-                        //function to read what is stored
-                        function showStoredValue() {
 
 
 
+							addDeleteButton(j)
 
-                            const userInfoObject = JSON.parse(localStorage.getItem('userInfo'))
-                            let StringToShow = ""
-                            for (const key in userInfoObject) {
-                                StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
-                            }
 
-                            document.getElementById("ShowUserInfo").innerHTML = StringToShow
 
-                        }
 
-                    </script>
 
-                    <form id="QuestionsForm">
-                        <fieldset>
-                            <legend>Start here to add a question</legend>
-                            <p>*Required Fields</p>
 
 
 
+						}
 
-                        </fieldset>
 
-                    </form>
+						function addDeleteButton(j) {
 
-                    <button onclick="addQuestion()"> Add another question </button>
 
-                </div>
-            </div>
 
-            <div class="item2">
 
-                <!--read what is stoared in localStorage-->
+							const AddRandbuttonX = document.getElementById("YourAnswer" + j)
 
-                <button style="display:none;" id="showMyUserInfoButton" onclick="showStoredValue()">Show my user info</button>
-                <button onclick="getJsonFunction()"> Rand questions </button>
+							let htmlToInsert = '<button style="display=block" onclick="deleteQuestion(' + j + ')" id="YourButton' + j + '" data-value="' + j + '">Delete question ' + j + ' </button>'
+							AddRandbuttonX.insertAdjacentHTML("afterend", htmlToInsert)
 
-                <p id="ShowUserInfo"></p>
 
-                <script>
-                    function getJsonFunction() {
+						}
 
-                        getJson("Questions.json");
 
 
-                        //The response is always decoded using UTF-8
-                        async function getJson(file) {
-                            let myObject = await fetch(file)
-                            let myFetchedQuestions = await myObject.text()
-                            const ObjectFromFile = JSON.parse(myFetchedQuestions)
 
-                            randQuestion(ObjectFromFile)
 
+						function pickRandom(ObjectFromFile) {
 
 
-                        }
+							//Generate xxst random questions
+							const numbers = Array(49).fill().map((_, index) => index + 1)
+							numbers.sort(() => Math.random() - 0.5)
+							const QuestionsToPick = (numbers.slice(0, 1))
 
-                    }
 
+							//Indexing the keys in the object of questions and answerrs from file
+							const objectKeys = Object.keys(ObjectFromFile);
 
+							//Find the corresponding question and answer
+							//looping thorough the array of random questions
+							for (let k = 0; k < QuestionsToPick.length; k++) {
 
+								//Finding they index for the answer 
+								let FindAnswers = QuestionsToPick[k] - 1
+								var theAnswer = ObjectFromFile[objectKeys[FindAnswers]]
 
+								//Getting the answer with the right index from the object
 
-                    //function to read what is stored
-                    function randQuestion(ObjectFromFile) {
 
 
 
 
+								//looping throught the object to get the questions
+								let m = 0
+								for (const key in ObjectFromFile) {
+									m += 1
 
-                        //Generate xxst random questions
-                        const numbers = Array(5).fill().map((_, index) => index + 1)
-                        numbers.sort(() => Math.random() - 0.5)
-                        const QuestionsToPick = (numbers.slice(0, 3))
-                        //console.log(QuestionsToPick)
 
-                        //Indexing the keys in the object of questions and answerrs from file
-                        const objectKeys = Object.keys(ObjectFromFile);
+									//Finding the right question(key)
+									if (m == QuestionsToPick[k]) {
 
-                        //Find the corresponding question and answer
-                        //looping thorough the array of random questions
-                        for (let k = 0; k < QuestionsToPick.length; k++) {
 
-                            //Finding they index for the answer
-                            let FindAnswers = QuestionsToPick[k] -1
-                           
-                            //Getting the answer with the right index from the object
-                            console.log(ObjectFromFile[objectKeys[FindAnswers]]);
-                  
-                            //looping throught the object to get the questions
-                           let m = 0
-                            for (const key in ObjectFromFile) {
-                             m += 1
-                                let RandQuestions=""
-                               
-                                //Finding the right question(key)
-                                if (m == QuestionsToPick[k]){
+										//RandQuestions = RandQuestions + QuestionsToPick[k] + ' ' + key
+										var theQuestion = key
 
-                                   RandQuestions = RandQuestions + 'Question ' + QuestionsToPick[k] + ' ' + key
-                                   console.log(RandQuestions)
-                               
-                               
-                               } 
 
-                                    }
-                                
-                        }
-                            
+									}
 
 
 
+								}
 
+							}
 
-                    }
+							randQuestion(theQuestion, theAnswer)
+						}
 
-                </script>
 
 
-                <p id="Test"></p>
-                <p id="Test2"></p>
 
 
+						//function to read what is stored
+						function randQuestion(theQuestion, theAnswer) {
 
-            </div>
 
-        </div>
 
-    </main>
 
-    <footer>
 
+							const inputRandNameLabel = ["QuestionsRandNumber"]
+							const inputRandNameLabelAnswer = ["AnswerRandNumber"]
 
-    </footer>
 
+							let n = countAnswerLabels()
 
+							n += 1
 
 
 
-</body>
+							document.getElementById("randQuestionGenerator").addEventListener("click", function(event) {
+								event.preventDefault()
+							})
 
-</html>
+
+
+
+							//inputRandNameLabel.push("Question" + n)
+							//inputRandNameLabelAnswer.push("Answer" + n)
+
+							var labelRandQuestionField = document.createElement("LABEL")
+							var inputRandQuestionField = document.createElement("INPUT")
+
+							var labelRandAnswerField = document.createElement("LABEL")
+							var inputRandAnswerField = document.createElement("INPUT")
+
+							let labelValueRandQuestion = 'Question ' + n
+							let labelValueRandAnswer = 'Answer ' + n
+
+
+
+							//let labelValueRandQuestion = inputRandNameLabel[n].substr(0, 8) + ' ' + inputRandNameLabel[n].substr(8);
+							//let labelValueRandAnswer = inputRandNameLabelAnswer[n].substr(0, 6) + ' ' + inputRandNameLabel[n].substr(8);
+
+
+							labelRandQuestionField.setAttribute("for", 'YourQuestion' + n)
+							labelRandAnswerField.setAttribute("for", 'YourAnswer' + n)
+							labelRandAnswerField.setAttribute("class", 'answerLabelClass')
+							labelRandQuestionField.setAttribute("class", 'questionLabelClass')
+
+							labelRandQuestionField.setAttribute("id", 'Question' + n)
+							labelRandAnswerField.setAttribute("id", 'Answer' + n)
+
+							//labelRandQuestionField.value = 'YourQuestion' + n
+							//labelRandAnswerField = 'YourAnswer' + n
+
+							inputRandQuestionField.setAttribute("type", "text")
+							inputRandAnswerField.setAttribute("type", "text")
+
+							inputRandQuestionField.setAttribute("id", "YourQuestion" + n)
+							inputRandAnswerField.setAttribute("id", "YourAnswer" + n)
+
+							inputRandQuestionField.setAttribute("value", theQuestion)
+							inputRandAnswerField.setAttribute("value", theAnswer)
+
+
+
+							document.getElementById("QuestionsForm").appendChild(labelRandQuestionField)
+
+							document.getElementById("QuestionsForm").appendChild(inputRandQuestionField)
+
+							document.getElementById("QuestionsForm").appendChild(labelRandAnswerField)
+							document.getElementById("QuestionsForm").appendChild(inputRandAnswerField)
+
+
+							document.getElementById('Question' + n).innerHTML = 'Question ' + n
+							document.getElementById('Answer' + n).innerHTML = 'Answer ' + n
+
+							let labelElement = document.getElementById(inputRandNameLabel[n]);
+							let labelElement2 = document.getElementById(inputRandNameLabelAnswer[n]);
+
+
+
+							addDeleteButton(n)
+						}
+
+
+
+
+
+
+
+
+
+						function deleteQuestion(val) {
+
+							const element = document.getElementById('Question' + val)
+							const element2 = document.getElementById('YourQuestion' + val)
+							const element3 = document.getElementById('Answer' + val)
+							const element4 = document.getElementById('YourAnswer' + val)
+							const element5 = document.getElementById('YourButton' + val)
+							element.remove()
+							element2.remove()
+							element3.remove()
+							element4.remove()
+							element5.remove()
+
+
+
+
+							let n = countAnswerLabels()
+
+							n += 1
+
+
+
+
+							//var id = document.getElementsByClassName("answerLabelClass")[0].value;
+
+
+
+
+							const id1 = document.getElementsByClassName("answerLabelClass");
+							const id2 = document.getElementsByClassName("questionLabelClass");
+							
+							for (let i = 1; i < n; i++) {
+								let idtosearch1 = (id1[i - 1].id);
+								//let idtosearch2 = (id2[i - 1].id);
+								document.getElementById(idtosearch1).innerHTML = 'Answer ' + i
+								//document.getElementById(idtosearch2).innerHTML = 'Question ' + i
+
+							}
+
+
+
+						}
+
+						//function to read what is stored
+						function showStoredValue() {
+
+
+
+
+							const userInfoObject = JSON.parse(localStorage.getItem('userInfo'))
+							let StringToShow = ""
+							for (const key in userInfoObject) {
+								StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
+							}
+
+							document.getElementById("ShowUserInfo").innerHTML = StringToShow
+
+						}
+					</script>
+					<p id="demo"></p>
+					<form id="QuestionsForm">
+						<fieldset>
+							<legend>Start here to add a question</legend>
+							<p>*Required Fields</p>
+
+
+
+
+						</fieldset>
+
+					</form>
+					<button onclick="getJsonFunction()" id="randQuestionGenerator"> Rand questions </button>
+					<button onclick="addQuestion()"> Add another question </button>
+
+				</div>
+			</div>
+
+			<div class="item2">
+
+				<!--read what is stoared in localStorage-->
+
+				<button style="display:none;" id="showMyUserInfoButton" onclick="showStoredValue()">Show my user info</button>
+
+
+				<p id="ShowUserInfo"></p>
+
+				<script>
+					function getJsonFunction() {
+
+						getJson("Questions.json");
+
+
+						//The response is always decoded using UTF-8
+						async function getJson(file) {
+							let myObject = await fetch(file)
+							let myFetchedQuestions = await myObject.text()
+							const ObjectFromFile = JSON.parse(myFetchedQuestions)
+
+
+							pickRandom(ObjectFromFile)
+
+
+
+						}
+
+					}
+				</script>
+
+
+				<p id="Test"></p>
+				<p id="Test2"></p>
+
+
+
+			</div>
+
+		</div>
+
+	</main>
+
+	<footer>
+
+
+	</footer>
+
+
+
+
+
+</body></html>
