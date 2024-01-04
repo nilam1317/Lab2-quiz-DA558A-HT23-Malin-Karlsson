@@ -3,1417 +3,270 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="quiz">
-	<meta name="author" content="Malin Karlsson">
+    <meta charset="UTF-8">
+    <meta name="description" content="quiz">
+    <meta name="author" content="Malin Karlsson">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Add  googlefonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;700&family=Ubuntu:wght@300&display=swap" rel="stylesheet" type="text/css">
-	<!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
-	<!--[if lt IE 9]> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add  googlefonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@500&display=swap" rel="stylesheet">
+    <!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
+    <!--[if lt IE 9]> 
 <script src="https://raw.githubusercontent.com/aFarkas/html5shiv/master/dist/html5shiv.min.js"></script>
  <![endif]-->
 
+    <link rel="stylesheet" href="css/style.css">
+    <title></title>
 
-	<title></title>
 
 
-	<style>
-		*,
-		*::before,
-		*::after {
-			box-sizing: border-box;
-		}
-
-
-		/*---Structural*/
-
-		header,
-		section,
-		footer,
-		aside,
-		nav,
-		article,
-		figure,
-		small,
-		address,
-		figcaption {
-			display: block;
-			margin: 0;
-			padding: 0;
-		}
-
-
-
-		body,
-		html {
-			height: 100%;
-			margin: 0;
-			font-family: Arial, Helvetica, sans-serif;
-		}
-
-		/* The hero image */
-		.hero-image {
-			background-image: url("images/flygplan.jpg");
-			height: 50%;
-			/* Position and center the image to scale nicely on all screens */
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-			position: relative;
-		}
-
-		/* Place text in the middle of the image */
-		.hero-text {
-			text-align: center;
-			position: absolute;
-			width: 100%;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-
-		}
-
-
-
-
-		main {
-			width: 100%;
-		}
-
-		.flex-container {
-
-			display: flex;
-			width: 100%;
-			align-items: stretch;
-			/* flex-flow: row wrap; */
-			flex-direction: row;
-			flex-wrap: wrap;
-
-			justify-content: center;
-
-			background-color: #bbdefb;
-			height: 100%;
-			padding: 15px;
-			gap: 5px;
-
-		}
-
-		.flex-container>div {
-
-			background: #ffecb3;
-			border: 3px solid #ffcc80;
-			border-radius: 5px;
-			padding: 8px;
-			align-self: auto;
-		}
-
-
-		.item1 {
-			/* flex:0 1 auto; */
-			align-self: auto;
-			width: 800px;
-		}
-
-		.item2 {
-
-			align-self: auto;
-			width: 300px;
-		}
-
-
-		.hero-text h1 {
-			font-size: 5em;
-			color: darkblue;
-		}
-
-
-		.hero-text p {
-			font-size: 3em;
-			color: darkslateblue;
-		}
-
-		/* On screens that are 600px or less, set the background color to olive */
-		@media screen and (max-width: 1300px) {
-			.hero-text h1 {
-				font-size: 3em;
-
-
-			}
-
-			.hero-text p {
-				font-size: 2em;
-
-			}
-
-
-
-			.hero-image {
-
-				height: 30%;
-
-
-			}
-		}
-
-
-		/* On screens that are 600px or less, set the background color to olive */
-		@media screen and (max-width: 999px) {
-			.hero-text h1 {
-				font-size: 2em;
-
-
-			}
-
-			.hero-text p {
-				font-size: 1em;
-
-			}
-
-
-			.hero-image {
-
-				height: 25%;
-
-
-			}
-
-
-
-		}
-
-
-		.odd {
-			background-color: #f5e0b3;
-			display: block;
-			margin: 3px;
-			border-bottom: 4px solid #b08969;
-		}
-
-		.even {
-			background-color: #e1e4ec;
-			display: block;
-			margin: 3px;
-			border-bottom: 4px solid #acb8d8;
-		}
-
-
-		/*-- form*/
-
-		#form_div {
-			width: 790px;
-			padding: 10px;
-			text-align: center;
-
-		}
-
-		#registerForm {
-			background-color: #ffecb3;
-		}
-
-		form {
-			width: 730px;
-			text-align: left;
-		}
-
-		form p {
-			font-family: 'Lora', serif;
-			font-size: 0.8em;
-			font-weight: 600;
-			margin:0;
-			padding-right: 20px;
-			color: darkred;
-			text-align:right;
-		}
-
-		.req{
-			font-family: 'Lora', serif;
-			font-size: 0.9em;
-			font-weight: 600;
-			margin: 0;
-			padding-right: 20px;
-			color: darkred;
-			text-align:right;
-		}
-		
-		input,
-		textarea {
-			font-family: 'Lora', serif;
-			font-size: 0.8em;
-			font-weight: 400;
-			color: #333;
-			padding: 5px;
-
-		}
-
-		input:focus,
-		textarea:focus {
-		background-color: #e3f6f9;
-
-
-		}
-
-
-
-		input:hover,
-		textarea:hover {
-			background-color: #f8f9e4;
-
-
-		}
-
-		legend,
-		.legend {
-			font-family: 'Lora', serif;
-			font-size: 1em;
-			font-weight: 400;
-			padding: 20px 0 20px 0;
-			color: #333;
-			width: 100%;
-			text-align: center;
-			margin: 0 auto;
-
-		}
-
-		.legend {
-
-			font-size: 1em;
-
-
-		}
-
-		input {
-			margin-top: 10px;
-		}
-
-		#contact_ p,
-		#contact_ h2,
-		#contact_form h2,
-		#contact_form h4,
-		#contact_form h5,
-		#contact_form h6 ul {
-			margin: 0;
-		}
-
-		ul {
-			padding-left: 0;
-			margin-bottom: 0;
-		}
-
-
-
-		fieldset {
-			width: 100%;
-			padding: 0;
-			margin: 0;
-			border: none;
-
-		}
-
-		.form_column {
-			display: flex;
-
-		}
-
-		.form_column .form-contact {
-			width: 50%;
-
-
-		}
-
-		.form_column .form-contact:first-child {
-			margin-right: 40px;
-		}
-
-
-		.form-contact {
-			margin-bottom: 17px;
-		}
-
-		label {
-			font-family: 'Lora', serif;
-			display: block;
-			font-size: 1em;
-			font-weight: 400;
-			margin: 10px;
-		}
-		
-		#SqandiQuiz label {
-			font-family: Arial, Helvetica, sans-serif;
-			display: block;
-			font-size: 1em;
-			font-weight: 400;
-			margin: 10px;
-		}
-
-		.form-control {
-			border: 1px solid #ccc;
-			display: block;
-			width: 100%;
-			height: 40px;
-			padding: 0 20px;
-			border-radius: 5px;
-		}
-
-
-
-
-
-		input[type=text],
-		select,
-		textarea {
-
-
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			margin: 10px;
-			resize: vertical;
-			cursor: pointer;
-			color: #333;
-			width: 95%;
-			padding: 10px;
-
-		}
-
-
-
-
-
-		input[type=text],
-		select {
-			font-size: 1em;
-			text-decoration: none;
-			font-family: Arial, Helvetica, sans-serif;
-			/* font-family: 'Ubuntu', sans-serif;*/
-			letter-spacing: 1px;
-			margin-bottom: 5px;
-
-		}
-
-
-
-		textarea {
-			width: 100%;
-			padding: 12px;
-			border: 1px solid #ccc;
-			border-radius: 20px;
-			margin-top: 12px;
-			/* Add a top margin */
-			margin-bottom: 16px;
-			/* Bottom margin */
-			resize: vertical
-				/* Allow the user to vertically resize the textarea (not horizontally) */
-		}
-
-		/*The container for radio bbuttons */
-		.radiobuttons {
-
-			font-size: 0.9em;
-			text-align: left;
-			display: block;
-			position: relative;
-			padding-left: 30px;
-			margin: 15px 0;
-			cursor: pointer;
-			user-select: none;
-		}
-
-		/* Hide the browser's default radio button */
-		.radiobuttons input {
-			position: absolute;
-			opacity: 0;
-			cursor: pointer;
-		}
-
-		/* Create a custom radio button */
-		.checkmark {
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 20px;
-			width: 20px;
-			background-color: skyblue;
-			border-radius: 50%;
-		}
-
-		/* On mouse-over, add a grey background color */
-		.radiobuttons:hover input~.checkmark {
-			background-color: #ccc;
-		}
-
-		/* When the radio button is checked, add a blue background */
-		.radiobuttons input:checked~.checkmark {
-			background-color: #2196F3;
-		}
-
-		/* Create the indicator (the dot/circle - hidden when not checked) */
-		.checkmark:after {
-			content: "";
-			position: absolute;
-			display: none;
-		}
-
-		/* Show the indicator (dot/circle) when checked */
-		.radiobuttons input:checked~.checkmark:after {
-			display: block;
-		}
-
-		/* Style the indicator (dot/circle) */
-		.radiobuttons .checkmark:after {
-			top: 6px;
-			left: 6px;
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: white;
-		}
-
-		.container_radiobuttons {
-			border: 1px solid #ccc;
-			border-radius: 3px;
-		}
-
-
-
-		/*--send_button---*/
-		button,
-		.button_link {
-			border: none;
-			padding: 0 20px;
-			text-decoration: none;
-			width: auto;
-			height: 40px;
-			margin: 0;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden;
-
-			background: #87a19c;
-			color: #fff;
-			border-radius: 15px;
-			position: relative;
-			transition-property: color;
-			transition-duration: 0.5s;
-			font-size: 1em;
-			text-decoration: none;
-			font-family: 'Trebuchet MS', sans-serif;
-			text-transform: uppercase;
-			letter-spacing: .1rem;
-			
-		}
-
-
-
-		button:hover {
-			color: #ffffff;
-			transform: scaleX(1);
-			transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
-			transition: all .1s ease;
-			background: rgba(111, 255, 233, 0.9);
-
-
-		}
-
-		button:active {
-			color: #ffffff;
-			background: rgba(111, 255, 233, 0.9);
-
-
-		}
-
-		.button_distance {
-			margin: 15px;
-
-
-		}
-
-
-
-		#error {
-			background-color: crimson;
-			border: 6px solid red;
-			color: white;
-			padding: 20px;
-			width: 660px;
-			margin: 0 50px;
-
-		}
-
-	</style>
 </head>
 
 <body>
-	<header class="hero-image">
-		<div class="hero-text">
-			<h1>Travel Quiz Generator</h1>
-			<p>Test Your Friends Wanderlust with a Quiz From The Ultimate Travel Quiz Generator!</p>
-
-		</div>
-
-		<nav>
-
-
-		</nav>
-
-	</header>
-	<main>
-		<div class="flex-container">
-
-			<div class="item1">
-				<div id="form_div">
-					<H1 id="headline" style="display:none">Välkommen </H1>
-
-					<form id="registerForm">
-						<fieldset>
-							<legend>Please register to take the quiz</legend>
-							<p class="req">*Required Fields</p>
-							<div class="form_column">
-								<div class="form-contact">
-
-									<label for="firstName">First Name</label>
-									<input id="firstName" name="firstName" type="text" class="form-control" required>
-									<p>* A-Ö a-ö `´ allowed</p>
-								</div>
-								<div class="form-contact">
-									<label for="lastName">Last Name</label>
-									<input id="lastName" name="lastName" type="text" class="form-control" required>
-									<p>* * A-Ö a-ö `´ allowed</p>
-								</div>
-							</div>
-							<div class="form-contact">
-								<label for="phoneNumber">Phone number</label>
-								<input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
-								<p>* Please enter only digits 0-9</p>
-							</div>
-							<div class="form-contact">
-								<label for="email">Email</label>
-								<input id="email" autocomplete="on" name="email" type="text" class="form-control" required>
-								<p>* Please enter a valid email address</p>
-							</div>
-							<div class="button_distance">
-								<button>Register</button>
-							</div>
-						</fieldset>
-					</form>
-
-					<div id="form_div">
-						<H1 id="headline" style="display:none">Välkommen </H1>
-						<form id="SqandiQuiz">
-							<fieldset>
-								<legend>Take the Scandi Quiz</legend>
-								<p class="req">*Required Fields</p>
-							
-									<div class="form-contact">
-
-										<label for="sqAnswer1">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
-										<input id="sqAnswer1" name="sqAnswer1" type="text" class="form-control" required>
-										<p>* A-Ö a-ö `´ allowed</p>
-									</div>
-
-									<div class="form-contact">
-										<label>Q2.)The Danish word hygge is a word that can be used for:</label>
-										<label class="radiobuttons">A quality of cosiness.
-											<input id="sqAnswer2a" type="radio" name="radio">
-											<span class="checkmark"></span>
-										</label>
+    <header class="hero-image">
+        <div class="hero-text">
+            <h1>Travel Quiz Generator</h1>
+            <p>Test Your Friends Wanderlust with a Quiz From The Ultimate Travel Quiz Generator!</p>
+
+        </div>
+
+        <nav>
+
+
+        </nav>
+
+    </header>
+    <main>
+        <div class="flex-container">
+            <!---col 1 starts here-->
+
+            <div class="item1">
+                <div id="form_div3">
+
+                    <H1 id="headline1">Starting Point - Are you here for the Quiz? </H1>
+                    <div id="multilineinput" contenteditable="true"></div>
+                    <input type="hidden" id="detailsfield" name="detailsfield">
+                    <form id="registerForm">
+                        <fieldset>
+                            <legend>Please register to get started</legend>
+                            <p class="req">*Required Fields</p>
+                            <div class="form_column">
+                                <div class="form-contact">
+
+                                    <label for="firstName">First Name</label>
+                                    <input id="firstName" name="firstName" type="text" class="form-control" required>
+                                    <p>* A-Ö a-ö `´ allowed</p>
+                                </div>
+                                <div class="form-contact">
+                                    <label for="lastName">Last Name</label>
+                                    <input id="lastName" name="lastName" type="text" class="form-control" required>
+                                    <p>* * A-Ö a-ö `´ allowed</p>
+                                </div>
+                            </div>
+                            <div class="form-contact">
+                                <label for="phoneNumber">Phone number</label>
+                                <input id="phoneNumber" name="phoneNumber" type="text" class="form-control" required>
+                                <p>* Please enter only digits 0-9</p>
+                            </div>
+                            <div class="form-contact">
+                                <label for="email">Email</label>
+                                <input id="email" autocomplete="on" name="email" type="text" class="form-control" required>
+                                <p>* Please enter a valid email address</p>
+                            </div>
+                            <div class="button_distance">
+                                <button>Register</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="form_div2">
 
-										<label class="radiobuttons">Laughing uncontrollably
-											<input id="sqAnswer2b" type="radio" name="radio">
-											<span class="checkmark"></span>
-										</label>
+                    <H1 id="headline2" style="display:none">Take the Scandi Quiz </H1>
 
+                    <form id="SqandiQuiz">
+                        <fieldset>
+                            <legend>Take the Scandi Quiz</legend>
+                            <p class="req">*Required Fields</p>
 
-										<label class="radiobuttons">Enjoy the silence
-											<input id="sqAnswer2c" type="radio" name="radio">
-											<span class="checkmark"></span>
-										</label>
-									</div>
-									<div class="form-contact">
+                            <div class="form-contact">
 
+                                <label for="sqAnswer1">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
+                                <input id="sqAnswer1" name="sqAnswer1" type="text" class="form-control" required>
+                                <p>* A-Ö a-ö `´ allowed</p>
+
+                            </div>
+
+
+
+                            <div class="form-contact ">
+                                <label>Q2.)The Danish word hygge is a word that can be used for:</label>
+                                <label class="container"><span>A quality of cosiness.</span>
+                                    <input type="checkbox" id="sqAnswer2a" checked="checked">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container"><span>Smiling and laughing uncontrollably.</span>
+                                    <input id="sqAnswer2b" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container"><span>Enjoying the silence.</span>
+                                    <input id="sqAnswer2c" type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="sqAnswer2d" class="container"><span>A kind of coziness that evokes feelings of contentment and wellbeing.</span>
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
 
-										<label for="sqAnswer3">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
-										<input id="sqAnswer3" name="sqAnswer1" type="text" class="form-control" required>
-										<p>* A-Ö a-ö `´ allowed</p>
-									</div>
+                            </div>
 
-									
+                            <div class="form-contact form_distance">
 
+                                <label for="sqAnswer3">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
 
+                                <input id="sqAnswer3" name="sqAnswer1" type="text" class="form-control" required>
+                                <p>* A-Ö a-ö `´ allowed</p>
+                            </div>
 
-									
-											<div class="custom_select">
-									<label for="sqAnswer4">Q4.) Which Kingdom was Iceland part of until 1944?</label>
-									<select id="sqAnswer4" name="sqAnswer4">
-										<option value="Select one">Select an option</option>
-										<option value="Sweden">Sweden</option>
-										<option value="Danmark">Danmark</option>
-										<option value="Norway">Norway</option>
-										<option value="None">none of the above</option>
-									</select>
-								</div>
-									
 
 
-									<div class="form-contact">
 
 
-										<label for="sqAnswer5">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
-										<input id="sqAnswer5" name="sqAnswer5" type="text" class="form-control" required>
-										<p>* A-Ö a-ö `´ allowed</p>
-									</div>
-									<button>Submit</button>
 
-						
-							</fieldset>
-						</form>
+                            <div class="custom_select ">
+                                <label for="sqAnswer4">Q4.) Which Kingdom was Iceland part of until 1944?</label>
+                                <select id="sqAnswer4" name="sqAnswer4">
+                                    <option value="Select one">Select an option</option>
+                                    <option value="Sweden">Sweden</option>
+                                    <option value="Danmark">Danmark</option>
+                                    <option value="Norway">Norway</option>
+                                    <option value="None">none of the above</option>
+                                </select>
+                            </div>
 
-						<span id="error" style="display:none;"></span>
 
 
+                            <div class="form-contact form_distance">
 
-						<script>
-							//crate a variable
-							let registerFormData = document.getElementById("registerForm")
 
-							//eventlistner to trigger functions
-							registerFormData.addEventListener('submit', (e) => {
-								// prevent form (action) tag from submitting/0pening the URL
-								e.preventDefault()
+                                <label for="sqAnswer5">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
+                                <input id="sqAnswer5" name="sqAnswer5" type="text" class="form-control" required>
+                                <p>* A-Ö a-ö `´ allowed</p>
 
+                            </div>
+                            <div class="button_distance">
+                                <button>Submit</button>
+                            </div>
 
-								//create variables from inputs
-								let firstName = document.getElementById("firstName")
-								let lastName = document.getElementById("lastName")
-								let phoneNumber = document.getElementById("phoneNumber")
-								let email = document.getElementById("email")
-								document.getElementById("error").innerHTML = ""
 
-								const objectToPass = {
-									firstName: '' + firstName.value,
-									lastName: '' + lastName.value,
-									phoneNumber: '' + phoneNumber.value,
-									email: '' + email.value
-								}
+                        </fieldset>
+                    </form>
+                </div>
 
-								useRegexValidation(objectToPass)
-							})
+                <div>
+                    <span id="error" style="display:none;"></span>
+                </div>
+                <script>
 
 
-							function validateQandAs() {
+                </script>
+                <div id="form_div">
 
-								const QandAsToPass = {}
+                    <H3 id="headline1">Build your own quiz</H3>
+                    <div class="form_text">
+                        <p>You have two options: </p>
 
-								const qs = []
-								const ans = []
+                        <ul class="a">
+                            <li>You can start from scratch by pressing the <strong>"Add a blank question"</strong> and create a completely uniq quiz.</li>
+                            <li>Or you can get use the <strong>"Add random question"</strong> button below to get started.</li>
+                        </ul>
 
-								//crate a variable
-								let QuestionsFormData = document.getElementById("QuestionsForm")
 
+                        <span>All the questions and answeres can be edited or deleted. When you've done creating a quiz, you can save it with the "Save Quiz" button.</span>
+                    </div>
+                    <form id="QuestionsForm">
+                        <fieldset id="fieldset2" style="display:none;">
+                            <legend>Start here to build a quiz</legend>
+                            <p>*Required Fields</p>
+                        </fieldset>
 
-								document.getElementById("QuestionsForm").addEventListener("click", function(event) {
+                        <div class="button_distance">
+                            <button onclick=validateQandAs()>Save Quiz</button>
+                        </div>
+                        <script>
+                        </script>
+                    </form>
 
-									// prevent form (action) tag from submitting/0pening the URL
-									event.preventDefault()
+                    <div class="button_distance"><button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button></div>
+                    <div class="button_distance"><button onclick="addQuestion()"> Add Blank Question</button></div>
 
+                </div>
 
-									// prevent form (action) tag from submitting/0pening the URL
+            </div>
+            <!---col 1 ends here-->
 
+            <!---col 2 startss here-->
+            <div class="item2">
+                <div class="button_distance">
+                    <!--read what is stoared in localStorage-->
 
+                    <script>
+                        function getJsonFunction() {
 
-									let counted = countAnswerLabels() + 1
+                            getJson("Questions.json");
 
 
+                            //The response is always decoded using UTF-8
+                            async function getJson(file) {
+                                let myObject = await fetch(file)
+                                let myFetchedQuestions = await myObject.text()
+                                const ObjectFromFile = JSON.parse(myFetchedQuestions)
 
+                                pickRandom(ObjectFromFile)
 
-									for (let i = 1; i < counted; i++) {
 
-										qs.push(document.getElementById("YourQuestion" + i).value)
-										ans.push(document.getElementById("YourAnswer" + i).value)
 
+                            }
 
+                        }
 
+                    </script>
 
-										// QandAsToPass.document.getElementById("YourQuestion" + i).value = document.getElementById("YourAnswer" + i).value
 
-									}
+                    <button style="display:block;" id="showMyUserInfoButton" onclick="showStoredValue()">Show my user info</button>
 
+                </div>
+                <p id="ShowUserInfo">testing</p>
 
 
-									function createObject(keys, values) {
-										const obj = Object.fromEntries(
-											keys.map((key, index) => [key, values[index]]),
-										);
 
-										return obj;
-									}
+                <div class="button_distance">
+                    <!--showScandiQuiz()-->
+                    <button id="scandiQuizButton" onclick="">Take the Scandi Quiz</button>
+                </div>
+                <div class="button_distance">
+                    <!--retrieveSavedQuiz()-->
+                    <button id="savedQuiz" onclick="">Reopen quiz</button>
+                </div>
 
-									let a = qs
-									let b = ans
-									let result = createObject(a, b);
+            </div>
 
 
+            <!---col 2 ends here-->
 
+        </div>
 
+    </main>
 
+    <footer>
 
-									useRegexValidation2(result)
-								})
 
+    </footer>
+    <script src="MalinKarlsson.js">
+        function getJsonFunction()
 
-
-
-
-
-
-							}
-
-
-
-
-							function useRegexValidation2(result) {
-
-
-
-
-								let regexQandQs = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g
-
-
-								var i = 0
-								var formLength = Object.keys(result).length + 1;
-
-								for (const key in result) {
-
-
-									let toTest = key
-									let toTest2 = result[key]
-
-									if (toTest == '' || toTest2 == '') {
-										document.getElementById("error").style.display = "block"
-										document.getElementById("error").innerHTML = 'You must enter text in all fields.'
-
-									} else if (toTest.match(regexQandQs) || toTest2.match(regexQandQs)) {
-										document.getElementById("error").style.display = "block"
-										document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters are allowed'
-
-									} else {
-
-										console.log(i + 'round')
-										i = ++i;
-
-									}
-
-									if (i === formLength) {
-										document.getElementById("error").style.display = "none"
-										document.getElementById("error").style.display = "block"
-										storeUserInfo()
-
-									}
-									//then empty the inputs
-									document.getElementById("YourQuestion" + i).value = ""
-									document.getElementById("YourAnswer" + i).value = ""
-
-
-								}
-							}
-
-
-
-
-
-
-
-							function useRegexValidation(objectToPass) {
-
-
-
-								let regex1 = /^\d+$/
-								let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g
-								let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-
-								var i = 0
-								var formLength = Object.keys(objectToPass).length;
-
-								for (const key in objectToPass) {
-
-
-									let toTest = objectToPass[key]
-
-
-									if (key !== 'phoneNumber' && key !== 'email' && toTest.match(regex2)) {
-										document.getElementById("error").style.display = "block"
-										document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed'
-
-									} else if (key === 'phoneNumber' && !toTest.match(regex1)) {
-										document.getElementById("error").style.display = "block"
-										document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where only numbers are allowed'
-
-									} else if (key === 'email' && !toTest.match(regex3)) {
-										document.getElementById("error").style.display = "block"
-										document.getElementById("error").innerHTML = '" ' + toTest + '" is not a valid email'
-									} else {
-										i = ++i;
-
-									}
-
-									if (i === formLength) {
-										document.getElementById("error").style.display = "none"
-										storeUserInfo()
-
-
-
-										//send a message to console log
-										console.log(
-											`This form has a firstName of ${firstName.value} and lastName of ${lastName.value}and phoneNumber of ${email.value}and email of ${phoneNumber.value}`)
-
-										//then empty the inputs
-										firstName.value = ""
-										lastName.value = ""
-										phoneNumber.value =
-											email.value = ""
-									}
-								}
-							}
-
-
-
-
-
-
-							function storeUserInfo() {
-
-								//Get the element where the event occurred ie FORM
-								const myFormData = new FormData(event.target)
-
-								//Creates an object
-								const registerFormDataObj = {}
-
-								//fills the keys in the object with value
-								myFormData.forEach(
-									(value, key) =>
-									(registerFormDataObj[key] = value)
-								)
-
-								//Stringify the object
-								const myJSON = JSON.stringify(registerFormDataObj)
-
-
-
-								//save the string to localSTorage
-								localStorage.setItem(
-									"userInfo",
-									myJSON
-								)
-
-
-								//alert user that data has been successfully stored
-								alert("This form has been successfully submitted!")
-								document.getElementById("registerForm").style.display = "none"
-								document.getElementById("headline").innerHTML = `Välkommen ${firstName.value}!`
-								document.getElementById("headline").style.display = "block"
-								document.getElementById("showMyUserInfoButton").style.display = "block"
-
-
-							}
-
-
-
-							function countAnswerLabels() {
-
-								let answerLabels = document.querySelectorAll('#QuestionsForm .answerLabelClass').length;
-
-								return answerLabels
-
-
-
-							}
-
-
-
-
-
-							//check if the number is even
-							function isEven(number) {
-								return number % 2 === 0;
-							}
-
-
-
-
-
-							function addQuestion() {
-								const inputNameLabel = ["QuestionsNumber"]
-								const inputNameLabelAnswer = ["AnswerNumber"]
-
-
-								let j = countAnswerLabels()
-
-
-								j += 1
-
-
-
-								document.getElementById("QuestionsForm").addEventListener("click", function(event) {
-									event.preventDefault()
-								});
-
-
-
-								var questionSpan = document.createElement("SPAN")
-
-								if (isEven(j)) {
-									questionSpan.setAttribute("id", "oddEven_" + j)
-									questionSpan.setAttribute("class", 'even')
-								} else {
-									questionSpan.setAttribute("id", "oddEven_" + j)
-									questionSpan.setAttribute("class", 'odd')
-								}
-
-
-								document.getElementById("QuestionsForm").appendChild(questionSpan)
-
-								var labelQuestionField = document.createElement("LABEL")
-								var inputQuestionField = document.createElement("INPUT")
-								var labelAnswerField = document.createElement("LABEL")
-								var inputAnswerField = document.createElement("INPUT")
-
-
-
-
-
-								labelQuestionField.setAttribute("for", 'YourQuestion' + j)
-								labelAnswerField.setAttribute("for", 'YourAnswer' + j)
-								labelAnswerField.setAttribute("class", 'answerLabelClass')
-								labelQuestionField.setAttribute("class", 'questionLabelClass')
-
-
-								labelQuestionField.setAttribute("id", 'Question' + j)
-								labelAnswerField.setAttribute("id", 'Answer' + j)
-
-
-
-								inputQuestionField.setAttribute("type", "text")
-								inputAnswerField.setAttribute("type", "text")
-
-								inputQuestionField.setAttribute("id", "YourQuestion" + j)
-								inputAnswerField.setAttribute("id", "YourAnswer" + j)
-
-								inputQuestionField.setAttribute("value", "Enter your Question here")
-								inputAnswerField.setAttribute("value", "Enter your Answer here")
-
-
-								document.getElementById("oddEven_" + j).appendChild(labelQuestionField)
-								document.getElementById("oddEven_" + j).appendChild(inputQuestionField)
-								document.getElementById("oddEven_" + j).appendChild(labelAnswerField)
-								document.getElementById("oddEven_" + j).appendChild(inputAnswerField)
-
-
-
-								document.getElementById('Question' + j).innerHTML = 'Question ' + j
-								document.getElementById('Answer' + j).innerHTML = 'Answer ' + j
-
-
-
-
-								addDeleteButton(j)
-
-
-
-
-
-
-
-
-							}
-
-
-							function addDeleteButton(j) {
-
-
-
-
-								const AddRandbuttonX = document.getElementById("YourAnswer" + j)
-
-								let htmlToInsert = ' <div class="button_distance"><button style="display=block" onclick="deleteQuestion(' + j + ')" id="YourButton' + j + '" data-value="' + j + '">Delete question ' + j + ' </button></div>'
-								AddRandbuttonX.insertAdjacentHTML("afterend", htmlToInsert)
-
-
-							}
-
-
-
-
-
-							function pickRandom(ObjectFromFile) {
-
-								//Generate xxst random questions
-								const numbers = Array(45).fill().map((_, index) => index + 1)
-								numbers.sort(() => Math.random() - 0.5)
-								const QuestionsToPick = (numbers.slice(0, 1))
-
-
-
-
-
-								//Indexing the keys in the object of questions and answerrs from file
-								const objectKeys = Object.keys(ObjectFromFile);
-
-								//Find the corresponding question and answer
-								//looping thorough the array of random questions
-								for (let k = 0; k < QuestionsToPick.length; k++) {
-
-									//Finding they index for the answer 
-									let FindAnswers = QuestionsToPick[k] - 1
-
-									if (FindAnswers !== 'undefined') {
-										var theAnswer = ObjectFromFile[objectKeys[FindAnswers]]
-
-										//Getting the answer with the right index from the object
-
-
-
-
-
-										//looping throught the object to get the questions
-										let m = 0
-										for (const key in ObjectFromFile) {
-											m += 1
-
-
-											//Finding the right question(key)
-											if (m == QuestionsToPick[k]) {
-
-
-												//RandQuestions = RandQuestions + QuestionsToPick[k] + ' ' + key
-												var theQuestion = key
-
-
-											}
-
-
-
-										}
-									}
-								}
-
-								randQuestion(theQuestion, theAnswer)
-							}
-
-
-
-
-
-							//function to read what is stored
-							function randQuestion(theQuestion, theAnswer) {
-
-
-
-
-
-								const inputRandNameLabel = ["QuestionsRandNumber"]
-								const inputRandNameLabelAnswer = ["AnswerRandNumber"]
-
-
-								let n = countAnswerLabels()
-
-								n += 1
-
-
-
-								document.getElementById("randQuestionGenerator").addEventListener("click", function(event) {
-									event.preventDefault()
-								})
-
-
-
-								var questionSpan = document.createElement("SPAN")
-
-								if (isEven(n)) {
-									questionSpan.setAttribute("id", "oddEven_" + n)
-									questionSpan.setAttribute("class", 'even')
-								} else {
-									questionSpan.setAttribute("id", "oddEven_" + n)
-									questionSpan.setAttribute("class", 'odd')
-								}
-
-
-								document.getElementById("QuestionsForm").appendChild(questionSpan)
-
-
-
-
-
-								//inputRandNameLabel.push("Question" + n)
-								//inputRandNameLabelAnswer.push("Answer" + n)
-
-								var labelRandQuestionField = document.createElement("LABEL")
-								var inputRandQuestionField = document.createElement("INPUT")
-
-								var labelRandAnswerField = document.createElement("LABEL")
-								var inputRandAnswerField = document.createElement("INPUT")
-
-								let labelValueRandQuestion = 'Question ' + n
-								let labelValueRandAnswer = 'Answer ' + n
-
-
-
-								//let labelValueRandQuestion = inputRandNameLabel[n].substr(0, 8) + ' ' + inputRandNameLabel[n].substr(8);
-								//let labelValueRandAnswer = inputRandNameLabelAnswer[n].substr(0, 6) + ' ' + inputRandNameLabel[n].substr(8);
-
-
-								labelRandQuestionField.setAttribute("for", 'YourQuestion' + n)
-								labelRandAnswerField.setAttribute("for", 'YourAnswer' + n)
-								labelRandAnswerField.setAttribute("class", 'answerLabelClass')
-								labelRandQuestionField.setAttribute("class", 'questionLabelClass')
-
-								labelRandQuestionField.setAttribute("id", 'Question' + n)
-								labelRandAnswerField.setAttribute("id", 'Answer' + n)
-
-								//labelRandQuestionField.value = 'YourQuestion' + n
-								//labelRandAnswerField = 'YourAnswer' + n
-
-								inputRandQuestionField.setAttribute("type", "text")
-								inputRandAnswerField.setAttribute("type", "text")
-
-								inputRandQuestionField.setAttribute("id", "YourQuestion" + n)
-								inputRandAnswerField.setAttribute("id", "YourAnswer" + n)
-
-								inputRandQuestionField.setAttribute("value", theQuestion)
-								inputRandAnswerField.setAttribute("value", theAnswer)
-
-
-
-								document.getElementById("QuestionsForm").appendChild(labelRandQuestionField)
-
-								document.getElementById("QuestionsForm").appendChild(inputRandQuestionField)
-
-								document.getElementById("QuestionsForm").appendChild(labelRandAnswerField)
-								document.getElementById("QuestionsForm").appendChild(inputRandAnswerField)
-
-								document.getElementById("oddEven_" + n).appendChild(labelRandQuestionField)
-								document.getElementById("oddEven_" + n).appendChild(inputRandQuestionField)
-								document.getElementById("oddEven_" + n).appendChild(labelRandAnswerField)
-								document.getElementById("oddEven_" + n).appendChild(inputRandAnswerField)
-
-
-								document.getElementById('Question' + n).innerHTML = 'Question ' + n
-								document.getElementById('Answer' + n).innerHTML = 'Answer ' + n
-
-								let labelElement = document.getElementById(inputRandNameLabel[n]);
-								let labelElement2 = document.getElementById(inputRandNameLabelAnswer[n]);
-
-
-
-								addDeleteButton(n)
-							}
-
-
-
-
-
-
-
-
-
-							function deleteQuestion(val) {
-
-								//console.log('Vilken knapp var tryckt? Jo, knapp med id=YourQuestion' + val)
-
-								//How many questions before deleting anything (n+1 gives the answer)
-								let n = countAnswerLabels()
-
-
-								//Create an event's handler
-								document.getElementById("QuestionsForm").addEventListener("click", function(event) {
-									//do not reload the page when the button is pressed
-									event.preventDefault()
-								});
-
-								//Now a little loop
-								//Loop through all the pairs of questionss and answers
-								for (let i = 1; i < (n + 1); i++) {
-
-									//Single out the one's that will come after the deleted question
-									//And therefor needs new id/class
-									//val is the number in the id of the button pressed
-									if (i > val) {
-
-
-										//get the input value fron the text fields
-										//move them one step up in the pair of Q&A
-										//stop the loop when every pair has been looped through
-										let valToMoveQ = document.getElementById("YourQuestion" + i).value
-										let valToMoveA = document.getElementById("YourAnswer" + i).value
-
-
-										document.getElementById("YourQuestion" + (i - 1)).value = valToMoveQ
-										document.getElementById("YourAnswer" + (i - 1)).value = valToMoveA
-
-
-									}
-								}
-
-
-
-
-								/*----need to delete this but is saving it for now
-
-
-								                            //create objects of the Q&A to delete
-								                            const yourQuestionToDelete = document.getElementById("YourQuestion" + val)
-								                            const yourAnswerToDelete = document.getElementById("YourAnswer" + val)
-
-								                            //create variables/objects of the last pair of input field with q and a
-								                            //we want to save this so that it can be reinserted as the new last q&A
-								                            const yourQuestionToSave1 = document.getElementById("YourQuestion" + n)
-								                            const yourAnswerToSave1 = document.getElementById("YourAnswer" + n)
-
-								                         
-								                            //Create a temp object with the value from the pair of input field with question and answer
-								                            const ObjectToTempSave = {
-								                                yourQuestionToSave1: yourQuestionToSave1.value,
-								                                yourAnswerToSave1: yourAnswerToSave1.value
-
-								                            }
-								                           
-								*/
-
-								//delete all elements with the highest id number in the pairs of Q & A
-								const element = document.getElementById('Question' + n)
-
-								const element2 = document.getElementById('YourQuestion' + n)
-
-								const element3 = document.getElementById('Answer' + n)
-
-								const element4 = document.getElementById('YourAnswer' + n)
-
-								const element5 = document.getElementById('YourButton' + n)
-
-								const element6 = document.getElementById('oddEven_' + n)
-
-
-								//but only if there is actuakly something to remove
-
-								if (element != null) {
-									element.remove()
-								}
-								if (element2 != null) {
-									element2.remove()
-								}
-								if (element3 != null) {
-									element3.remove()
-								}
-								if (element4 != null) {
-									element4.remove()
-								}
-								if (element5 != null) {
-									element5.remove()
-								}
-								if (element6 != null) {
-									element6.remove()
-								}
-
-
-								n -= 1
-
-
-
-
-
-
-
-							}
-
-							//function to read what is stored
-							function showStoredValue() {
-
-
-
-
-								const userInfoObject = JSON.parse(localStorage.getItem('userInfo'))
-								let StringToShow = ""
-								for (const key in userInfoObject) {
-									StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
-								}
-
-								document.getElementById("ShowUserInfo").innerHTML = StringToShow
-
-							}
-
-						</script>
-						<p id="demo"></p>
-						<form id="QuestionsForm">
-							<fieldset>
-								<legend>Start here to add a question</legend>
-								<p>*Required Fields</p>
-
-
-
-
-							</fieldset>
-							<div class="button_distance">
-								<button onclick=validateQandAs()>Save</button>
-							</div>
-						</form>
-						<div class="button_distance"><button onclick="getJsonFunction()" id="randQuestionGenerator"> Let me help you with a random question </button></div>
-						<div class="button_distance"><button onclick="addQuestion()"> Or, you can add a blank one to edit as you pleace </button></div>
-
-					</div>
-				</div>
-
-				<div class="item2">
-
-					<!--read what is stoared in localStorage-->
-
-					<button style="display:none;" id="showMyUserInfoButton" onclick="showStoredValue()">Show my user info</button>
-
-
-					<p id="ShowUserInfo"></p>
-
-					<script>
-						function getJsonFunction() {
-
-							getJson("Questions.json");
-
-
-							//The response is always decoded using UTF-8
-							async function getJson(file) {
-								let myObject = await fetch(file)
-								let myFetchedQuestions = await myObject.text()
-								const ObjectFromFile = JSON.parse(myFetchedQuestions)
-
-								pickRandom(ObjectFromFile)
-
-
-
-							}
-
-						}
-
-					</script>
-
-
-					<p id="Test"></p>
-					<p id="Test2"></p>
-
-
-
-				</div>
-
-			</div>
-
-	</main>
-
-	<footer>
-
-
-	</footer>
-
+    </script>
 
 
 
