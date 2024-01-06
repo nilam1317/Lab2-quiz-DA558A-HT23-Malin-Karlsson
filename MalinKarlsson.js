@@ -1,7 +1,7 @@
-//crate a variable
+//create a variable from the register form
 let registerFormData = document.getElementById("registerForm")
 
-//eventlistner to trigger functions
+//eventlistner to trigger the functions when the form is submitted
 registerFormData.addEventListener('submit', (e) => {
 	// prevent form (action) tag from submitting/0pening the URL
 	e.preventDefault()
@@ -14,6 +14,7 @@ registerFormData.addEventListener('submit', (e) => {
 	let email = document.getElementById("email")
 	document.getElementById("error").innerHTML = ""
 
+	//Creating an object and filling it with the inputs from the form
 	const objectToPass = {
 		firstName: document.getElementById("firstName").value,
 		lastName: document.getElementById("lastName").value,
@@ -21,7 +22,7 @@ registerFormData.addEventListener('submit', (e) => {
 		email: document.getElementById("email").value
 	}
 
-
+	//set the formtype and pass it along too the validation
 	let formtype = "userInfo"
 	useRegexValidation(formtype, objectToPass)
 })
@@ -96,11 +97,11 @@ function validateQandAs() {
 }
 
 
-
+//function to validate the data from user registerForm
 function useRegexValidation(formtype, objectToPass) {
 
 
-
+	//the regex
 	let regex1 = /^\d+$/
 	let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g
 	let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
@@ -108,12 +109,14 @@ function useRegexValidation(formtype, objectToPass) {
 	var i = 0
 	var formLength = Object.keys(objectToPass).length;
 
+
+	// loop throught the object with submitted data
 	for (const key in objectToPass) {
 
-
+		//create a variable
 		let toTest = objectToPass[key]
 
-
+		//matching against regex
 		if (key !== 'phoneNumber' && key !== 'email' && toTest.match(regex2)) {
 			document.getElementById("error").style.display = "block"
 			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed'
@@ -129,10 +132,12 @@ function useRegexValidation(formtype, objectToPass) {
 			i = ++i;
 
 		}
-
+		// when the loop is complete 
 		if (i === formLength) {
-
+			// make sure the error bgoes awayox 
 			document.getElementById("error").style.display = "none"
+			
+			//call for the function to store the data
 			storeDataLocally(formtype, objectToPass)
 
 
@@ -142,7 +147,10 @@ function useRegexValidation(formtype, objectToPass) {
 			firstName.value = ""
 			lastName.value = ""
 			phoneNumber.value =
-				email.value = ""
+			email.value = ""
+
+			//and hide the form
+			document.getElementById("registerForm").style.display = "none" 
 		}
 	}
 }
@@ -153,10 +161,10 @@ function useRegexValidation(formtype, objectToPass) {
 
 
 
-//create an object 
+//create an object for the scandiQuiz
 var scandiQuizFormData = new Object()
 
-//fill it with the ScandiQuiz
+//fill it with the ScandiQuiz submited data
 scandiQuizFormData = document.getElementById("sqandiQuiz")
 
 //eventlistner to trigger when the submit button is pressed
@@ -167,77 +175,82 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 
 	//count how many Q and A's this test has
 	let counted = countAnswerLabels() + 1
-    let countdown = counted
-   
+  
 
 	//Make sure there is no text in the span for error messages
 	document.getElementById("error").innerHTML = ""
-
+	document.getElementById("error").style.display = "none"
+	
 	//Lets loop through the Q and A's
 	for (i = 1; i < counted; i++) {
         let checkbox2 = ""
         if(i === 2){
             if(document.getElementById("sqAnswer2a").checked){
                    //checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value
-                   checkbox2 = checkbox2 + ' and ' + document.getElementById('sqAnswer2a').value
-                   console.log(checkbox2);
+                   checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value
+                   //console.log(checkbox2);
             }     
             if(document.getElementById("sqAnswer2b").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2b').value
-                checkbox2 = checkbox2 + ' and ' + document.getElementById('sqAnswer2b').value
+                checkbox2 = checkbox2 + document.getElementById('sqAnswer2b').value
                 console.log(checkbox2);
 
             }  
             if(document.getElementById("sqAnswer2c").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2c').value
-                checkbox2 = checkbox2 + ' and ' + document.getElementById('sqAnswer2c').value
+                checkbox2 = checkbox2 + document.getElementById('sqAnswer2c').value
                 console.log(checkbox2);
             }  
             if(document.getElementById("sqAnswer2d").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2d').value
-                checkbox2 = checkbox2 + ' and ' +  document.getElementById('sqAnswer2d').value
+                checkbox2 = checkbox2 + document.getElementById('sqAnswer2d').value
                 console.log(checkbox2);
             } 
             document.getElementById("sqAnswer2").setAttribute("data", checkbox2)
-
-            if(checkbox2 ="") {
-                
+			checkbox2 = checkbox2.trim()
+            
+			
+			if(checkbox2 =="") {
                 document.getElementById("error").style.display = "block"
 			    document.getElementById("error").innerHTML = 'You must check at least one of the checkboxes.'
              }
-
         
         }
         else if (i === 4){
             
-            console.log(2)
-            document.getElementById("sqAnswer4").setAttribute("data", document.getElementById("sqAnswer4").value )
+            
+            document.getElementById("sqAnswer4").setAttribute("data", document.getElementById("sqAnswer4select").value)
+			
         }    
         else if (i !== 2 || i !== 4){
             // create a variable from what has been typed in, and trim it
       
-          const typedInAnswer = (document.getElementById("sqQuestion_" + i).innerHTML).trim()
-          
-           
+          //const typedInAnswer = document.getElementById("sqQuestion_" + i).innerHTML.trim()
+         
+		  document.getElementById("sqAnswer"+1).setAttribute("data", document.getElementById("sqQuestion_" + 1).innerHTML.trim())
+		  document.getElementById("sqAnswer"+3).setAttribute("data", document.getElementById("sqQuestion_" + 3).innerHTML.trim())
+		  document.getElementById("sqAnswer"+5).setAttribute("data", document.getElementById("sqQuestion_" + 5).innerHTML.trim())
 
-
-        
 
 		    //Check that the input field is not empty
-		    if (typedInAnswer == "") {
+		    if (document.getElementById("sqQuestion_" + i).innerHTML.trim() == "") {
 			    //Show error message
 			    document.getElementById("error").style.display = "block"
 			    document.getElementById("error").innerHTML = 'You must enter text in all fields..'
 		    } 
-	    
-        }
+			
         
-        //Move the submitted text from the div to the data attribute of the hidden input tag
-        //var tempVarName = i;
-        //window["sqAnswer" + tempVarName].setAttribute("data", typedInAnswer)
-       
-        Här är du
+        
+        	//Move the submitted text from the div to the data attribute of the hidden input tag 
+			document.getElementById("sqAnswer1").setAttribute("data", document.getElementById("sqQuestion_1").innerHTML)
+			document.getElementById("sqAnswer3").setAttribute("data", document.getElementById("sqQuestion_3").innerHTML)
+			document.getElementById("sqAnswer5").setAttribute("data", document.getElementById("sqQuestion_5").innerHTML )
+			
+			
+		}
     }
+
+
 	//create two arrays needed for the next step
 	const sqs = []
 	const sans = []
@@ -245,24 +258,24 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 	//loop through the Q ans Q's again, this time push them into the array's of sqs and sans
 	for (let j = 1; j < counted; j++) {
 
-		/*const element = document.getElementById("sqAnswer" + j);
-        for (const key in element) {
+	
+		
+		
+        const collectAll = document.getElementById("sqAnswer"+j)
+		let dataText = collectAll.getAttribute("data");
 
-            console.log(key +':'+ element[key]);
-        }*/
-        
-        const tsts = document.getElementById("sqAnswer"+j)
-		let dataText = tsts.getAttribute("value");
-
-		sqs.push(j)
+		
+		
+		sqs.push(j.toString())
 		sans.push(dataText)
-    
+		
+		
 	}
 
 
 	//create an object from the two arrays 
-	let result = createObject(sqs, sans)
-
+	const result = createObject(sqs, sans)
+	
 	function createObject(keys, values) {
 
 		const obj = Object.fromEntries(
@@ -272,6 +285,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 
 
 		return obj
+		
 	}
 
 	//flagg the formtype
@@ -295,11 +309,13 @@ function useRegexValidation2(formtype, result) {
 	var formLength = Object.keys(result).length
 
 
-	for (const key in result) {
+	for (let key in result) {
 
 
 		let toTest = key
 		let toTest2 = result[key]
+
+		
 
 
 		if (toTest == '' || toTest2 == '') {
@@ -348,7 +364,7 @@ function checkScandiQuiz(result) {
 	const submittedQuiz = result
 	const rightAnswers = {
 		"1": "Sweden",
-		"2": "ad",
+		"2": "A quality of cosiness. A kind of atmosphere that evokes feelings of contentment and wellbeing",
 		"3": "Danes",
 		"4": "Norway",
 		"5": "ABBA"
@@ -373,15 +389,13 @@ function checkScandiQuiz(result) {
       
 
 	    if (JSON.stringify(submittedQuiz[i]) === JSON.stringify(rightAnswers[i])) {
-		    console.log('1 rätt')
-            console.log(JSON.stringify(submittedQuiz[i]))
-            console.log(JSON.stringify(rightAnswers[i]))
+		  
+			
             points +=1
 
 	    } else {
-		    console.log('1 fel')
-            console.log(JSON.stringify(submittedQuiz[i]))
-            console.log(JSON.stringify(rightAnswers[i]))
+		    
+			
 
 	    }
     }
@@ -397,7 +411,7 @@ function checkScandiQuiz(result) {
 
 		let snum = key
 		let value = submittedQuiz[key]
-        document.getElementById("points").innerHTML = document.getElementById("points").innerHTML + '   Q'+key+': '+value+'.'
+        document.getElementById("points").innerHTML = document.getElementById("points").innerHTML +key+': '+value+'<br>'
     }
     document.getElementById("points").innerHTML = document.getElementById("points").innerHTML + '</p> <p>Right answers were:'
 
@@ -406,9 +420,8 @@ function checkScandiQuiz(result) {
 
 		let snum = key
 		let value = rightAnswers[key]
-        document.getElementById("points").innerHTML= document.getElementById("points").innerHTML +'   Q'+key+': '+value+'.'
-    }
-    
+        document.getElementById("points").innerHTML= document.getElementById("points").innerHTML +key+': '+value+'<br>'
+	}
     document.getElementById("points").innerHTML  = document.getElementById("points").innerHTML +'</p>'
    
 
