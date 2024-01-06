@@ -85,87 +85,125 @@
 
                     <H1 id="headline2" style="display:none">Take the Scandi Quiz </H1>
 
-                    <form id="SqandiQuiz">
-                        <fieldset>
-                            <legend>Take the Scandi Quiz</legend>
-                            <p class="req">*Required Fields</p>
+                   <form id="sqandiQuiz" style="display=block">
+		<fieldset>
+			<legend>Take the Scandi Quiz</legend>
+			<p class="req">*Required Fields</p>
 
-                            <div class="form-contact">
+			<div class="form-contact">
 
-                                <label for="sqAnswer1">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
-                                <input id="sqAnswer1" name="sqAnswer1" type="text" class="form-control" required>
-                                <p>* A-Ö a-ö `´ allowed</p>
-
-                            </div>
+				<label for="sqAnswer1" class="answerLabelClass">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
+				<div id="sqQuestion_1" class="multilineinput" contenteditable="true"></div>
+				<input id="sqAnswer1" name="sqAnswer1" data="" type="hidden">
 
 
 
-                            <div class="form-contact ">
-                                <label>Q2.)The Danish word hygge is a word that can be used for:</label>
-                                <label class="container"><span>A quality of cosiness.</span>
-                                    <input type="checkbox" id="sqAnswer2a" checked="checked">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container"><span>Smiling and laughing uncontrollably.</span>
-                                    <input id="sqAnswer2b" type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container"><span>Enjoying the silence.</span>
-                                    <input id="sqAnswer2c" type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label id="sqAnswer2d" class="container"><span>A kind of coziness that evokes feelings of contentment and wellbeing.</span>
-                                    <input type="checkbox">
-                                    <span class="checkmark"></span>
-                                </label>
+				<p>* A-Ö a-ö `´ allowed</p>
 
-                            </div>
-
-                            <div class="form-contact form_distance">
-
-                                <label for="sqAnswer3">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
-
-                                <input id="sqAnswer3" name="sqAnswer1" type="text" class="form-control" required>
-                                <p>* A-Ö a-ö `´ allowed</p>
-                            </div>
+			</div>
 
 
+			<!---<div class="form-contact">
+
+				<label for="sqAnswer2" class="answerLabelClass">Q2.)Vad kommer efter a i alfabetet?</label>
+				<div id="sqQuestion_2" class="multilineinput" contenteditable="true"></div>
+				<input id="sqAnswer2" name="sqAnswer2" data="" type="hidden">
+
+				<p>* A-Ö a-ö `´ allowed</p>
+
+			</div></div>-->
+
+			
+			<div class="form-contact">
+			
+			
+			
+				<label class="answerLabelClass" for="sqAnswer2" id="sqQuestion_2"> Q2.)The Danish word hygge is a word that can be used for: </label>
+				<input id="sqAnswer2" name="sqAnswer2" data="" type="hidden">
+				
+				<label class="container" for="sqAnswer2a"><span>A quality of cosiness.</span>
+					<input type="checkbox" id="sqAnswer2a" value="A quality of cosiness">
+					<span class="checkmark"></span>
+				</label>
+				
+				<label class="container" for="sqAnswer2b"><span>Smiling and laughing uncontrollably.</span>
+					<input id="sqAnswer2b" type="checkbox" value="Smiling and laughing uncontrollably">
+					<span class="checkmark"></span>
+				</label>
+				
+				<label class="container" for="sqAnswer2c"><span>Enjoying the silence.</span>
+					<input id="sqAnswer2c" type="checkbox" value="Enjoying the silence">
+					<span class="checkmark"></span>
+				</label>
+				
+				<label  class="container" for="sqAnswer2d"><span>A kind of atmosphere that evokes feelings of contentment and wellbeing.</span>
+					<input id="sqAnswer2d" type="checkbox" value="A kind of atmosphere that evokes feelings of contentment and wellbeing.">
+					<span class="checkmark"></span>
+				</label>
+
+ 
+			
+			
+			
+			
+			
+
+			<div class="form-contact form_distance">
+
+				<label for="sqAnswer3" class="answerLabelClass">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
+				<div id="sqQuestion_3" class="multilineinput" contenteditable="true"></div>
+				<input id="sqAnswer3" name="sqAnswer3" data="" type="hidden">
+				<p>* A-Ö a-ö `´ allowed</p>
+			</div>
 
 
 
+			<!--<<div class="form-contact form_distance">
 
-                            <div class="custom_select ">
-                                <label for="sqAnswer4">Q4.) Which Kingdom was Iceland part of until 1944?</label>
-                                <select id="sqAnswer4" name="sqAnswer4">
-                                    <option value="Select one">Select an option</option>
-                                    <option value="Sweden">Sweden</option>
-                                    <option value="Danmark">Danmark</option>
-                                    <option value="Norway">Norway</option>
-                                    <option value="None">none of the above</option>
-                                </select>
-                            </div>
+				<label for="sqAnswer4" class="answerLabelClass">Q4.) Vad kommer efter c i alfabetet?</label>
+				<div id="sqQuestion_4" class="multilineinput" contenteditable="true"></div>
+				<input id="sqAnswer4" name="sqAnswer4" data="" type="hidden">
+				<p>* A-Ö a-ö `´ allowed</p>
+			</div>-->
 
 
+			<div class="custom_select ">
+				
+				<label class="answerLabelClass" for="sqAnswer4" id="sqQuestion_4"> Q4.) Which Kingdom was Iceland part of until 1944? </label>
+				<input id="sqAnswer4" name="sqAnswer4" data="" type="hidden">
+				
+				<select id="sqAnswer4select" >
+					<option value="Select one">Select an option</option>
+					<option value="Sweden">Sweden</option>
+					<option value="Danmark">Danmark</option>
+					<option value="Norway">Norway</option>
+					<option value="None">none of the above</option>
+				</select>
+			</div>
 
-                            <div class="form-contact form_distance">
 
 
-                                <label for="sqAnswer5">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
-                                <input id="sqAnswer5" name="sqAnswer5" type="text" class="form-control" required>
-                                <p>* A-Ö a-ö `´ allowed</p>
-
-                            </div>
-                            <div class="button_distance">
-                                <button>Submit</button>
-                            </div>
+			<div class="form-contact form_distance">
 
 
-                        </fieldset>
-                    </form>
+				<label for="sqAnswer5" class="answerLabelClass">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
+				<div id="sqQuestion_5" class="multilineinput" contenteditable="true"></div>
+				<input id="sqAnswer5" name="sqAnswer5" data="" type="hidden">
+				<p>* A-Ö a-ö `´ allowed</p>
+
+			</div>
+
+			<div class="button_distance">
+					<button>Submit</button>
+			</div>
+
+		</fieldset>
+	</form>
                 </div>
 
                 <div>
                     <span id="error" style="display:none;"></span>
+                    <span id="points" style="display:none;"></span>
                 </div>
                 <script>
 
@@ -234,21 +272,34 @@
                     </script>
 
 
-                    <button style="display:block;" id="showMyUserInfoButton" onclick="showStoredValue()">Show my user info</button>
+                    <button style="display:none" id="showMyUserInfoButton" onclick="showStoredValue('userInfo')">Show my user info</button>
 
+                </div> <div class="button_distance">
+                 
+                    <button id="deleteUi" style="display:none" onclick="deleteUserStored()">Delete user info</button>
+                      <p id="userInfo"></p>
                 </div>
-                <p id="ShowUserInfo">testing</p>
+                
+                <p id="userInfo"></p>
 
 
 
                 <div class="button_distance">
-                    <!--showScandiQuiz()-->
+                   
                     <button id="scandiQuizButton" onclick="">Take the Scandi Quiz</button>
                 </div>
-                <div class="button_distance">
-                    <!--retrieveSavedQuiz()-->
-                    <button id="savedQuiz" onclick="">Reopen quiz</button>
+                 <div class="button_distance">
+                  
+                    <button id="savedScandiQuizAnswers" onclick="showStoredValue('scandiQuiz')">Show my answers</button>
+                       <p id="scandiQuiz"></p>
                 </div>
+                <div class="button_distance">
+                 
+                    <button id="savedQuiz" onclick="showStoredQuizValue()">Reopen quiz</button>
+                      <p id="userInfo"></p>
+                </div>
+               
+
 
             </div>
 

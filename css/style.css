@@ -34,7 +34,7 @@ html {
 
 /* The hero image */
 .hero-image {
-    background-image: url("images/flygplan.jpg");
+    background-image: url("../images/flygplan2.jpg");
     height: 50%;
     /* Position and center the image to scale nicely on all screens */
     background-position: center;
@@ -225,14 +225,18 @@ form p {
     text-align: right;
 }
 
+.multilineinput {
+  padding:15px;
+
+}
 input,
-textarea {
+textarea, .multilineinput {
     font-weight: 400;
 
 }
 
 input:focus,
-textarea:focus {
+textarea:focus, .multilineinput:focus {
     background-color: #e3f6f9;
 
 
@@ -241,7 +245,7 @@ textarea:focus {
 
 
 input:hover,
-textarea:hover {
+textarea:hover, .multilineinput:hover {
     background-color: #f8f9e4;
 
 
@@ -267,7 +271,7 @@ legend,
 
 }
 
-input {
+input, .multilineinput {
     margin-top: 10px;
 }
 
@@ -351,7 +355,7 @@ label {
 
 input[type=text],
 select,
-textarea {
+textarea, .multilineinput {
 
 
     border: 1px solid #ccc;
@@ -370,7 +374,7 @@ textarea {
 
 
 input[type=text],
-select {
+select, .multilineinput {
     font-size: 1em;
     text-decoration: none;
     font-family: 'Laila', serif;
@@ -613,16 +617,31 @@ button:active {
 
 }
 
+#points{
+	position:fixed;
+	bottom:0;
+    background-color:darkgreen;
+    border: 6px solid green;
+    color: white;
+    padding: 20px;
+    width: 660px;
+    margin: 0 50px;
+	z-index:500;
+
+}
 
 
 
 #error {
+	position:fixed;
+	bottom:0;
     background-color: crimson;
     border: 6px solid red;
     color: white;
     padding: 20px;
     width: 660px;
     margin: 0 50px;
+	z-index:500;
 
 }
 
