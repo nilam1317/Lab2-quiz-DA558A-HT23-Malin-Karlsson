@@ -1,5 +1,9 @@
+document.getElementById("rightsideimage").onload = function() {showFromStart()};
+
+
+
 //create a variable from the register form
-let registerFormData = document.getElementById("registerForm")
+let registerFormData = document.getElementById("registerUserForm")
 
 //eventlistner to trigger the functions when the form is submitted
 registerFormData.addEventListener('submit', (e) => {
@@ -23,7 +27,7 @@ registerFormData.addEventListener('submit', (e) => {
 	}
 
 	//set the formtype and pass it along too the validation
-	let formtype = "userInfo"
+	let formtype = "registerUserForm"
 	useRegexValidation(formtype, objectToPass)
 })
 
@@ -34,12 +38,13 @@ function validateQandAs() {
 
 	const qs = []
 	const ans = []
+	
 
 	//crate a variable
-	let QuestionsFormData = document.getElementById("QuestionsForm")
+	let userQuizFormData = document.getElementById("userQuizForm")
 
 
-	document.getElementById("QuestionsForm").addEventListener("click", function (event) {
+	document.getElementById("userQuizForm").addEventListener("click", function (event) {
 
 		// prevent form (action) tag from submitting/0pening the URL
 		event.preventDefault()
@@ -49,15 +54,17 @@ function validateQandAs() {
 
 
 
-		let counted = countAnswerLabels() + 1
+		let counted = countAnswerLabels() -4
 
 
 
 
 		for (let i = 1; i < counted; i++) {
 
-			qs.push(document.getElementById("YourQuestion" + i).value)
-			ans.push(document.getElementById("YourAnswer" + i).value)
+		
+
+			qs.push(document.getElementById("YourQuestion"+i).innerHTML)
+			ans.push(document.getElementById("YourAnswer"+i).innerHTML)
 
 
 
@@ -76,9 +83,8 @@ function validateQandAs() {
 			return obj;
 		}
 
-		let a = qs
-		let b = ans
-		let result = createObject(a, b);
+		
+		let result = createObject(qs, ans);
 
 		let formtype = "userQuiz"
 
@@ -97,7 +103,7 @@ function validateQandAs() {
 }
 
 
-//function to validate the data from user registerForm
+//function to validate the data from user registerUserForm
 function useRegexValidation(formtype, objectToPass) {
 
 
@@ -139,7 +145,7 @@ function useRegexValidation(formtype, objectToPass) {
 			
 			//call for the function to store the data
 			storeDataLocally(formtype, objectToPass)
-
+			document.getElementById("userQuizFormP").innerHTML = ""
 
 
 
@@ -149,8 +155,12 @@ function useRegexValidation(formtype, objectToPass) {
 			phoneNumber.value =
 			email.value = ""
 
-			//and hide the form
-			document.getElementById("registerForm").style.display = "none" 
+			//hide the registerform
+			//Show the next form (the Scandi Quiz)
+			document.getElementById("registerUserForm").style.display = "none" 
+			document.getElementById("form_div2").style.display = "block"
+			document.getElementById("scandiQuizForm").style.display = "block"
+			
 		}
 	}
 }
@@ -165,7 +175,7 @@ function useRegexValidation(formtype, objectToPass) {
 var scandiQuizFormData = new Object()
 
 //fill it with the ScandiQuiz submited data
-scandiQuizFormData = document.getElementById("sqandiQuiz")
+scandiQuizFormData = document.getElementById("scandiQuizForm")
 
 //eventlistner to trigger when the submit button is pressed
 scandiQuizFormData.addEventListener('submit', (e) => {
@@ -174,7 +184,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 	e.preventDefault()
 
 	//count how many Q and A's this test has
-	let counted = countAnswerLabels() + 1
+	let counted = countAnswerLabels() 
   
 
 	//Make sure there is no text in the span for error messages
@@ -187,53 +197,58 @@ scandiQuizFormData.addEventListener('submit', (e) => {
         if(i === 2){
             if(document.getElementById("sqAnswer2a").checked){
                    //checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value
-                   checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value
-                   //console.log(checkbox2);
+                   checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value + ' '
+                   
             }     
             if(document.getElementById("sqAnswer2b").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2b').value
                 checkbox2 = checkbox2 + document.getElementById('sqAnswer2b').value
-                console.log(checkbox2);
+                
 
             }  
             if(document.getElementById("sqAnswer2c").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2c').value
                 checkbox2 = checkbox2 + document.getElementById('sqAnswer2c').value
-                console.log(checkbox2);
+                
             }  
             if(document.getElementById("sqAnswer2d").checked){
                 //checkbox2 = checkbox2 + document.getElementById('sqAnswer2d').value
                 checkbox2 = checkbox2 + document.getElementById('sqAnswer2d').value
-                console.log(checkbox2);
+                
             } 
-            document.getElementById("sqAnswer2").setAttribute("data", checkbox2)
+            document.getElementById("sqAnswer2").setAttribute("value", checkbox2)
 			checkbox2 = checkbox2.trim()
             
 			
 			if(checkbox2 =="") {
                 document.getElementById("error").style.display = "block"
 			    document.getElementById("error").innerHTML = 'You must check at least one of the checkboxes.'
-             }
+            }
         
         }
         else if (i === 4){
             
             
-            document.getElementById("sqAnswer4").setAttribute("data", document.getElementById("sqAnswer4select").value)
+            document.getElementById("sqAnswer4").setAttribute("value", document.getElementById("sqAnswer4select").value)
 			
         }    
         else if (i !== 2 || i !== 4){
             // create a variable from what has been typed in, and trim it
-      
-          //const typedInAnswer = document.getElementById("sqQuestion_" + i).innerHTML.trim()
-         
-		  document.getElementById("sqAnswer"+1).setAttribute("data", document.getElementById("sqQuestion_" + 1).innerHTML.trim())
-		  document.getElementById("sqAnswer"+3).setAttribute("data", document.getElementById("sqQuestion_" + 3).innerHTML.trim())
-		  document.getElementById("sqAnswer"+5).setAttribute("data", document.getElementById("sqQuestion_" + 5).innerHTML.trim())
+    
+        
+			//Move the submitted text from the div to the value attribute of the hidden input tag 
+		  	document.getElementById("sqAnswer"+1).setAttribute("value", document.getElementById("sqQuestion_" + 1).innerHTML)
+		  	document.getElementById("sqAnswer"+3).setAttribute("value", document.getElementById("sqQuestion_" + 3).innerHTML)
+		  	document.getElementById("sqAnswer"+5).setAttribute("value", document.getElementById("sqQuestion_" + 5).innerHTML)
 
 
 		    //Check that the input field is not empty
-		    if (document.getElementById("sqQuestion_" + i).innerHTML.trim() == "") {
+			
+			let f = document.getElementById("sqQuestion_"+ i).innerHTML
+			f = f.trim()
+			
+
+		    if (f == "") {
 			    //Show error message
 			    document.getElementById("error").style.display = "block"
 			    document.getElementById("error").innerHTML = 'You must enter text in all fields..'
@@ -241,13 +256,11 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 			
         
         
-        	//Move the submitted text from the div to the data attribute of the hidden input tag 
-			document.getElementById("sqAnswer1").setAttribute("data", document.getElementById("sqQuestion_1").innerHTML)
-			document.getElementById("sqAnswer3").setAttribute("data", document.getElementById("sqQuestion_3").innerHTML)
-			document.getElementById("sqAnswer5").setAttribute("data", document.getElementById("sqQuestion_5").innerHTML )
+        	
 			
 			
 		}
+		
     }
 
 
@@ -262,7 +275,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 		
 		
         const collectAll = document.getElementById("sqAnswer"+j)
-		let dataText = collectAll.getAttribute("data");
+		let dataText = collectAll.getAttribute("value");
 
 		
 		
@@ -289,7 +302,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 	}
 
 	//flagg the formtype
-	let formtype = "scandiQuiz"
+	let formtype = "scandiQuizForm"
 
 
 	//move on to the validation
@@ -322,11 +335,20 @@ function useRegexValidation2(formtype, result) {
 			document.getElementById("error").style.display = "block"
 			document.getElementById("error").innerHTML = 'You must enter text in all fields.'
 
-		} else if (toTest.match(regexQandQs) || toTest2.match(regexQandQs)) {
+		} else if (toTest.match(regexQandQs)) {
 			document.getElementById("error").style.display = "block"
 			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters are allowed'
 
-		} else {
+		} else if (toTest2.match(regexQandQs)) {
+			document.getElementById("error").style.display = "block"
+			document.getElementById("error").innerHTML = 'You entered "' + toTest2 + '" in a field where no special characters are allowed'
+
+		}
+		
+		
+		
+		
+		else {
 
 
 			i = ++i;
@@ -339,8 +361,6 @@ function useRegexValidation2(formtype, result) {
 
 			storeDataLocally(formtype, result)
 
-			alert("Your quiz has been saved")
-			document.getElementById("error").style.display = "none"
 		}
 
 
@@ -364,40 +384,34 @@ function checkScandiQuiz(result) {
 	const submittedQuiz = result
 	const rightAnswers = {
 		"1": "Sweden",
-		"2": "A quality of cosiness. A kind of atmosphere that evokes feelings of contentment and wellbeing",
+		"2": "A quality of cosiness. A kind of atmosphere that evokes feelings of contentment and wellbeing.",
 		"3": "Danes",
 		"4": "Norway",
 		"5": "ABBA"
 	}
 
     function upperStrings(obj) {
-        for (let attr in obj) {
-          if (typeof obj[attr] === 'string') {
-            obj[attr] = obj[attr].toUpperCase();
-          } else if (typeof obj[attr] === 'object') {
-            upperStrings(obj[attr]);
-          }
-        }
-      }
+    	for (let attr in obj) {
+        	if (typeof obj[attr] === 'string') {
+          		obj[attr] = obj[attr].toUpperCase();
+        	} else if (typeof obj[attr] === 'object') {
+        		upperStrings(obj[attr]);
+        	}
+    	}
+	}
      
       upperStrings(submittedQuiz)
       upperStrings(rightAnswers)
      
       
-      let points=0
-     for (let i=1; i < countAnswerLabels() +1; i++){
-      
+    let points=0
+    for (let i=1; i < countAnswerLabels(); i++){
+		//sringify and remove all whiespaces within both user answers and the right answers 
+		//before comparing the two
+	    if (JSON.stringify(submittedQuiz[i].replace(/\s/g, "")) === JSON.stringify(rightAnswers[i]).replace(/\s/g, "")) {
+		 	points +=1
 
-	    if (JSON.stringify(submittedQuiz[i]) === JSON.stringify(rightAnswers[i])) {
-		  
-			
-            points +=1
-
-	    } else {
-		    
-			
-
-	    }
+	    } 
     }
  
     document.getElementById("points").style.display = "block"
@@ -427,19 +441,28 @@ function checkScandiQuiz(result) {
 
     const closeButtonX = document.getElementById("points")
     
-	let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Delete question </button></p>'
+	let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 	closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 }
 
 function myCloseFunction(){
-document.getElementById("points").style.display = "none"
+	document.getElementById("points").style.display = "none"
+	document.getElementById("scandiQuizForm").style.display = "none"
 }
 
 function storeDataLocally(formtype, result) {
 
 
-	if (formtype === "scandiQuiz") {
+	if (formtype === "scandiQuizForm") {
 		checkScandiQuiz(result)
+
+	}
+
+	const d = new Date();
+	let time = d.getTime();
+
+	if (formtype === "userQuizForm") {
+		formtype = "userQuizForm" + time
 
 	}
 
@@ -457,32 +480,79 @@ function storeDataLocally(formtype, result) {
 
 	//alert user that data has been successfully stored
 	alert("All data has been successfully submitted!")
-	//document.getElementById("sqandiQuiz").style.display = "none"
-	// document.getElementById("headline2").innerHTML = `Välkommen ${firstName.value}!`
-	//document.getElementById("headline2").style.display = "block"
-	// document.getElementById("headline1").style.display = "none"
-	document.getElementById("showMyUserInfoButton").style.display = "block"
-	document.getElementById("deleteUi").style.display = "block"
+	
+	const userInfoObject = JSON.parse(localStorage.getItem(formtype))
+	
+	let StringToShow = ""
+	for (const key in userInfoObject) {
+		StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
+	}
 
+	
+	if (formtype === "registerUserForm") {
+		document.getElementById("savedregisterUserFormAnswers").style.display = "block"
+		document.getElementById("deleteregisterUserFormAnswers").style.display = "block"
+		document.getElementById("scandiQuizFormP").innerHTML = ""
+		document.getElementById("registerUserFormP").innerHTML = StringToShow		
 
+	} else if (formtype === "scandiQuizForm"){
+		document.getElementById("savedscandiQuizFormAnswers").style.display = "block"
+		document.getElementById("deletescandiQuizFormAnswers").style.display = "block"
+
+		document.getElementById("scandiQuizFormP").innerHTML = StringToShow		
+	}
+
+	
+	//showFromStart()
+
+	
 
 }
 
 
-function deleteUserStored() {
-	localStorage.removeItem("userInfo")
 
 
+function deleteUserStored(formtype) {
+	
+	localStorage.removeItem(formtype)
 
-	document.getElementById("showMyUserInfoButton").style.display = "none"
-	document.getElementById("deleteUi").style.display = "none"
-	document.getElementById("userInfo").innerHTML = ""
-}
+	
+	if(thisFormInfo(formtype) == "true"){
+		
+	}else if (thisFormInfo(formtype) !== "true"){
+	}
 
+	if(formtype === "registerUserForm"){
+		document.getElementById("registerUserForm").style.display="block"
+		document.getElementById("form_div1").style.display="block"
+		document.getElementById("registerUserFormP").innerHTML = ""
+	}
+	else if(formtype === "scandiQuizForm"){
+		document.getElementById("scandiQuizForm").style.display="block"
+		document.getElementById("form_div2").style.display="block"
+		document.getElementById("scandiQuizFormP").innerHTML = ""
+	}
+
+	//check if form data is stored locally, if not the appropriate form and buttons will be showed
+	if(thisFormInfo(formtype) === "true"){
+
+		//Show buttons because data exists
+		document.getElementById("saved"+formtype+"Answers").style.display="block"
+		document.getElementById("delete"+formtype+"Answers").style.display="block"
+
+	}else {
+	//hide buttons
+		document.getElementById("saved"+formtype+"Answers").style.display="none"
+		document.getElementById("delete"+formtype+"Answers").style.display="none"
+	
+	}
+	//showFromStart()		
+
+}	
 
 function countAnswerLabels2() {
 
-	let answerLabels = document.querySelectorAll('#QuestionsForm .answerLabelClass').length;
+	let answerLabels = document.querySelectorAll('#userQuizForm .answerLabelClass').length;
 
 	return answerLabels
 
@@ -508,72 +578,77 @@ function addQuestion() {
 	const inputNameLabelAnswer = ["AnswerNumber"]
 
 
-	let j = countAnswerLabels()
+	let j = countAnswerLabels()-5
 
 
 	j += 1
 
 
 
-	document.getElementById("QuestionsForm").addEventListener("click", function (event) {
+	document.getElementById("userQuizForm").addEventListener("click", function (event) {
 		event.preventDefault()
 	});
 
 
 
-	var questionSpan = document.createElement("SPAN")
+	var questionDiv = document.createElement("DIV")
 
 	if (isEven(j)) {
-		questionSpan.setAttribute("id", "oddEven_" + j)
-		questionSpan.setAttribute("class", 'even')
+		questionDiv.setAttribute("id", "oddEven_" + j)
+		questionDiv.setAttribute("class", 'even')
 	} else {
-		questionSpan.setAttribute("id", "oddEven_" + j)
-		questionSpan.setAttribute("class", 'odd')
+		questionDiv.setAttribute("id", "oddEven_" + j)
+		questionDiv.setAttribute("class", 'odd')
 	}
 
 
-	document.getElementById("QuestionsForm").appendChild(questionSpan)
+	document.getElementById("userQuizFormFieldset").appendChild(questionDiv)
 
 	var labelQuestionField = document.createElement("LABEL")
+	var QuestionDivField = document.createElement("DIV")
 	var inputQuestionField = document.createElement("INPUT")
+	
 	var labelAnswerField = document.createElement("LABEL")
+	var AnswerDivField = document.createElement("DIV")
 	var inputAnswerField = document.createElement("INPUT")
 
 
 
 
 
-	labelQuestionField.setAttribute("for", 'YourQuestion' + j)
-	labelAnswerField.setAttribute("for", 'YourAnswer' + j)
-	labelAnswerField.setAttribute("class", 'answerLabelClass')
-	labelQuestionField.setAttribute("class", 'questionLabelClass')
+	labelQuestionField.setAttribute("for", "YourQuestion" + j)
+	labelAnswerField.setAttribute("for", "YourAnswer" + j)
+	
+	labelAnswerField.setAttribute("class", "answerLabelClass")
+	labelQuestionField.setAttribute("class", "questionLabelClass")
 
 
-	labelQuestionField.setAttribute("id", 'Question' + j)
-	labelAnswerField.setAttribute("id", 'Answer' + j)
+	labelQuestionField.setAttribute("id", "Question" + j)
+	labelAnswerField.setAttribute("id", "Answer" + j)
+
+	QuestionDivField.setAttribute("id", "YourQuestion" + j)
+	QuestionDivField.setAttribute("class", "multilineinput")
+	QuestionDivField.setAttribute("contenteditable", "true")
 
 
+	AnswerDivField.setAttribute("id", "YourAnswer" + j)
+	AnswerDivField.setAttribute("class", "multilineinput")
+	AnswerDivField.setAttribute("contenteditable", "true")
+	
 
-	inputQuestionField.setAttribute("type", "text")
-	inputAnswerField.setAttribute("type", "text")
+	inputQuestionField.setAttribute("type", "hidden")
+	inputAnswerField.setAttribute("type", "hidden")
 
-	inputQuestionField.setAttribute("id", "YourQuestion" + j)
-	inputAnswerField.setAttribute("id", "YourAnswer" + j)
+	inputQuestionField.setAttribute("id", "Your_Question" + j)
+	inputAnswerField.setAttribute("id", "Your_Answer" + j)
 
-
-
-
-	inputQuestionField.setAttribute("maxlength", "100")
-	inputAnswerField.setAttribute("maxlength", "100")
-
-	inputQuestionField.setAttribute("value", "Enter your Question here")
-	inputAnswerField.setAttribute("value", "Enter your Answer here")
 
 	document.getElementById("oddEven_" + j).appendChild(labelQuestionField)
 	document.getElementById("oddEven_" + j).appendChild(inputQuestionField)
+	document.getElementById("oddEven_" + j).appendChild(QuestionDivField)
 	document.getElementById("oddEven_" + j).appendChild(labelAnswerField)
 	document.getElementById("oddEven_" + j).appendChild(inputAnswerField)
-
+	document.getElementById("oddEven_" + j).appendChild(AnswerDivField)
 
 
 	document.getElementById('Question' + j).innerHTML = 'Question ' + j
@@ -681,7 +756,7 @@ function randQuestion(theQuestion, theAnswer) {
 	const inputRandNameLabelAnswer = ["AnswerRandNumber"]
 
 
-	let n = countAnswerLabels()
+	let n = countAnswerLabels()-5
 
 	n += 1
 
@@ -693,18 +768,18 @@ function randQuestion(theQuestion, theAnswer) {
 
 
 
-	var questionSpan = document.createElement("SPAN")
+	var questionDiv = document.createElement("div")
 
 	if (isEven(n)) {
-		questionSpan.setAttribute("id", "oddEven_" + n)
-		questionSpan.setAttribute("class", 'even')
+		questionDiv.setAttribute("id", "oddEven_" + n)
+		questionDiv.setAttribute("class", 'even')
 	} else {
-		questionSpan.setAttribute("id", "oddEven_" + n)
-		questionSpan.setAttribute("class", 'odd')
+		questionDiv.setAttribute("id", "oddEven_" + n)
+		questionDiv.setAttribute("class", 'odd')
 	}
 
 
-	document.getElementById("QuestionsForm").appendChild(questionSpan)
+	document.getElementById("userQuizFormFieldset").appendChild(questionDiv)
 
 
 
@@ -714,9 +789,11 @@ function randQuestion(theQuestion, theAnswer) {
 	//inputRandNameLabelAnswer.push("Answer" + n)
 
 	var labelRandQuestionField = document.createElement("LABEL")
+	var RandQuestionDivField = document.createElement("DIV")
 	var inputRandQuestionField = document.createElement("INPUT")
 
 	var labelRandAnswerField = document.createElement("LABEL")
+	var RandAnswerDivField = document.createElement("DIV")
 	var inputRandAnswerField = document.createElement("INPUT")
 
 	let labelValueRandQuestion = 'Question ' + n
@@ -734,37 +811,51 @@ function randQuestion(theQuestion, theAnswer) {
 	labelRandQuestionField.setAttribute("class", 'questionLabelClass')
 
 	labelRandQuestionField.setAttribute("id", 'Question' + n)
-	labelRandAnswerField.setAttribute("id", 'Answer' + n)
+	labelRandAnswerField.setAttribute("id", 'Answer_' + n)
 
 	//labelRandQuestionField.value = 'YourQuestion' + n
 	//labelRandAnswerField = 'YourAnswer' + n
 
-	inputRandQuestionField.setAttribute("type", "text")
-	inputRandAnswerField.setAttribute("type", "text")
+	inputRandQuestionField.setAttribute("type", "hidden")
+	inputRandAnswerField.setAttribute("type", "hidden")
 
-	inputRandQuestionField.setAttribute("id", "YourQuestion" + n)
-	inputRandAnswerField.setAttribute("id", "YourAnswer" + n)
+	inputRandQuestionField.setAttribute("id", "Your_Question" + n)
+	inputRandAnswerField.setAttribute("id", "Your_Answer" + n)
+
+	RandQuestionDivField.setAttribute("id", "YourQuestion" + n)
+	RandQuestionDivField.setAttribute("class", "multilineinput")
+	RandQuestionDivField.setAttribute("contenteditable", "true")
+
 
 	inputRandQuestionField.setAttribute("value", theQuestion)
 	inputRandAnswerField.setAttribute("value", theAnswer)
 
+	RandAnswerDivField.setAttribute("id", "YourAnswer" + n)
+	RandAnswerDivField.setAttribute("class", "multilineinput")
+	RandAnswerDivField.setAttribute("contenteditable", "true")
 
 
-	document.getElementById("QuestionsForm").appendChild(labelRandQuestionField)
+	document.getElementById("userQuizFormFieldset").appendChild(labelRandQuestionField)
 
-	document.getElementById("QuestionsForm").appendChild(inputRandQuestionField)
+	document.getElementById("userQuizFormFieldset").appendChild(inputRandQuestionField)
 
-	document.getElementById("QuestionsForm").appendChild(labelRandAnswerField)
-	document.getElementById("QuestionsForm").appendChild(inputRandAnswerField)
+	document.getElementById("userQuizFormFieldset").appendChild(labelRandAnswerField)
+	document.getElementById("userQuizFormFieldset").appendChild(inputRandAnswerField)
 
 	document.getElementById("oddEven_" + n).appendChild(labelRandQuestionField)
 	document.getElementById("oddEven_" + n).appendChild(inputRandQuestionField)
+	document.getElementById("oddEven_" + n).appendChild(RandQuestionDivField)
 	document.getElementById("oddEven_" + n).appendChild(labelRandAnswerField)
 	document.getElementById("oddEven_" + n).appendChild(inputRandAnswerField)
+	document.getElementById("oddEven_" + n).appendChild(RandAnswerDivField)
 
 
 	document.getElementById('Question' + n).innerHTML = 'Question ' + n
-	document.getElementById('Answer' + n).innerHTML = 'Answer ' + n
+	document.getElementById('Answer_' + n).innerHTML = 'Answer ' + n
+
+	document.getElementById("YourQuestion" + n).innerHTML = theQuestion
+	document.getElementById("YourAnswer" + n).innerHTML = theAnswer
+
 
 	let labelElement = document.getElementById(inputRandNameLabel[n]);
 	let labelElement2 = document.getElementById(inputRandNameLabelAnswer[n]);
@@ -787,11 +878,11 @@ function deleteQuestion(val) {
 
 
 	//How many questions before deleting anything (n+1 gives the answer)
-	let n = countAnswerLabels()
+	let n = countAnswerLabels() -5
 
 
 	//Create an event's handler
-	document.getElementById("QuestionsForm").addEventListener("click", function (event) {
+	document.getElementById("userQuizForm").addEventListener("click", function (event) {
 		//do not reload the page when the button is pressed
 		event.preventDefault()
 	});
@@ -821,29 +912,6 @@ function deleteQuestion(val) {
 	}
 
 
-
-
-	/*----need to delete this but is saving it for now
-
-
-	                            //create objects of the Q&A to delete
-	                            const yourQuestionToDelete = document.getElementById("YourQuestion" + val)
-	                            const yourAnswerToDelete = document.getElementById("YourAnswer" + val)
-
-	                            //create variables/objects of the last pair of input field with q and a
-	                            //we want to save this so that it can be reinserted as the new last q&A
-	                            const yourQuestionToSave1 = document.getElementById("YourQuestion" + n)
-	                            const yourAnswerToSave1 = document.getElementById("YourAnswer" + n)
-
-	                         
-	                            //Create a temp object with the value from the pair of input field with question and answer
-	                            const ObjectToTempSave = {
-	                                yourQuestionToSave1: yourQuestionToSave1.value,
-	                                yourAnswerToSave1: yourAnswerToSave1.value
-
-	                            }
-	                           
-	*/
 
 	//delete all elements with the highest id number in the pairs of Q & A
 	const element = document.getElementById('Question' + n)
@@ -904,6 +972,81 @@ function showStoredValue(formtype) {
 		StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
 	}
 
-	document.getElementById(formtype).innerHTML = StringToShow
+	document.getElementById(formtype+'P').innerHTML = StringToShow
 
+}
+
+//Function for the scandiQuizButton
+function scandiQuizButton(registerUserForm){
+
+
+	const getObject = JSON.parse(localStorage.getItem('registerUserForm'))
+	
+	if(JSON.stringify(getObject) === '{}'){
+		document.getElementById("registerUserFormP").innerHTML = "You need to register first!"
+	}else{ 
+		const takeMeToElement = document.getElementById("sqAnswer1")
+		takeMeToElement.scrollIntoView()
+	}
+
+}
+
+//Function to check if data from any of the forms are stored locally
+function thisFormInfo(formtype){
+	const getObject = JSON.parse(localStorage.getItem(formtype))
+	
+	//if the object existd (i.e the object is not empty) return true
+	const isObjectEmpty = (getObject) => {
+		return Object.keys(getObject).length > 0
+			
+	}
+
+
+}
+
+//function to decide which forms to show
+function showThisForm(formtype){
+		
+	const allFormTypes = ["registerUserForm" , "scandiQuizForm" , "userQuizForm"]
+	
+	for (let i = 0; i < allFormTypes.length; i++) {
+		
+
+		if(allFormTypes[i] !== formtype ){
+
+			document.getElementById(allFormTypes[i]).style.display = "none"
+			document.getElementById('form_div'+ (i + 1)).style.display = "none"
+			console.log((' aform_div'+ (i + 1)))
+		}else{
+			document.getElementById(allFormTypes[i]).style.display = "block"
+			document.getElementById('form_div'+ (i + 1)).style.display = "block"
+			console.log(('b form_div'+ (i + 1)))
+		}
+	}
+
+	
+}
+
+
+
+function showFromStart(){
+	//check if form data is stored locally, if not the appropriate buttons will be showed
+	
+	
+	if(thisFormInfo('registerUserForm') === "true"){
+
+		//Show buttons because data exists
+		document.getElementById("savedregisterUserFormAnswers").style.display="block"
+		document.getElementById("deleteregisterUserFormAnswers").style.display="block"
+		console.log('case1: registerUserform är sparad så jag visar knappar')
+	}else {
+	//hide buttons
+		document.getElementById("savedregisterUserFormAnswers").style.display="none"
+		document.getElementById("deleteregisterUserFormAnswers").style.display="none"
+		document.getElementById("savedscandiQuizFormAnswers").style.display="none"
+		document.getElementById("deletescandiQuizFormAnswers").style.display="none"
+		document.getElementById("saveduserQuizFormAnswers").style.display="none"
+		document.getElementById("deleteuserQuizFormAnswers").style.display="none"
+		console.log('case2: registerUserform är inte sparad så jag visar inga knappar')
+	}		
 }
