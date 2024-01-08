@@ -174,7 +174,7 @@
 
 							</div>
 
-							<div class="button_distance">
+							<div class="button_distance">	
 								<button>Submit</button>
 							</div>
 
@@ -204,7 +204,7 @@
 
 						<span class="ps"><strong>Please note:</strong> Any Question you generate or write can be edited and/or deleted. When you've done creating a quiz, you can save it with the "Save Quiz" button.</span>
 					</div>
-					<form id="userQuizForm" style="display:none;">
+					<form id="userQuizForm" style="display: none;">
 						<fieldset id="userQuizFormFieldset">
 							<legend>Start here to build a quiz</legend>
 							<p>*Required Fields</p>
@@ -231,7 +231,7 @@
 				<!--read what is stoared in localStorage-->
 
 				<script>
-					getJsonFunction()
+						
 
 					function getJsonFunction() {
 
@@ -254,37 +254,24 @@
 
 					<button style="display:block;" id="savedregisterUserFormAnswers" onclick="showStoredValue('registerUserForm')">Show my user info</button>
 
-				</div>
-				<div class="button_distance">
-
+			
 					<button id="deleteregisterUserFormAnswers" style="display:block;" onclick="deleteUserStored('registerUserForm')">Delete user info</button>
 					<p id="registerUserFormP"></p>
-				</div>
+				
 
-
-
-
-
-				<div class="button_distance">
-
-					<button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('registerUserForm')">Take the Scandi Quiz</button>
-				</div>
-				<div class="button_distance">
-
-					<button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my Sqandi Quiz answers</button>
-				</div>
-				<div class="button_distance">
+					<button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('scandiQuizForm')">Take the Scandi Quiz</button>
+				
+					<button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
+				
 
 					<button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
 					<p id="scandiQuizFormP"></p>
 
-				</div>
+					<button id="userQuizButton" style="display:block;" onclick="userQuizButton('userQuizForm')">Make your own Quiz</button>
+				
+					<button id="saveduserQuizFormAnswers" style="display:block;" onclick="showStoredQuestions()">Your saved questions</button>
 
-				<div class="button_distance">
-
-					<button id="saveduserQuizFormAnswers" style="display:block;" onclick="showStoredQuestions()">My saved questions</button>
-
-					<button id="deleteuserQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete my saved questions</button>
+					<button id="deleteuserQuizFormAnswers" style="display:block;" onclick="deleteUserStored('userQuizFormAnswers')">Delete my saved questions</button>
 
 					<p id="userQuizFormP"></p>
 				</div>

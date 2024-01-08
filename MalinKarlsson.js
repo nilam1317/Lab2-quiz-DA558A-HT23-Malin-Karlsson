@@ -56,7 +56,7 @@ function validateQandAs() {
 
 
 
-		let counted = countAnswerLabels() -4
+		let counted = countAnswerLabels2() 
 
 
 
@@ -331,7 +331,7 @@ function useRegexValidation2(formtype, result) {
 		let toTest = key
 		let toTest2 = result[key]
 
-		
+
 
 
 		if (toTest == '' || toTest2 == '') {
@@ -346,10 +346,11 @@ function useRegexValidation2(formtype, result) {
 			document.getElementById("error").style.display = "block"
 			document.getElementById("error").innerHTML = 'You entered "' + toTest2 + '" in a field where no special characters are allowed'
 
+		} else if (toTest2 =="Select one") {
+			document.getElementById("error").style.display = "block"
+			document.getElementById("error").innerHTML = 'You have not selected an option on one of the selectbox questions'
+		
 		}
-		
-		
-		
 		
 		else {
 
@@ -382,6 +383,8 @@ function countAnswerLabels() {
 
 }
 
+
+
 function checkScandiQuiz(result) {
    
 	const submittedQuiz = result
@@ -409,7 +412,7 @@ function checkScandiQuiz(result) {
       
     let points=0
     for (let i=1; i < countAnswerLabels(); i++){
-		//sringify and remove all whiespaces within both user answers and the right answers 
+		//stringify and remove all whiespaces within both user answers and the right answers 
 		//before comparing the two
 	    if (JSON.stringify(submittedQuiz[i].replace(/\s/g, "")) === JSON.stringify(rightAnswers[i]).replace(/\s/g, "")) {
 		 	points +=1
@@ -443,41 +446,54 @@ function checkScandiQuiz(result) {
    
 
     const closeButtonX = document.getElementById("points")
-    
+
+
 	let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 	closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+	for (let i=1; i < countAnswerLabels() + 1; i++){
+		if(i == 2){
+			document.getElementById('sqAnswer2').setAttribute("value", "")
+		
+			document.getElementById("sqAnswer2a").checked = false;
+			document.getElementById("sqAnswer2b").checked = false;
+			document.getElementById("sqAnswer2c").checked = false;
+			document.getElementById("sqAnswer2d").checked = false;
+		}
+		else if(i == 4){
+			document.getElementById('sqAnswer4select').value='Select one'
+			document.getElementById('sqAnswer4').setAttribute("value", "")
+		}
+		document.getElementById('sqQuestion_'+i).innerHTML=""
+	}
 }
 
-function myCloseFunction(formtype){
-	isYouserRegged()
+function myCloseFunction(){
+
+		document.getElementById("points").style.display = "none"
+		document.getElementById("error").style.display = "none"
 	
-	if(formtype === "scandiQuizForm"){
-		document.getElementById("points").style.display = "none"
-		document.getElementById("error").style.display = "none"
-		document.getElementById("scandiQuizForm").style.display = "none"
-		document.getElementById("registerUserForm").style.display = "none"
-		document.getElementById("form_div1").style.display = "none"
-		document.getElementById("form_div2").style.display = "none"
-		document.getElementById("userQuizForm").style.display = "block"
-	}else if (formtype === "registerUserForm"){
-		document.getElementById("points").style.display = "none"
-		document.getElementById("error").style.display = "none"
-		document.getElementById("registerUserForm").style.display = "none"
-		document.getElementById("form_div1").style.display = "none"
-		document.getElementById("scandiQuizForm").style.display = "block"
-	}else if (formtype === "userQuizForm"){
-		document.getElementById("scandiQuizForm").style.display = "none"
-		document.getElementById("form_div1").style.display = "none"
-		document.getElementById("form_div2").style.display = "none"
-		document.getElementById("userQuizForm").style.display = "block"
+		//if user is registered and has filled out the scandiform
+		//show/hide content
+		if( isYouserRegged() && userHasQuiz('scandiQuisForm')){
+			document.getElementById("registerUserForm").style.display = "none"
+			document.getElementById("form_div1").style.display = "none"
+			document.getElementById("form_div2").style.display = "none"
+			document.getElementById("form_div3").style.display = "block"
+			document.getElementById("userQuizForm").style.display = "block"
+		
+			//if user is registered but has not filled out the scandi form
+		}else if(isYouserRegged()){
+			document.getElementById("registerUserForm").style.display = "none"
+			document.getElementById("form_div1").style.display = "none"
+
+			document.getElementById("form_div2").style.display = "block"
+			document.getElementById("scandiQuizForm").style.display = "block"
+
+			document.getElementById("form_div3").style.display = "none"
+			document.getElementById("userQuizForm").style.display = "none"
+		
 	}else{
-		document.getElementById("registerUserForm").style.display = "block"
-		document.getElementById("points").style.display = "none"
-		document.getElementById("error").style.display = "none"
-		document.getElementById("scandiQuizForm").style.display = "none"
-		document.getElementById("userQuizForm").style.display = "none"
-		document.getElementById("form_div2").style.display = "none"
-		document.getElementById("form_div3").style.display = "none"
+	
 	}
 }
 
@@ -513,25 +529,17 @@ function storeDataLocally(formtype, result) {
 	//alert user that data has been successfully stored
 	alert("All data has been successfully submitted!")
 	
-	const userInfoObject = JSON.parse(localStorage.getItem(formtype))
-	
-	let StringToShow = ""
-	for (const key in userInfoObject) {
-		StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
-	}
-
-	
+	//if it's the register form that has been saved 
 	if (formtype === "registerUserForm") {
 		document.getElementById("savedregisterUserFormAnswers").style.display = "block"
 		document.getElementById("deleteregisterUserFormAnswers").style.display = "block"
 		document.getElementById("scandiQuizFormP").innerHTML = ""
-		//document.getElementById("registerUserFormP").innerHTML = StringToShow		
-
+	
+	//if it's the ScandiQuiz form that has been saved 
 	} else if (formtype === "scandiQuizForm"){
 		document.getElementById("savedscandiQuizFormAnswers").style.display = "block"
 		document.getElementById("deletescandiQuizFormAnswers").style.display = "block"
 
-		document.getElementById("scandiQuizFormP").innerHTML = StringToShow		
 	}
 
 	//what to show
@@ -545,68 +553,41 @@ function storeDataLocally(formtype, result) {
 
 
 function deleteUserStored(formtype) {
-
-	isYouserRegged()
-
-	if(!isYouserRegged()){
+	
+	//is the user registered and has content to delete	 
+	if(isYouserRegged() && userHasQuiz(formtype)){
 		
 		localStorage.removeItem(formtype)
 		document.getElementById(formtype +"P").innerHTML = ""
 		
-		const checkObject = JSON.parse(localStorage.getItem(formtype))
+		alert('Info deleted!')
 
-		let StringToShow = ""
-		for (const key in checkObject) {
-			StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
-		}
+	//is the user registered but doesn't have anything saved
+	}else if (isYouserRegged()){
+		document.getElementById("error").style.display = "block"
+		document.getElementById("error").innerHTML = "There is nothing saved."
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 		
-		if(StringToShow = ""){
-				document.getElementById("error").innerHTML = "There is nothing saved."
-				const closeButtonX = document.getElementById("error")
-				let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
-				closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
-		}
-			else{
+
+	//is the user not registered	
+	}else{
+		
 		document.getElementById("error").style.display ="block"
 		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
 		const closeButtonX = document.getElementById("error")
 		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
-	}
 
-}	
 		
-
-
-
-
-
-	if(!localStorage.getItem(formtype)){
-
-		document.getElementById("error").style.display = "block"
-		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
-		const closeButtonX = document.getElementById("error")
+	}	
 		
-    
-		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
-		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
-		
-	}else {
-		
-		localStorage.removeItem(formtype)
-		document.getElementById(formtype +"P").innerHTML = ""
-	}
-		
-	
-
-    //what to show
-	//showFromStart()		
-
-}	
+}
 
 function countAnswerLabels2() {
 
-	let answerLabels = document.querySelectorAll('#userQuizForm .answerLabelClass').length;
+	let answerLabels = document.querySelectorAll('#userQuizForm .answerLabelClass2').length;
 
 	return answerLabels
 
@@ -632,7 +613,7 @@ function addQuestion() {
 	const inputNameLabelAnswer = ["AnswerNumber"]
 
 
-	let j = countAnswerLabels()-5
+	let j = countAnswerLabels2()
 
 
 	j += 1
@@ -673,7 +654,7 @@ function addQuestion() {
 	labelQuestionField.setAttribute("for", "YourQuestion" + j)
 	labelAnswerField.setAttribute("for", "YourAnswer" + j)
 	
-	labelAnswerField.setAttribute("class", "answerLabelClass")
+	labelAnswerField.setAttribute("class", "answerLabelClass2")
 	labelQuestionField.setAttribute("class", "questionLabelClass")
 
 
@@ -810,7 +791,7 @@ function randQuestion(theQuestion, theAnswer) {
 	const inputRandNameLabelAnswer = ["AnswerRandNumber"]
 
 
-	let n = countAnswerLabels()-5
+	let n = countAnswerLabels2()
 
 	n += 1
 
@@ -861,7 +842,7 @@ function randQuestion(theQuestion, theAnswer) {
 
 	labelRandQuestionField.setAttribute("for", 'YourQuestion' + n)
 	labelRandAnswerField.setAttribute("for", 'YourAnswer' + n)
-	labelRandAnswerField.setAttribute("class", 'answerLabelClass')
+	labelRandAnswerField.setAttribute("class", 'answerLabelClass2')
 	labelRandQuestionField.setAttribute("class", 'questionLabelClass')
 
 	labelRandQuestionField.setAttribute("id", 'Question' + n)
@@ -931,8 +912,8 @@ function deleteQuestion(val) {
 
 
 
-	//How many questions before deleting anything (n+1 gives the answer)
-	let n = countAnswerLabels() -5
+	//How many questions before deleting anything 
+	let n = countAnswerLabels2() 
 
 
 	//Create an event's handler
@@ -947,19 +928,24 @@ function deleteQuestion(val) {
 
 		//Single out the one's that will come after the deleted question
 		//And therefor needs new id/class
+	
 		//val is the number in the id of the button pressed
-		if (i > val) {
-
+		if (i > (val)) {
 
 			//get the input value fron the text fields
 			//move them one step up in the pair of Q&A
 			//stop the loop when every pair has been looped through
-			let valToMoveQ = document.getElementById("YourQuestion" + i).value
-			let valToMoveA = document.getElementById("YourAnswer" + i).value
+			
+			let valToMoveQ = document.getElementById("YourQuestion" + i).innerHTML
+			let valToMoveA = document.getElementById("YourAnswer" + i).innerHTML
+			
+			
 
+			document.getElementById("YourQuestion"+ (i - 1)).innerHTML = valToMoveQ
+			document.getElementById("Your_Question"+ (i - 1)).value = valToMoveQ
 
-			document.getElementById("YourQuestion" + (i - 1)).value = valToMoveQ
-			document.getElementById("YourAnswer" + (i - 1)).value = valToMoveA
+			document.getElementById("YourAnswer" + (i - 1)).innerHTML = valToMoveA
+			document.getElementById("Your_Answer" + (i - 1)).value = valToMoveA
 
 
 		}
@@ -968,8 +954,10 @@ function deleteQuestion(val) {
 
 
 	//delete all elements with the highest id number in the pairs of Q & A
-	const element = document.getElementById('Question' + n)
 
+
+	const element = document.getElementById('Question' + n)
+	
 	const element2 = document.getElementById('YourQuestion' + n)
 
 	const element3 = document.getElementById('Answer' + n)
@@ -981,7 +969,7 @@ function deleteQuestion(val) {
 	const element6 = document.getElementById('oddEven_' + n)
 
 
-	//but only if there is actuakly something to remove
+	//but only if there is actually something to remove
 
 	if (element != null) {
 		element.remove()
@@ -1015,65 +1003,169 @@ function deleteQuestion(val) {
 
 function isYouserRegged(){
 	if(!localStorage.getItem('registerUserForm')){
-		console.log('user is not registered')
+		
+		return false
 	}else{
-		console.log('user is registered')
+	
+		return true
+	}
+}
 
+
+function userHasQuiz(formtype){
+	if(!localStorage.getItem(formtype)){
+		
+		
+		return false
+	}else{
+	
+		return true
 	}
 }
 
 //function to read what is stored
 function showStoredValue(formtype) {
 
-	if(!isYouserRegged()){
+	//is the user registered?
+	if(isYouserRegged()){
 		const checkObject = JSON.parse(localStorage.getItem(formtype))
-
+		
 		let StringToShow = ""
+		
+		//what if anything is stored?
 		for (const key in checkObject) {
 			StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
-		
-		document.getElementById(formtype+'P').innerHTML = StringToShow
+			document.getElementById(formtype+'P').innerHTML = StringToShow
 	
 		}
-		if(StringToShow = ""){
+		//if there is nothing stored to show
+		if(StringToShow == ""){
+			document.getElementById("error").style.display = "block"
 			document.getElementById("error").innerHTML = "There is nothing saved."
 			const closeButtonX = document.getElementById("error")
 			let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 			closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+			
 		}
-		
+		//not registered
 	} else{
 		document.getElementById("error").style.display ="block"
 		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
 		const closeButtonX = document.getElementById("error")
 		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		
 	}
+
 	
 
 }
 
 //Function for the scandiQuizButton
-function scandiQuizButton(registerUserForm){
+function scandiQuizButton(formtype){
 
+
+	//is the user registered and is there form already saved? 
+	if(isYouserRegged() && userHasQuiz(formtype)){
+		
+		
+
+			const checkObject = JSON.parse(localStorage.getItem(formtype))
+			
+			let StringToShow = ""
+			
+			//what if anything is stored?
+			for (const key in checkObject) {
+				StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
 	
-	if(!localStorage.getItem(registerUserForm)) {
+				document.getElementById(formtype+'P').innerHTML = StringToShow
+		
+			}
+
+		
 		document.getElementById("error").style.display = "block"
-		document.getElementById("error").innerHTML = "You need to register before you can take this quiz!"
+		document.getElementById("error").innerHTML = "Delete your previous Quiz results first!"
 		const closeButtonX = document.getElementById("error")
-		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction("scandiQuizForm")">Close</button></p>'
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
 		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 		
-	}else{ 
+
+
+	}
+	//is the user registered but there is no form saved
+	else if(isYouserRegged()){
+		
 		document.getElementById("form_div2").style.display = "block"
 		document.getElementById("scandiQuizForm").style.display = "block"
 		document.getElementById("form_div1").style.display = "none"
-		const takeMeToElement = document.getElementById("sqAnswer1")
-		takeMeToElement.scrollIntoView()
+	}
+//not registered
+	else{ 
+		document.getElementById("error").style.display ="block"
+		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 		
 	}
-
 }
+
+//Function for the userQuizButton
+function userQuizButton(formtype){
+
+
+	//is the user registered and is there form already saved? 
+	if(isYouserRegged() && userHasQuiz(formtype)){
+		
+		
+
+			const checkObject = JSON.parse(localStorage.getItem(formtype))
+			
+			let StringToShow = ""
+			
+			//what if anything is stored?
+			for (const key in checkObject) {
+				StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
+	
+				document.getElementById(formtype+'P').innerHTML = StringToShow
+		
+			}
+
+		
+		document.getElementById("error").style.display = "none"
+		document.getElementById("error").innerHTML = ""
+		
+		document.getElementById("form_div3").style.display = "block"
+		document.getElementById("userQuizForm").style.display = "block"
+		document.getElementById("registerUserForm").style.display = "none"
+		document.getElementById("form_div1").style.display = "none"
+		document.getElementById("ScandiQuizForm").style.display = "none"
+		document.getElementById("form_div2").style.display = "none"
+	}
+	//is the user registered but there is no form saved
+	else if(isYouserRegged()){
+
+		document.getElementById("error").style.display = "none"
+		document.getElementById("error").innerHTML = ""
+		
+		document.getElementById("form_div3").style.display = "block"
+		document.getElementById("userQuizForm").style.display = "block"
+		document.getElementById("registerUserForm").style.display = "none"
+		document.getElementById("form_div1").style.display = "none"
+		document.getElementById("scandiQuizForm").style.display = "none"
+		document.getElementById("form_div2").style.display = "none"
+	}
+//not registered
+	else{ 
+		document.getElementById("error").style.display ="block"
+		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		
+	}
+}
+
 
 //Function to check if data from any of the forms are stored locally
 function thisFormInfo(formtype){
@@ -1125,7 +1217,7 @@ function showFromStart(){
 		//Show buttons because data exists
 		document.getElementById("savedregisterUserFormAnswers").style.display="block"
 		document.getElementById("deleteregisterUserFormAnswers").style.display="block"
-		console.log('case1: registerUserform är sparad så jag visar knappar')
+		
 	}else {
 	//hide buttons
 		document.getElementById("savedregisterUserFormAnswers").style.display="none"
@@ -1134,6 +1226,6 @@ function showFromStart(){
 		document.getElementById("deletescandiQuizFormAnswers").style.display="none"
 		document.getElementById("saveduserQuizFormAnswers").style.display="none"
 		document.getElementById("deleteuserQuizFormAnswers").style.display="none"
-		console.log('case2: registerUserform är inte sparad så jag visar inga knappar')
+		
 	}		
 }*/
