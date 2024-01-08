@@ -699,6 +699,7 @@ button:active {
 
 #error {
 	position: fixed;
+    text-align:center;
 	bottom: 0;
 	background-color: crimson;
 	border: 6px solid red;

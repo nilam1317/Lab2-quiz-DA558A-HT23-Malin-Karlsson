@@ -1,4 +1,6 @@
-document.getElementById("rightsideimage").onload = function() {showFromStart()};
+
+//what to show
+//document.getElementById("rightsideimage").onload = function() {showFromStart()};
 
 
 
@@ -158,6 +160,7 @@ function useRegexValidation(formtype, objectToPass) {
 			//hide the registerform
 			//Show the next form (the Scandi Quiz)
 			document.getElementById("registerUserForm").style.display = "none" 
+			document.getElementById("form_div1").style.display = "none"
 			document.getElementById("form_div2").style.display = "block"
 			document.getElementById("scandiQuizForm").style.display = "block"
 			
@@ -445,13 +448,42 @@ function checkScandiQuiz(result) {
 	closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 }
 
-function myCloseFunction(){
-	document.getElementById("points").style.display = "none"
-	document.getElementById("scandiQuizForm").style.display = "none"
+function myCloseFunction(formtype){
+	isYouserRegged()
+	
+	if(formtype === "scandiQuizForm"){
+		document.getElementById("points").style.display = "none"
+		document.getElementById("error").style.display = "none"
+		document.getElementById("scandiQuizForm").style.display = "none"
+		document.getElementById("registerUserForm").style.display = "none"
+		document.getElementById("form_div1").style.display = "none"
+		document.getElementById("form_div2").style.display = "none"
+		document.getElementById("userQuizForm").style.display = "block"
+	}else if (formtype === "registerUserForm"){
+		document.getElementById("points").style.display = "none"
+		document.getElementById("error").style.display = "none"
+		document.getElementById("registerUserForm").style.display = "none"
+		document.getElementById("form_div1").style.display = "none"
+		document.getElementById("scandiQuizForm").style.display = "block"
+	}else if (formtype === "userQuizForm"){
+		document.getElementById("scandiQuizForm").style.display = "none"
+		document.getElementById("form_div1").style.display = "none"
+		document.getElementById("form_div2").style.display = "none"
+		document.getElementById("userQuizForm").style.display = "block"
+	}else{
+		document.getElementById("registerUserForm").style.display = "block"
+		document.getElementById("points").style.display = "none"
+		document.getElementById("error").style.display = "none"
+		document.getElementById("scandiQuizForm").style.display = "none"
+		document.getElementById("userQuizForm").style.display = "none"
+		document.getElementById("form_div2").style.display = "none"
+		document.getElementById("form_div3").style.display = "none"
+	}
 }
 
 function storeDataLocally(formtype, result) {
 
+	isYouserRegged()
 
 	if (formtype === "scandiQuizForm") {
 		checkScandiQuiz(result)
@@ -493,7 +525,7 @@ function storeDataLocally(formtype, result) {
 		document.getElementById("savedregisterUserFormAnswers").style.display = "block"
 		document.getElementById("deleteregisterUserFormAnswers").style.display = "block"
 		document.getElementById("scandiQuizFormP").innerHTML = ""
-		document.getElementById("registerUserFormP").innerHTML = StringToShow		
+		//document.getElementById("registerUserFormP").innerHTML = StringToShow		
 
 	} else if (formtype === "scandiQuizForm"){
 		document.getElementById("savedscandiQuizFormAnswers").style.display = "block"
@@ -502,7 +534,7 @@ function storeDataLocally(formtype, result) {
 		document.getElementById("scandiQuizFormP").innerHTML = StringToShow		
 	}
 
-	
+	//what to show
 	//showFromStart()
 
 	
@@ -513,39 +545,61 @@ function storeDataLocally(formtype, result) {
 
 
 function deleteUserStored(formtype) {
-	
-	localStorage.removeItem(formtype)
 
-	
-	if(thisFormInfo(formtype) == "true"){
+	isYouserRegged()
+
+	if(!isYouserRegged()){
 		
-	}else if (thisFormInfo(formtype) !== "true"){
+		localStorage.removeItem(formtype)
+		document.getElementById(formtype +"P").innerHTML = ""
+		
+		const checkObject = JSON.parse(localStorage.getItem(formtype))
+
+		let StringToShow = ""
+		for (const key in checkObject) {
+			StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
+		}
+		
+		if(StringToShow = ""){
+				document.getElementById("error").innerHTML = "There is nothing saved."
+				const closeButtonX = document.getElementById("error")
+				let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+				closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		}
+			else{
+		document.getElementById("error").style.display ="block"
+		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 	}
 
-	if(formtype === "registerUserForm"){
-		document.getElementById("registerUserForm").style.display="block"
-		document.getElementById("form_div1").style.display="block"
-		document.getElementById("registerUserFormP").innerHTML = ""
-	}
-	else if(formtype === "scandiQuizForm"){
-		document.getElementById("scandiQuizForm").style.display="block"
-		document.getElementById("form_div2").style.display="block"
-		document.getElementById("scandiQuizFormP").innerHTML = ""
-	}
+}	
+		
 
-	//check if form data is stored locally, if not the appropriate form and buttons will be showed
-	if(thisFormInfo(formtype) === "true"){
 
-		//Show buttons because data exists
-		document.getElementById("saved"+formtype+"Answers").style.display="block"
-		document.getElementById("delete"+formtype+"Answers").style.display="block"
 
+
+
+	if(!localStorage.getItem(formtype)){
+
+		document.getElementById("error").style.display = "block"
+		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+		const closeButtonX = document.getElementById("error")
+		
+    
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		
 	}else {
-	//hide buttons
-		document.getElementById("saved"+formtype+"Answers").style.display="none"
-		document.getElementById("delete"+formtype+"Answers").style.display="none"
-	
+		
+		localStorage.removeItem(formtype)
+		document.getElementById(formtype +"P").innerHTML = ""
 	}
+		
+	
+
+    //what to show
 	//showFromStart()		
 
 }	
@@ -959,48 +1013,80 @@ function deleteQuestion(val) {
 
 }
 
+function isYouserRegged(){
+	if(!localStorage.getItem('registerUserForm')){
+		console.log('user is not registered')
+	}else{
+		console.log('user is registered')
+
+	}
+}
+
 //function to read what is stored
 function showStoredValue(formtype) {
 
+	if(!isYouserRegged()){
+		const checkObject = JSON.parse(localStorage.getItem(formtype))
 
-
-	const userInfoObject = JSON.parse(localStorage.getItem(formtype))
-
-
-	let StringToShow = ""
-	for (const key in userInfoObject) {
-		StringToShow = StringToShow + key + ': ' + userInfoObject[key] + '<br>'
+		let StringToShow = ""
+		for (const key in checkObject) {
+			StringToShow = StringToShow + key + ': ' + checkObject[key] + '<br>'
+		
+		document.getElementById(formtype+'P').innerHTML = StringToShow
+	
+		}
+		if(StringToShow = ""){
+			document.getElementById("error").innerHTML = "There is nothing saved."
+			const closeButtonX = document.getElementById("error")
+			let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+			closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		}
+		
+	} else{
+		document.getElementById("error").style.display ="block"
+		document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
 	}
-
-	document.getElementById(formtype+'P').innerHTML = StringToShow
+	
 
 }
 
 //Function for the scandiQuizButton
 function scandiQuizButton(registerUserForm){
 
-
-	const getObject = JSON.parse(localStorage.getItem('registerUserForm'))
 	
-	if(JSON.stringify(getObject) === '{}'){
-		document.getElementById("registerUserFormP").innerHTML = "You need to register first!"
+	if(!localStorage.getItem(registerUserForm)) {
+		document.getElementById("error").style.display = "block"
+		document.getElementById("error").innerHTML = "You need to register before you can take this quiz!"
+		const closeButtonX = document.getElementById("error")
+		let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction("scandiQuizForm")">Close</button></p>'
+		closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+		
 	}else{ 
+		document.getElementById("form_div2").style.display = "block"
+		document.getElementById("scandiQuizForm").style.display = "block"
+		document.getElementById("form_div1").style.display = "none"
 		const takeMeToElement = document.getElementById("sqAnswer1")
 		takeMeToElement.scrollIntoView()
+		
 	}
 
 }
 
 //Function to check if data from any of the forms are stored locally
 function thisFormInfo(formtype){
-	const getObject = JSON.parse(localStorage.getItem(formtype))
+	/*const getObject = JSON.parse(localStorage.getItem(formtype))
 	
-	//if the object existd (i.e the object is not empty) return true
+	//if the object exists (i.e the object is not empty) return true
 	const isObjectEmpty = (getObject) => {
 		return Object.keys(getObject).length > 0
 			
-	}
+	}*/
 
+!localStorage.getItem(formtype)
+	
 
 }
 
@@ -1016,11 +1102,11 @@ function showThisForm(formtype){
 
 			document.getElementById(allFormTypes[i]).style.display = "none"
 			document.getElementById('form_div'+ (i + 1)).style.display = "none"
-			console.log((' aform_div'+ (i + 1)))
+			
 		}else{
 			document.getElementById(allFormTypes[i]).style.display = "block"
 			document.getElementById('form_div'+ (i + 1)).style.display = "block"
-			console.log(('b form_div'+ (i + 1)))
+			
 		}
 	}
 
@@ -1029,6 +1115,7 @@ function showThisForm(formtype){
 
 
 
+/* what to show
 function showFromStart(){
 	//check if form data is stored locally, if not the appropriate buttons will be showed
 	
@@ -1049,4 +1136,4 @@ function showFromStart(){
 		document.getElementById("deleteuserQuizFormAnswers").style.display="none"
 		console.log('case2: registerUserform är inte sparad så jag visar inga knappar')
 	}		
-}
+}*/
