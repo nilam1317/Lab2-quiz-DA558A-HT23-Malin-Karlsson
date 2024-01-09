@@ -1,8 +1,3 @@
-
-//what to show
-//document.getElementById("rightsideimage").onload = function() {showFromStart()};
-
-
 // Get the register form element
 const registerFormData = document.getElementById("registerUserForm")
 
@@ -38,63 +33,75 @@ registerFormData.addEventListener('submit', (e) => {
 
 
 
+
+// Add event listener to handle form click
+document.getElementById("saveQuiz").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent form from submitting/opening the URL
+   
+})
+
+
+
+
 function validateQandAs() {
 	// Create an object to store questions and answers
 	const QandAsToPass = {}
-  
-	// Create arrays to store questions and answers
 	const qs = []
 	const ans = []
   
 	// Get the userQuizForm element
 	const userQuizForm = document.getElementById("userQuizForm")
   
-	// Add event listener to handle form click
-	userQuizForm.addEventListener("click", function (event) {
-	  	// Prevent form from submitting/opening the URL
-	  	event.preventDefault();
-  
-	  // Count the number of answer labels
-	  	let counted = countAnswerLabels2();
-  
-	  	// Loop through the answer labels
-		for (let i = 1; i < counted; i++) {
+	// Count the number of answer labels
+	let counted = countAnswerLabels2();
+        
+	for (let i = 1; i < counted +1; i++) {
 			// Push question and answer values to arrays
 			qs.push(document.getElementById("YourQuestion"+i).innerHTML)
 			ans.push(document.getElementById("YourAnswer"+i).innerHTML)
-		}
+            console.log(document.getElementById("YourQuestion"+i).innerHTML)
+            console.log(document.getElementById("YourAnswer"+i).innerHTML)
+            console.log(counted +'vs' +i)
+            // Loop through the answer labels
+    }
   
-	  	//create arrays from the inputs
-		function createObject(keys, values) {
+
+        
+	//create arrays from the inputs
+	function createObject(keys, values) {
 			const obj = Object.fromEntries(
 			keys.map((key, index) => [key, values[index]]),
-			);
+           
+		);
 
-			return obj;
-		}
+		return obj
+	}
 	
-		//create object from the array
-	
-		const result = createObject(qs, ans)
+	//create object from the array
+	const result = createObject(qs, ans)
 
-		let formtype = "userQuiz"
+	let formtype = "userQuizForm"
 
-		useRegexValidation2(formtype, result)	 
-	})
-
+    
+	useRegexValidation2(formtype, result)	 
 }
+
+
 
 
 // Function to validate data from the user registerUserForm
 function useRegexValidation(formtype, objectToPass) {
 	
 	// Regular expressions for validation
-	let regex1 = /^\d+$/;  // Numeric only
-	let regex2 = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g;  // Special characters or numbers
-	let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;  // Email format
+	// Numeric only
+	let regex1 = /^\d+$/  
+	//Special characters or numbers
+	let regex2 =/\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:|[0-9]/g
+	// Email format
+	let regex3 = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g  
   
 	var i = 0;
-	var formLength = Object.keys(objectToPass).length;
+	var formLength = Object.keys(objectToPass).length
   
 	// loop throught the object with submitted data
 	for (const key in objectToPass) {
@@ -117,12 +124,12 @@ function useRegexValidation(formtype, objectToPass) {
   
 	  // When the loop is complete
 	  if (i === formLength) {
-		// Hide error message
-		document.getElementById("error").style.display = "none";
+		// Hide error box
+		document.getElementById("error").style.display = "none"
 		
 		// Call the function to store the data locally
 		storeDataLocally(formtype, objectToPass);
-		document.getElementById("userQuizFormP").innerHTML = "";
+		document.getElementById("userQuizFormP").innerHTML = ""
   
 		// Empty the input fields
 		firstName.value = ""
@@ -267,11 +274,11 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 
 
 
+
 // Function to validate data using regex
 function useRegexValidation2(formtype, result) {
     // Regular expression to match special characters
-    let regexQandQs = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g;
-
+    let regexQandQs = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g
     var i = 0
     var formLength = Object.keys(result).length
 
@@ -292,6 +299,8 @@ function useRegexValidation2(formtype, result) {
         } else {
             i = ++i;
         }
+
+        const submittedQuiz = result;
 
         // When the loop is complete
         if (i === formLength) {
@@ -402,18 +411,29 @@ function myCloseFunction() {
     // Hide both points and error elements
     document.getElementById("points").style.display = "none";
     document.getElementById("error").style.display = "none";
+    document.getElementById("quizes").style.display = "none";
 
     // Check the registration and quiz status to determine which content to show/hide
     if (isYouserRegged()) {
         if (userHasQuiz('scandiQuisForm')) {
             // User is registered and has filled out the scandi form
             // Show/hide relevant content
-            showHideContent("none", "none", "none", "block", "block");
+            showHideContent("none", "none", "block", "none", "none", "block");
         } else {
             // User is registered but has not filled out the scandi form
             // Show/hide relevant content
-            showHideContent("none", "none", "block", "block", "none");
+            showHideContent("none", "block", "none", "none", "block", "none");
         }
+        if (userHasQuiz('userQuizForm')) {
+            // User is registered and has filled out and saved quizes
+            // Show/hide relevant content
+            showHideContent("none", "none", "none", "block", "block", "block");
+        } else {
+            // User is registered but has not filled out any user forms
+            // Show/hide relevant content
+            showHideContent("none", "none", "block", "none", "none", "block");
+        }
+
     } else {
         // User is not registered
       //might add something here...
@@ -421,18 +441,19 @@ function myCloseFunction() {
 }
 
 // Function to show/hide content based on element IDs
-function showHideContent(form1, form2, form3, quizForm, scandiForm) {
-    document.getElementById("registerUserForm").style.display = form1;
-    document.getElementById("form_div1").style.display = form2;
-    document.getElementById("form_div2").style.display = form3;
-    document.getElementById("form_div3").style.display = quizForm;
-    document.getElementById("userQuizForm").style.display = scandiForm;
+function showHideContent(form1, form2, form3, registerForm, scandiForm, quizForm) {
+    document.getElementById("form_div1").style.display = form1
+    document.getElementById("form_div2").style.display = form2
+    document.getElementById("form_div3").style.display = form3
+    document.getElementById("form_div3").style.display = quizForm
+    document.getElementById("registerUserForm").style.display = registerForm
+    document.getElementById("scandiQuizForm").style.display = scandiForm
+    document.getElementById("userQuizForm").style.display = quizForm
 }
 
 
 function storeDataLocally(formtype, result) {
-    // Check if the user is registered
-    isYouserRegged();
+  
 
     // Process data based on the formtype
     if (formtype === "scandiQuizForm") {
@@ -443,7 +464,7 @@ function storeDataLocally(formtype, result) {
     // Generate a unique timestamp for userQuizForm submissions
     const timestamp = (formtype === "userQuizForm") ? new Date().getTime() : ""
 
-    // If it's userQuizForm, append timestamp to formtype
+    // If it's a userQuizForm, append timestamp to formtype
     if (formtype === "userQuizForm") {
         formtype = "userQuizForm" + timestamp;
     }
@@ -451,6 +472,7 @@ function storeDataLocally(formtype, result) {
     // Stringify the object
     const myJSON = JSON.stringify(result)
 
+  
     // Save the string to localStorage
     localStorage.setItem(formtype, myJSON)
 
@@ -458,7 +480,9 @@ function storeDataLocally(formtype, result) {
     alert("All data has been successfully submitted!");
 
     // Update UI based on the saved formtype
-    updateUI(formtype);
+    updateUI(formtype)
+
+	showFromStart()
 }
 
 // Function to update UI elements based on the saved formtype
@@ -563,6 +587,9 @@ function addQuestion() {
 	var labelAnswerField = document.createElement("LABEL")
 	var AnswerDivField = document.createElement("DIV")
 	var inputAnswerField = document.createElement("INPUT")
+   
+    var moreAnswerOptions = document.createElement("INPUT")
+
 
 //set attributes
 	labelQuestionField.setAttribute("for", "YourQuestion" + j)
@@ -574,6 +601,7 @@ function addQuestion() {
 
 	labelQuestionField.setAttribute("id", "Question" + j)
 	labelAnswerField.setAttribute("id", "Answer" + j)
+    
 
 	QuestionDivField.setAttribute("id", "YourQuestion" + j)
 	QuestionDivField.setAttribute("class", "multilineinput")
@@ -587,11 +615,14 @@ function addQuestion() {
 
 	inputQuestionField.setAttribute("type", "hidden")
 	inputAnswerField.setAttribute("type", "hidden")
+    
 
 	inputQuestionField.setAttribute("id", "Your_Question" + j)
 	inputAnswerField.setAttribute("id", "Your_Answer" + j)
 
-
+    moreAnswerOptions.setAttribute("id", "moreAnswerOptions" + j)
+    moreAnswerOptions.setAttribute("type", "checkbox")
+    moreAnswerOptions.setAttribute("value", "Add more options for the answer")
 
     // Append the created elements to the question container div
 	document.getElementById("oddEven_" + j).appendChild(labelQuestionField)
@@ -600,15 +631,42 @@ function addQuestion() {
 	document.getElementById("oddEven_" + j).appendChild(labelAnswerField)
 	document.getElementById("oddEven_" + j).appendChild(inputAnswerField)
 	document.getElementById("oddEven_" + j).appendChild(AnswerDivField)
+    document.getElementById("oddEven_" + j).appendChild(moreAnswerOptions)
+   
+  
 
+document.getElementById("moreAnswerOptions".innerHTML ="Add more options for the answer")
 
     // Set labels for the question and answer
     document.getElementById('Question' + j).innerHTML = `Question ${j}`
     document.getElementById('Answer' + j).innerHTML = `Answer ${j}`
 
+let checkIfExcist = document.getElementById("moreAnswerOptions"+j)
+
+
+    if (checkIfExcist != null) {
+        console.log('hej')
+    var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions"+j)
+  
+
+    // Add an event listener to the checkbox
+        moreAnswerOptionsCheckbox.addEventListener("change", function() {
+    //Call the function when the checkbox state changes
+     addMoreAnswerOptions()
+    
+
+        })
+    }
     // Add a delete button for the question
     addDeleteButton(j);
 }
+
+
+
+
+
+
+
 
 
 // Function to add a delete button for a question
@@ -683,6 +741,86 @@ function pickRandom(ObjectFromFile) {
 
 
 
+
+
+function addMoreAnswerOptions() {
+    // Get the checkbox element
+    var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions");
+  
+    // Check if the checkbox is checked
+    if (moreAnswerOptionsCheckbox.checked) {
+        console.log('hejva')
+      // Create input fields and checkboxes
+      for (let i = 0; i < 3; i++) {
+        // Create input field
+        var inputAnswerField = document.createElement("INPUT");
+        inputAnswerField.setAttribute("type", "text");
+        inputAnswerField.setAttribute("id", "Your_Answer_" + String.fromCharCode(97 + i)); // "a", "b", "c"
+  
+/*
+        var moreAnswerOptions = document.createElement("INPUT")
+var Your_Answer_a = document.createElement("INPUT")
+var Your_Answer_b = document.createElement("INPUT")
+var Your_Answer_c = document.createElement("INPUT")
+
+moreAnswerOptions.setAttribute("id", "moreAnswerOptions" + j)
+moreAnswerOptions.setAttribute("type", "checkbox")
+moreAnswerOptions.setAttribute("value", "Add more options for the answer")
+
+Your_Answer_a.setAttribute("id", " Your_Answer_c")
+Your_Answer_b.setAttribute("id", " Your_Answer_c")
+Your_Answer_c.setAttribute("id", " Your_Answer_c")
+
+Your_Answer_a.setAttribute("type", "text")
+Your_Answer_b.setAttribute("type", "text")
+Your_Answer_c.setAttribute("type", "text")
+
+moreAnswerOptions.setAttribute("id", "moreAnswerOptions" + j)
+moreAnswerOptions.setAttribute("type", "checkbox")
+moreAnswerOptions.setAttribute("value", "Add more options for the answer")
+
+Your_Answer_a.setAttribute("id", " Your_Answer_c")
+Your_Answer_b.setAttribute("id", " Your_Answer_c")
+Your_Answer_c.setAttribute("id", " Your_Answer_c")
+
+Your_Answer_a.setAttribute("type", "text")
+Your_Answer_b.setAttribute("type", "text")
+Your_Answer_c.setAttribute("type", "text")
+
+document.getElementById("oddEven_" + j).appendChild(moreAnswerOptions)
+document.getElementById("oddEven_" + j).appendChild(Your_Answer_a)
+document.getElementById("oddEven_" + j).appendChild(Your_Answer_b)
+document.getElementById("oddEven_" + j).appendChild(Your_Answer_c)
+*/
+
+        // Create corresponding checkbox
+        var checkbox = document.createElement("INPUT");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("id", "Check_" + String.fromCharCode(97 + i)); // "Check_a", "Check_b", "Check_c"
+  
+        // Append elements to the div in the form
+        document.getElementById('div').appendChild(inputAnswerField);
+        document.getElementById('oddEven_1').appendChild(checkbox);
+
+        console.log('case1')
+      }
+    } else {
+      // If checkbox is unchecked, remove the added elements
+      for (let i = 0; i < 3; i++) {
+        var answerFieldToRemove = document.getElementById("Your_Answer_" + String.fromCharCode(97 + i));
+        var checkboxToRemove = document.getElementById("Check_" + String.fromCharCode(97 + i));
+  
+        // Check if the elements exist before attempting to remove
+        if (answerFieldToRemove) {
+          answerFieldToRemove.parentNode.removeChild(answerFieldToRemove);
+        }
+  
+        if (checkboxToRemove) {
+          checkboxToRemove.parentNode.removeChild(checkboxToRemove);
+        }
+      }
+    }
+  }
 
 
 //function to read what is stored
@@ -892,6 +1030,131 @@ function userHasQuiz(formtype){
 // Function to read and display stored values
 function showStoredValue(formtype) {
     // Check if the user is registered
+    
+
+
+    if (isYouserRegged()) {
+        // Parse the stored object from localStorage
+        const storedObject = JSON.parse(localStorage.getItem(formtype));
+
+        let stringToShow = ""
+
+        // Check if there is anything stored
+        for (const key in storedObject) {
+            // Concatenate key-value pairs to form the string to display
+            stringToShow = stringToShow + key + ': ' + storedObject[key] + '<br>'
+            document.getElementById(formtype + 'P').innerHTML = stringToShow;
+        }
+
+        // If there is nothing stored to show
+        if (stringToShow === "") {
+            document.getElementById("error").style.display = "block"
+            document.getElementById("error").innerHTML = "There is nothing saved."
+            const closeButtonX = document.getElementById("error")
+            let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
+            closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+        }
+    } else {
+        // Display an error message if the user is not registered
+        document.getElementById("error").style.display = "block"
+        document.getElementById("error").innerHTML = "You need to register before you can use this function!"
+        const closeButtonX = document.getElementById("error")
+        let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+        closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+    }
+}
+
+function listUserQuizFormNames() {
+    const userQuizFormNames = Object.keys(localStorage)
+      .filter(key => key.startsWith('userQuizForm'))
+  
+    if (userQuizFormNames.length === 0) {
+      // Display error message
+      const errorContainer = document.getElementById("error")
+      errorContainer.style.display = "block"
+      errorContainer.innerHTML = "There is nothing saved."
+      const closeButtonX = document.getElementById("error")
+      let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+      closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
+    }
+  
+    const ul = document.createElement('ul')
+    userQuizFormNames.forEach(name => {
+      const li = document.createElement('li')
+      const link = document.createElement('a')
+      link.textContent = name
+      // Set a dummy href
+      link.href = '#'
+      link.addEventListener('click', () => {
+        // Display the corresponding object in the span with id 'quizes'
+        const quizesContainer = document.getElementById('quizes')
+        quizesContainer.style.display = 'block'
+  
+        const objectString = localStorage.getItem(name);
+        const parsedObject = JSON.parse(objectString);
+  
+        // Create a string representation with line breaks and numbering, replace ':' with '<br>'
+        let formattedString = '';
+        Object.entries(parsedObject).forEach(([key, value], index) => {
+          formattedString += `Q${index + 1}. ${key.replace(/:/g,'<br>')} <br>A: ${value}<br><br>`
+        });
+  
+        quizesContainer.innerHTML = formattedString;
+  
+        const closeButtonX = document.getElementById("quizes");
+        let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
+        closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
+      });
+  
+      li.appendChild(link);
+      ul.appendChild(li);
+    });
+  
+    // Append the ul to the existing div with id 'userQuizFormP'
+    const userQuizFormPContainer = document.getElementById('userQuizFormP');
+    // Clear previous content
+    userQuizFormPContainer.innerHTML = '';
+    userQuizFormPContainer.appendChild(ul);
+  }
+
+  function clearUserQuizForms() {
+    const userQuizFormNames = Object.keys(localStorage)
+      .filter(key => key.startsWith('userQuizForm'))
+  
+    if (userQuizFormNames.length === 0) {
+      // Display error message
+      const errorContainer = document.getElementById("error")
+      errorContainer.style.display = "block";
+      errorContainer.innerHTML = "There is nothing saved."
+  
+      // Add close button to the error message
+      let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>'
+      errorContainer.insertAdjacentHTML("beforeend", htmlToInsert)
+  
+      return;
+    }
+  
+    // Remove localStorage items
+    userQuizFormNames.forEach(key => {
+      localStorage.removeItem(key)
+    });
+  
+    // Remove the associated ul list
+    const userQuizFormPContainer = document.getElementById('userQuizFormP')
+    // Clear the content of the container
+    userQuizFormPContainer.innerHTML = ''
+  }
+  
+
+
+// Function to read and display stored values
+function showStoredQuestions(formtype) {
+    // Check if the user is registered
+ 
+    const userQuizFormsList = listUserQuizFormNames();
+    console.log(userQuizFormsList);
+   
+
     if (isYouserRegged()) {
         // Parse the stored object from localStorage
         const storedObject = JSON.parse(localStorage.getItem(formtype));
@@ -921,6 +1184,9 @@ function showStoredValue(formtype) {
         let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
         closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
     }
+
+
+
 }
 
 
@@ -1078,7 +1344,7 @@ function showFromStart() {
 
 
 	// Check if the user is registered and if there is a form already saved
-    if (isYouserRegged() && userHasQuiz('userRegistrationQuiz')) {
+    if (isYouserRegged() && userHasQuiz('registerUserForm')) {
  	//show buttons for registerUserForm
  	document.getElementById("savedregisterUserFormAnswers").style.display = "block"
  	document.getElementById("deleteregisterUserFormAnswers").style.display = "block"
@@ -1113,7 +1379,8 @@ function showFromStart() {
     // Check if the user is registered
     if (isYouserRegged()) {
         // Check and show buttons for registerUserForm
-        if (userHasQuiz('userRegistrationQuiz')) {
+        if (userHasQuiz('registerUserForm')) {
+			console.log('1')
             showButtons([
                 "savedregisterUserFormAnswers",
                 "deleteregisterUserFormAnswers",
@@ -1123,11 +1390,12 @@ function showFromStart() {
         }
 
         // Check and show buttons for scandiQuizForm
-        if (userHasQuiz('userScandiQuiz')) {
+        if (userHasQuiz('scandiQuizForm')) {
             showButtons([
                 "savedscandiQuizFormAnswers",
                 "deletescandiQuizFormAnswers"
             ])
+			console.log('2')
         }else{
 
 			  // Hide other buttons
@@ -1136,21 +1404,28 @@ function showFromStart() {
 				"deletescandiQuizFormAnswers"
 				
 			])
+			console.log('3'+userHasQuiz('scandiQuizForm'))
 		}
 
         // Check and show buttons for userQuizForm
-        if (userHasQuiz('useQuizForm')) {
+        if (!userHasQuiz('userQuizForm')) {
             showButtons([
-                "scandiQuizButton"
+                "userQuizForm",
+                "userQuizButton",
+                "saveduserQuizFormAnswers",
+                "deleteuserQuizFormAnswers"
             ])
+			console.log('4')
         }else{
 
 			// Hide other buttons
 			hideButtons([
-			  "savedscandiQuizFormAnswers",
-			  "deletescandiQuizFormAnswers"
+			  "saveduserQuizFormAnswers",
+			  "deleteuserQuizFormAnswers"
+            
 			  
 		  ])
+		  console.log('5'+userHasQuiz('userQuizForm'))
 	  }
 
        
@@ -1162,7 +1437,17 @@ function showFromStart() {
             "scandiQuizButton",
             "makeYourOwnQuizButton"
         ])
-
+		// Hide other buttons
+		hideButtons([
+			"savedscandiQuizFormAnswers",
+			"deletescandiQuizFormAnswers",
+			"userQuizFormAnswers",
+			"userQuizFormAnswers",
+			"saveduserQuizFormAnswers",
+			"deleteuserQuizFormAnswers",
+			"deleteregisterUserFormAnswers"
+		])
+		
     }
 }
 

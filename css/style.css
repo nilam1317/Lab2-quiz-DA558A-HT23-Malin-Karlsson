@@ -36,7 +36,6 @@ html {
 .hero-image {
 	background-image: url("../images/flygplan2.jpg");
 	height: 50%;
-	/* Position and center the image to scale nicely on all screens */
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -64,7 +63,7 @@ main {
 
 .flex-container {
 	display: flex;
-	justify-content: center;
+	//justify-content: center;
 	align-items: flex-start;
 	/* flex-flow: row wrap; */
 	flex-direction: row;
@@ -72,7 +71,7 @@ main {
 	align-content: flex-start;
 	width: 100%;
 	justify-content: center;
-	overflow: auto;
+
 	background-color: #bbdefb;
 	padding: 15px;
 	gap: 5px;
@@ -102,6 +101,7 @@ main {
 
 #rightsideimage {
 	width: 250px;
+	;
 }
 
 /* On screens that are 1200px or less, set the background color to olive */
@@ -125,7 +125,8 @@ main {
 }
 
 .buttonsContainer {
-	width: 250px;
+	width: 200px;
+	;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -462,8 +463,6 @@ input[type=text],
 	font-size: 1em;
 	text-decoration: none;
 	font-family: 'Laila', serif;
-
-	 1px;
 	margin: 35px;
 
 
@@ -592,9 +591,7 @@ label.radiobuttons:hover {
 	height: 10px;
 	border: solid white;
 	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
+
 }
 
 
@@ -633,9 +630,10 @@ label.radiobuttons:hover {
 button,
 .linkbutton {
 	border: none;
-	padding: 0 20px;
+	padding: 0 ;
 	text-decoration: none;
-	width: 250px;
+	width: 200px;
+	
 	height: 40px;
 	margin: 20px 0;
 	cursor: pointer;
@@ -670,11 +668,21 @@ button:active {
 
 }
 
+.button_distance_quiz {
+
+	width: 100%;
+	margin: 15px auto;
+	text-align:center;
+}
+
+
 .button_distance {
 
-	width: 250px;
+	width: 200px;
+
 	margin: 15px auto;
 }
+
 
 .form_distance {
 	margin-top: 45px;
@@ -695,14 +703,14 @@ button:active {
 
 }
 
-.button_distance  p{
-		
-	display:block;
-	border-bottom:3px solid #f2bc6f;
-	margin:0;
-	padding:3px;
-	}
-	
+.button_distance p {
+
+	display: block;
+	border-bottom: 3px solid #f2bc6f;
+	margin: 0;
+	padding: 3px;
+}
+
 
 
 #error {
@@ -718,6 +726,24 @@ button:active {
 	z-index: 500;
 
 }
+
+
+
+#quizes {
+	position: fixed;
+	text-align: center;
+	font-size:0.8em;
+	bottom: 0;
+	background-color: #ebf5f3;
+	border: 6px solid #d7e0df;
+	color: black;
+	padding: 20px;
+	width: 660px;
+	margin: 0 50px;
+	z-index: 500;
+
+}
+
 
 /* On screens that are 1200px or less, set the background color to olive */
 @media screen and (max-width: 1200px) {
@@ -736,6 +762,22 @@ button:active {
 		z-index: 500;
 
 	}
+	
+	#quizes {
+	position: fixed;
+		bottom: 0;
+		left: 0;
+	background-color: #ebf5f3;
+	border: 6px solid #d7e0df;
+	color: black;
+	padding: 10px;
+		width: 100%;
+		margin: 0;
+		z-index: 500;
+
+}
+
+	
 
 	#points {
 		position: fixed;
@@ -752,8 +794,8 @@ button:active {
 	}
 
 	/*--send_button---*/
-	button,
-	.linkbutton {
+	button
+	 {
 		height: 40px;
 		font-size: 0.8em;
 		text-decoration: none;
@@ -764,26 +806,42 @@ button:active {
 
 	}
 
+#userQuizFormP a{
+		font-size: 0.6em;
+	}
 
-
+#userQuizFormP ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+	
+#userQuizFormP li:nth-child(odd) {
+background: #f2f7d7;
+  		
+        color: #000000;
+      }
+		
+	}
 
 	.button_distance {
 
-		width: 250px;
+		width: 200px;
+		;
 		margin: 5px auto;
-		padding:0;
+		padding: 0;
 	}
 
-.button_distance  p{
-		
-	display:block;
-	
-	border-bottom:3px solid #f2bc6f;
-	margin:0;
-	padding:3px;
+	.button_distance p {
+
+		display: block;
+
+		border-bottom: 3px solid #f2bc6f;
+		margin: 0;
+		padding: 3px;
 	}
-	
-	
+
+
 	.req,
 	form p {
 		text-align: center;

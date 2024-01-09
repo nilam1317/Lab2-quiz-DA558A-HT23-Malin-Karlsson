@@ -20,12 +20,12 @@
 	<link rel="stylesheet" href="css/style.css">
 	<title></title>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Execute showFromStart() when the DOM is fully loaded
-            showFromStart()
-        })
-    </script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Execute showFromStart() when the DOM is fully loaded
+			showFromStart()
+		})
+	</script>
 
 </head>
 
@@ -90,21 +90,14 @@
 				</div>
 				<div id="form_div2" style="display: none;">
 
-					<H1 id="headline1">Starting Point - Are you here to take the Sqandi Quiz? </H1>
+					<H1 id="headline1">The Scandi Quiz</H1>
 
-					<div class="buttonsContainer">
 
-						<div class="button_distance">
-
-							<button id="skip" style="display:block;" onclick="showThisForm('userQuizForm')">No, skip this Quiz</button>
-
-						</div>
-					</div>
 
 					<form id="scandiQuizForm" style="display: none;">
 
 						<fieldset>
-							<legend>The Scandi Quiz</legend>
+							<legend>Start here</legend>
 							<p class="req">*Required Fields</p>
 
 							<div class="form-contact">
@@ -179,7 +172,7 @@
 
 							</div>
 
-							<div class="button_distance">	
+							<div class="button_distance">
 								<button>Submit</button>
 							</div>
 
@@ -190,8 +183,9 @@
 				<div>
 					<span id="error" style="display:none;"></span>
 					<span id="points" style="display:none;"></span>
+					<span id="quizes" style="display:none;"></span>
 				</div>
-				
+
 				<div id="form_div3" style="display: none;">
 
 					<H3 id="headline3">Build your own quiz</H3>
@@ -211,17 +205,19 @@
 							<legend>Start here to build a quiz</legend>
 							<p>*Required Fields</p>
 
-							<div class="button_distance">
-								<button onclick="validateQandAs()">Save Quiz</button>
-							</div>
+
 
 						</fieldset>
-
+						
 					</form>
+						<div class="button_distance_quiz">
+							<button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button>
+							<button onclick="addQuestion()"> Add Blank Question</button>
+						</div>	
 
-					<div class="button_distance"><button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button></div>
-					<div class="button_distance"><button onclick="addQuestion()"> Add Blank Question</button></div>
-
+						<div class="button_distance">
+							<button id="saveQuiz" onclick="validateQandAs()">Save My Quiz</button>
+						</div>
 				</div>
 
 			</div>
@@ -233,8 +229,6 @@
 				<!--read what is stoared in localStorage-->
 
 				<script>
-						
-
 					function getJsonFunction() {
 
 						getJson("Questions.json");
@@ -256,29 +250,29 @@
 
 					<button style="display:block;" id="savedregisterUserFormAnswers" onclick="showStoredValue('registerUserForm')">Show my user info</button>
 
-			
+
 					<button id="deleteregisterUserFormAnswers" style="display:block;" onclick="deleteUserStored('registerUserForm')">Delete user info</button>
 					<p id="registerUserFormP"></p>
-				
+
 
 					<button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('scandiQuizForm')">Take the Scandi Quiz</button>
-				
+
 					<button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
-				
+
 
 					<button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
 					<p id="scandiQuizFormP"></p>
 
 					<button id="userQuizButton" style="display:block;" onclick="userQuizButton('userQuizForm')">Make your own Quiz</button>
-				
-					<button id="saveduserQuizFormAnswers" style="display:block;" onclick="showStoredQuestions()">Your saved questions</button>
 
-					<button id="deleteuserQuizFormAnswers" style="display:block;" onclick="deleteUserStored('userQuizFormAnswers')">Delete my saved questions</button>
+					<button id="saveduserQuizFormAnswers" style="display:block;" onclick="listUserQuizFormNames()">Your saved questions</button>
+
+					<button id="deleteuserQuizFormAnswers" style="display:block;" onclick="clearUserQuizForms()">Delete all my saved questions</button>
 
 					<p id="userQuizFormP"></p>
 				</div>
 
-			<img src="images/rightsideimage.jpg" id="rightsideimage">
+				<img src="images/rightsideimage.jpg" alt="Quiz Image" id="rightsideimage">
 
 			</div>
 
