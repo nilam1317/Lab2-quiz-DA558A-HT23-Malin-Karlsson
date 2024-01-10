@@ -27,84 +27,107 @@ registerFormData.addEventListener('submit', (e) => {
     }
 
     // Set the form type and pass it to the validation function
-    const formType = "registerUserForm";
+    const formType = "registerUserForm"
     useRegexValidation(formType, objectToPass)
-});
-
-
-
-
-// Add event listener to handle form click
-document.getElementById("saveQuiz").addEventListener("click", function (event) {
-    event.preventDefault(); // Prevent form from submitting/opening the URL
-   
 })
 
 
+
+
+
+// Function to pre-validate form by creating an object for numbers and values
 function preValidateForm() {
-    // the existing validation code...
+	// Initialize an object to store numbers and corresponding values
+	let resultObject = {}
+    console.log(countAnswerLabels2())
 
-    // Additional logic to concatenate values from specific input fields
-    let concatenatedValues = "";
+	// Loop through input fields with ids like "moreAnswerOptions2a", "moreAnswerOptions2b", etc.
+	for (let i = 1; i <= countAnswerLabels2(); i++) {
+		// Initialize a string to concatenate values for the current input field
+		let currentValuesString = ""
 
-    // Loop through input fields with ids like "moreAnswerOptions2a", "moreAnswerOptions2b", etc.
-    for (let i = 1; i <= countAnswerLabels2(); i++) {
-        ['a', 'b', 'c'].forEach(function (char) {
-            const inputId = "moreAnswerOptions" + i + char;
-            const inputElement = document.getElementById(inputId);
+		// Iterate through characters 'a', 'b', 'c'
+       // ['a', 'b', 'c'].forEach(function (char) {
+			// Construct the input ID based on the current loop index and character
+			//const inputId = "moreAnswerOptions" + i + char
 
-            if (inputElement) {
-                concatenatedValues += `Question ${i} - ${inputElement.value}\n`;
-            }
-        });
-    }
+            const inputId1 = "moreAnswerOptions" + i + 'a'
+            const inputId2 = "moreAnswerOptions" + i + 'b'
+            const inputId3 = "moreAnswerOptions" + i + 'c'
 
-    // Use the concatenatedValues string as needed in the validation logic
-    console.log(concatenatedValues);
+			// Get the input element by ID
+			//const inputElement = document.getElementById(inputId);
+
+            const inputElement1 = document.getElementById(inputId1);
+            const inputElement2 = document.getElementById(inputId2);
+            const inputElement3 = document.getElementById(inputId3);
+
+			// Check if the input element exists
+			if (inputElement1 || inputElement2 ||inputElement3   ) {
+				// Concatenate the value to the currentValuesString
+				currentValuesString = currentValuesString+inputElement1.value+inputElement2.value+inputElement3.value
+
+				// Set contenteditable attribute to "false" for corresponding YourAnswer element
+				document.getElementById("YourAnswer" + i).setAttribute("contenteditable", "false")
+			} else {
+				// If the input element doesn't exist, append an empty string
+				currentValuesString += ""
+			}
+
+		
+
+
+		// Store the concatenated values in the resultObject with the current index as the key
+		// Trim to remove any leading/trailing spaces
+		resultObject[i] = currentValuesString.trim();
+
+
+	}
+
+	// Call the validateQandAs function with the created resultObject
+	validateQandAs(resultObject)
 }
 
-function validateQandAs() {
+// Function to validate questions and answers
+function validateQandAs(resultObject) {
+    // Create an object to store questions and answers
+    const QandAsToPass = {};
 
-    preValidateForm()
+    // Get the userQuizForm element
+    const userQuizForm = document.getElementById("userQuizForm");
 
-	// Create an object to store questions and answers
-	const QandAsToPass = {}
-	const qs = []
-	const ans = []
-  
-	// Get the userQuizForm element
-	const userQuizForm = document.getElementById("userQuizForm")
-  
-	// Count the number of answer labels
-	let counted = countAnswerLabels2();
-        
-	for (let i = 1; i < counted +1; i++) {
-			// Push question and answer values to arrays
-			qs.push(document.getElementById("YourQuestion"+i).innerHTML)
-			ans.push(document.getElementById("YourAnswer"+i).innerHTML)
-            
-            // Loop through the answer labels
+    // Count the number of answer labels
+    let counted = countAnswerLabels2();
+
+    // Loop through answer labels
+    for (let i = 1; i < counted + 1; i++) {
+        // Get the answer element by ID
+        const myTest = document.getElementById("YourAnswer" + i);
+
+        // Check if the answer is not editable
+        if (myTest.getAttribute("contenteditable") === 'false') {
+            // If not editable, store the question from the form
+            QandAsToPass['question ' + i] = document.getElementById("YourQuestion" + i).innerHTML;
+
+            // Check if there is a corresponding answer in the resultObject
+            for (const key in resultObject) {
+                if (key == i) {
+                    // If found, add the answer to QandAsToPass
+                    QandAsToPass['answer ' + i] = resultObject[key];
+                }
+            }
+        } else {
+            // If answer is editable, store both question and answer
+            QandAsToPass['question ' + i] = document.getElementById("YourQuestion" + i).innerHTML;
+            QandAsToPass['answer ' + i] = document.getElementById("YourAnswer" + i).innerHTML;
+        }
     }
-  
 
-        
-	//create arrays from the inputs
-	function createObject(keys, values) {
-			const obj = Object.fromEntries(
-			keys.map((key, index) => [key, values[index]]),
-           
-		);
+    // Set the form type
+    let formtype = "userQuizForm";
 
-		return obj
-	}
-	
-	//create object from the array
-	const result = createObject(qs, ans)
-
-	let formtype = "userQuizForm"
-
-    
-	useRegexValidation2(formtype, result)	 
+    // Perform regex validation on the form data
+    useRegexValidation2(formtype, QandAsToPass);
 }
 
 
@@ -190,7 +213,8 @@ scandiQuizFormData.addEventListener('submit', (e) => {
     document.getElementById("error").style.display = "none"
 
     // Loop through the Q and A's
-    for (let i = 1; i < counted; i++) {
+    for (let i = 1; i < counted +1; i++) {
+
         let checkbox2 = "";
 
 
@@ -235,8 +259,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 
         } else if (i !== 2 || i !== 4) {
             // Move the submitted text from the div to the value attribute of the hidden input tag
-            
-            
+             
 		  	document.getElementById("sqAnswer"+1).setAttribute("value", document.getElementById("sqQuestion_" + 1).innerHTML)
 		  	document.getElementById("sqAnswer"+3).setAttribute("value", document.getElementById("sqQuestion_" + 3).innerHTML)
 		  	document.getElementById("sqAnswer"+5).setAttribute("value", document.getElementById("sqQuestion_" + 5).innerHTML)
@@ -263,10 +286,11 @@ scandiQuizFormData.addEventListener('submit', (e) => {
     const sans = []
 
     // Loop through the Q and A's again, this time push them into the arrays of sqs and sans
-    for (let j = 1; j < counted; j++) {
+    for (let j = 1; j < counted +1; j++) {
         // Collect data from hidden inputs
         // Push data into arrays
 		const collectAll = document.getElementById("sqAnswer"+j)
+        console.log(document.getElementById("sqAnswer"+j))
 		let dataText = collectAll.getAttribute("value")
 		
 		sqs.push(j.toString())
@@ -298,18 +322,21 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 
 
 
-// Function to validate data using regex
+// Function to validate basic textfields using regex
 function useRegexValidation2(formtype, result) {
     // Regular expression to match special characters
     let regexQandQs = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g
     var i = 0
     var formLength = Object.keys(result).length
+   
+    
+   
 
     // Loop through the properties in the result object
     for (let key in result) {
         let toTest = key
         let toTest2 = result[key]
-        console.log(key +':'+ result[key])
+        //(key +':'+ result[key])
 
         // Validate input and display appropriate error messages
         if (toTest == '' || toTest2 == '') {
@@ -323,6 +350,10 @@ function useRegexValidation2(formtype, result) {
         } else {
             i = ++i;
         }
+
+
+     
+
 
         const submittedQuiz = result;
 
@@ -367,7 +398,7 @@ function checkScandiQuiz(result) {
     function upperStrings(obj) {
         for (let attr in obj) {
             if (typeof obj[attr] === 'string') {
-                obj[attr] = obj[attr].toUpperCase();
+                obj[attr] = obj[attr].toUpperCase()
             } else if (typeof obj[attr] === 'object') {
                 upperStrings(obj[attr]);
             }
@@ -375,8 +406,10 @@ function checkScandiQuiz(result) {
     }
 
     // Convert both submittedQuiz and rightAnswers to uppercase
-    upperStrings(submittedQuiz);
-    upperStrings(rightAnswers);
+    upperStrings(submittedQuiz)
+    upperStrings(rightAnswers)
+
+
 
     // Calculate points by comparing user answers to correct answers
     let points = 0;
@@ -478,6 +511,7 @@ function showHideContent(form1, form2, form3, registerForm, scandiForm, quizForm
 
 function storeDataLocally(formtype, result) {
   
+ 
 
     // Process data based on the formtype
     if (formtype === "scandiQuizForm") {
@@ -530,6 +564,7 @@ function updateUI(formtype) {
 
 // Function to delete stored user data
 function deleteUserStored(formtype) {
+   
     // Check if the user is registered and has content to delete
     if (isYouserRegged() && userHasQuiz(formtype)) {
         // Remove the item from localStorage
@@ -630,7 +665,7 @@ function addQuestion() {
 
     AnswerDivField.setAttribute("id", "YourAnswer" + j);
     AnswerDivField.setAttribute("class", "multilineinput");
-    AnswerDivField.setAttribute("contenteditable", "true");
+    AnswerDivField.setAttribute("contenteditable", "plaintext-only");
 
     inputQuestionField.setAttribute("type", "hidden");
     inputAnswerField.setAttribute("type", "hidden");
@@ -664,129 +699,38 @@ function removeExistingCheckboxes() {
     });
 }
 
-/*
 
-// Function to add a new question dynamically
-function addQuestion() {
-    // Arrays for input names
-    const inputNameLabel = ["QuestionsNumber"]
-    const inputNameLabelAnswer = ["AnswerNumber"]
-
-    // Count the current number of questions
-    let j = countAnswerLabels2();
-    j += 1
-
-    // Prevent default form behavior on click
-    document.getElementById("userQuizForm").addEventListener("click", function (event) {
-        event.preventDefault();
-    })
-
-	var questionDiv = document.createElement("DIV")
-
-    // Create a new question container div
-	if (isEven(j)) {
-		questionDiv.setAttribute("id", "oddEven_" + j)
-		questionDiv.setAttribute("class", 'even')
-	} else {
-		questionDiv.setAttribute("id", "oddEven_" + j)
-		questionDiv.setAttribute("class", 'odd')
-	}
-
-    // Append the question container to the form fieldset
-    document.getElementById("userQuizFormFieldset").appendChild(questionDiv);
-
-    // Create label, input, and div elements for the question
-	var labelQuestionField = document.createElement("LABEL")
-	var QuestionDivField = document.createElement("DIV")
-	var inputQuestionField = document.createElement("INPUT")
-	
-
-    // Create label, input, and div elements for the answer
-	var labelAnswerField = document.createElement("LABEL")
-	var AnswerDivField = document.createElement("DIV")
-	var inputAnswerField = document.createElement("INPUT")
-   
-   
-
-
-//set attributes
-	labelQuestionField.setAttribute("for", "YourQuestion" + j)
-	labelAnswerField.setAttribute("for", "YourAnswer" + j)
-	
-	labelAnswerField.setAttribute("class", "answerLabelClass2")
-	labelQuestionField.setAttribute("class", "questionLabelClass")
-
-
-	labelQuestionField.setAttribute("id", "Question" + j)
-	labelAnswerField.setAttribute("id", "Answer" + j)
-    
-
-	QuestionDivField.setAttribute("id", "YourQuestion" + j)
-	QuestionDivField.setAttribute("class", "multilineinput")
-	QuestionDivField.setAttribute("contenteditable", "true")
-
-
-	AnswerDivField.setAttribute("id", "YourAnswer" + j)
-	AnswerDivField.setAttribute("class", "multilineinput")
-	AnswerDivField.setAttribute("contenteditable", "true")
-	
-
-	inputQuestionField.setAttribute("type", "hidden")
-	inputAnswerField.setAttribute("type", "hidden")
-    
-
-	inputQuestionField.setAttribute("id", "Your_Question" + j)
-	inputAnswerField.setAttribute("id", "Your_Answer" + j)
-
-   
-
-    // Append the created elements to the question container div
-	document.getElementById("oddEven_" + j).appendChild(labelQuestionField)
-	document.getElementById("oddEven_" + j).appendChild(inputQuestionField)
-	document.getElementById("oddEven_" + j).appendChild(QuestionDivField)
-	document.getElementById("oddEven_" + j).appendChild(labelAnswerField)
-	document.getElementById("oddEven_" + j).appendChild(inputAnswerField)
-	document.getElementById("oddEven_" + j).appendChild(AnswerDivField)
-   
-   
-   
-   
-
-
-    // Set labels for the question and answer
-    document.getElementById('Question' + j).innerHTML = `Question ${j}`
-    document.getElementById('Answer' + j).innerHTML = `Answer ${j}`
-   
-    addMoreAnswerCheckbox()
-
-
-    
-    // Add a delete button for the question
-    addDeleteButton(j);
-
-}
-
-*/
+// Function to add a checkbox for adding more answer options
 function addMoreAnswerCheckbox() {
+    // Get the current count of answer labels
     let j = countAnswerLabels2();
 
-    const checkBoxButton = document.getElementById("userQuizForm");
+    // Get the checkbox container element
+    const checkBoxButton = document.getElementById("userQuizForm")
 
+    // HTML string to insert a new checkbox
     let htmlToInsert =
-        '<div class="checkbox_container" id="checkbox_container'+j+'"><input class="check_box" type="checkbox"  id="moreAnswerOptions' + j + '" value="Add more answer options'+j+'">' +
-        '<span>Add more answer options for Question'+j+'</span></div>'
+        '<div class="checkbox_container" id="checkbox_container' + j + '"><input class="check_box" type="checkbox"  id="moreAnswerOptions' + j + '" value="Add more answer options' + j + '">' +
+        '<span>Add more answer options for Question' + j + '</span></div>'
 
+    // Insert the new checkbox HTML after the checkbox container
     checkBoxButton.insertAdjacentHTML("afterend", htmlToInsert)
 
+    // Get the newly created checkbox element
     var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions" + j)
 
+    // Check if the checkbox element exists
     if (moreAnswerOptionsCheckbox) {
+        // Add an event listener for the change event on the checkbox
         moreAnswerOptionsCheckbox.addEventListener("change", function () {
             // Check if the checkbox is checked
             if (moreAnswerOptionsCheckbox.checked) {
-                //the code to execute when the checkbox is checked
+                // Code to execute when the checkbox is checked
 
-                // Create text input elements
+                // Disable contenteditable for YourAnswer element
+                document.getElementById("YourAnswer" + j).setAttribute("contenteditable", "false");
+
+                // Create text input elements for additional answer options
                 var moreAnswerOptions1 = createTextInput("moreAnswerOptions" + j + 'a', "Answer option 1")
                 var moreAnswerOptions2 = createTextInput("moreAnswerOptions" + j + 'b', "Answer option 2")
                 var moreAnswerOptions3 = createTextInput("moreAnswerOptions" + j + 'c', "Answer option 3")
@@ -797,26 +741,25 @@ function addMoreAnswerCheckbox() {
                 document.getElementById("YourAnswer" + j).appendChild(moreAnswerOptions3)
 
                 // Update text for existing checkboxes
-                document.getElementById("moreAnswerOptions" + j).nextElementSibling.innerHTML = "Uncheck this box to remove answer options for Q"+j
-                
+                document.getElementById("moreAnswerOptions" + j).nextElementSibling.innerHTML = "Uncheck this box to remove answer options for Q" + j;
 
-                console.log("Checkbox is checked!");
             } else {
-                //The  code to execute when the checkbox is unchecked
+                // Code to execute when the checkbox is unchecked
 
-                // Remove text input elements
-                removeTextInput("moreAnswerOptions" + j + 'a')
-                removeTextInput("moreAnswerOptions" + j + 'b')
-                removeTextInput("moreAnswerOptions" + j + 'c')
+                // Remove text input elements for additional answer options
+                removeTextInput("moreAnswerOptions" + j + 'a');
+                removeTextInput("moreAnswerOptions" + j + 'b');
+                removeTextInput("moreAnswerOptions" + j + 'c');
 
                 // Update text for existing checkboxes
                 document.getElementById("moreAnswerOptions" + j).nextElementSibling.innerHTML = "Add more answer options"
-               // document.getElementById("moreAnswerOptions" + j).removeAttribute("disabled"); // Enable the checkbox
 
-                console.log("Checkbox is unchecked!")
+                // Enable the checkbox if needed
+                // document.getElementById("moreAnswerOptions" + j).removeAttribute("disabled")
             }
         });
     } else {
+        // Log an error if the checkbox element is not found
         console.error("Element not found!")
     }
 }
@@ -830,51 +773,6 @@ function removeTextInput(id) {
 }
 
 
-/*----------------------------------
-function addMoreAnswerCheckbox() {
-    let j = countAnswerLabels2();
-
-    const checkBoxButton = document.getElementById("userQuizForm");
-
-    let htmlToInsert =
-        '<div class="checkbox_container"><input class="check_box" type="checkbox" style="display:block;" id="moreAnswerOptions' + j + '" value="Add more answer options">' +
-        '<span>Add more answer options</span></div>';
-
-    checkBoxButton.insertAdjacentHTML("afterend", htmlToInsert);
-
-    var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions" + j);
-
-    if (moreAnswerOptionsCheckbox) {
-        moreAnswerOptionsCheckbox.addEventListener("change", function () {
-            // Check if the checkbox is checked
-            if (moreAnswerOptionsCheckbox.checked) {
-                // The code to execute when the checkbox is checked
-
-                // Create text input elements
-                var moreAnswerOptions1 = createTextInput("moreAnswerOptions" + j + 'a', "Answer option 1");
-                var moreAnswerOptions2 = createTextInput("moreAnswerOptions" + j + 'b', "Answer option 2");
-                var moreAnswerOptions3 = createTextInput("moreAnswerOptions" + j + 'c', "Answer option 3");
-
-                // Append text input elements to their respective containers
-                document.getElementById("YourAnswer"+j).appendChild(moreAnswerOptions1);
-                document.getElementById("YourAnswer"+j).appendChild(moreAnswerOptions2);
-                document.getElementById("YourAnswer"+j).appendChild(moreAnswerOptions3);
-
-                // Update text for existing checkboxes
-                document.getElementById("moreAnswerOptions" + j).nextElementSibling.innerHTML = "Add answer option 1.";
-                document.getElementById("moreAnswerOptions" + j).setAttribute("disabled", "true"); // Disable the checkbox
-        
-                
-                console.log("Checkbox is checked!");
-            } 
-        });
-    } else {
-        console.error("Element not found!");
-    }
-}
-----------------------------------------
-*/
-
 // Function to create a text input element
 function createTextInput(id, value) {
     var input = document.createElement("input");
@@ -883,72 +781,7 @@ function createTextInput(id, value) {
     input.setAttribute("value", value);
     return input;
 }
-/*
 
-function addMoreAnswerCheckbox() {
-
-    let j = countAnswerLabels2();
-
-
-    const checkBoxButton = document.getElementById("userQuizForm")
-
-    let htmlToInsert =
-
-
-        '<div class="checkbox_container"><input class="check_box" type="checkbox" id="moreAnswerOptions' + j + '" value="Add more answer options">' +
-        '<span>Add more answer options</span></div>'
-
-    checkBoxButton.insertAdjacentHTML("afterend", htmlToInsert)
-
-
-
-    var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions" + j);
-
-    if (moreAnswerOptionsCheckbox) {
-        moreAnswerOptionsCheckbox.addEventListener("change", function () {
-            // Check if the checkbox is checked
-            if (moreAnswerOptionsCheckbox.checked) {
-                // Your code to execute when the checkbox is checked
-
-                var moreAnswerOptions1 = document.createElement("INPUT")
-                moreAnswerOptions1.setAttribute("id", "moreAnswerOptions" + j+'a')
-                moreAnswerOptions1.setAttribute("type", "text")
-                moreAnswerOptions1.setAttribute("value", "Answer option 1")
-
-                var moreAnswerOptions2 = document.createElement("INPUT")
-                moreAnswerOptions2.setAttribute("id", "moreAnswerOptions" + j+'b')
-                moreAnswerOptions2.setAttribute("type", "text")
-                moreAnswerOptions2.setAttribute("value", "Answer option2")
-
-
-
-                var moreAnswerOptions3 = document.createElement("INPUT")
-                moreAnswerOptions3.setAttribute("id", "moreAnswerOptions" + j+'c')
-                moreAnswerOptions3.setAttribute("type", "text")
-                moreAnswerOptions3.setAttribute("value", "Answer option 3")
-
-
-                document.getElementById("YourAnswer1").appendChild(moreAnswerOptions1)
-                document.getElementById("YourAnswer2").appendChild(moreAnswerOptions2)
-                document.getElementById("YourAnswer3").appendChild(moreAnswerOptions3)
-
-                document.getElementById("moreAnswerOptions1".innerHTML = "Add answer option 1")
-                document.getElementById("moreAnswerOptions2".innerHTML = "Add answer option 2")
-                document.getElementById("moreAnswerOptions3".innerHTML = "Add answer option 3")
-
-                console.log("Checkbox is checked!");
-            } else {
-                // Your code to execute when the checkbox is unchecked
-                console.log("Checkbox is unchecked!");
-            }
-        })
-    } else {
-        console.error("Element not found!");
-    }
-
-}
-
-*/
 
 // Function to add a delete button for a question
 function addDeleteButton(j) {
@@ -961,22 +794,12 @@ function addDeleteButton(j) {
 
 }
 
-
-
-
-
-
-
-
 function pickRandom(ObjectFromFile) {
 
 	//Generate a random number/questions from 45
 	const numbers = Array(45).fill().map((_, index) => index + 1)
 	numbers.sort(() => Math.random() - 0.5)
 	const QuestionsToPick = (numbers.slice(0, 1))
-
-
-
 
 
 	//Indexing the keys in the object of questions and answerrs from file
@@ -994,10 +817,6 @@ function pickRandom(ObjectFromFile) {
 
 			//Getting the answer with the right index from the object
 
-
-
-
-
 			//looping throught the object to get the questions
 			let m = 0
 			for (const key in ObjectFromFile) {
@@ -1014,217 +833,168 @@ function pickRandom(ObjectFromFile) {
 
 				}
 
-
-
 			}
 		}
 	}
-
+    //send along 
 	randQuestion(theQuestion, theAnswer)
 }
 
 
-
-
-
+// Function to add or remove additional answer options based on checkbox state
 function addMoreAnswerOptions() {
     // Get the checkbox element
     var moreAnswerOptionsCheckbox = document.getElementById("moreAnswerOptions");
-  
+
     // Check if the checkbox is checked
     if (moreAnswerOptionsCheckbox.checked) {
-        console.log('hejva')
-      // Create input fields and checkboxes
-      for (let i = 0; i < 3; i++) {
-        // Create input field
-        var inputAnswerField = document.createElement("INPUT");
-        inputAnswerField.setAttribute("type", "text");
-        inputAnswerField.setAttribute("id", "Your_Answer_" + String.fromCharCode(97 + i)); // "a", "b", "c"
-  
-/*
-        var moreAnswerOptions = document.createElement("INPUT")
-var Your_Answer_a = document.createElement("INPUT")
-var Your_Answer_b = document.createElement("INPUT")
-var Your_Answer_c = document.createElement("INPUT")
+        // Code to execute when the checkbox is checked
 
-moreAnswerOptions.setAttribute("id", "moreAnswerOptions" + j)
-moreAnswerOptions.setAttribute("type", "checkbox")
-moreAnswerOptions.setAttribute("value", "Add more options for the answer")
+        // Loop to create input fields and checkboxes (3 times)
+        for (let i = 0; i < 3; i++) {
+            // Create input field for the answer
+            var inputAnswerField = document.createElement("INPUT");
+            inputAnswerField.setAttribute("type", "text");
+            inputAnswerField.setAttribute("id", "Your_Answer_" + String.fromCharCode(97 + i)); // "a", "b", "c"
 
-Your_Answer_a.setAttribute("id", " Your_Answer_c")
-Your_Answer_b.setAttribute("id", " Your_Answer_c")
-Your_Answer_c.setAttribute("id", " Your_Answer_c")
+            // Create corresponding checkbox
+            var checkbox = document.createElement("INPUT");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", "Check_" + String.fromCharCode(97 + i)); // "Check_a", "Check_b", "Check_c"
 
-Your_Answer_a.setAttribute("type", "text")
-Your_Answer_b.setAttribute("type", "text")
-Your_Answer_c.setAttribute("type", "text")
+            // Append input field and checkbox to their respective containers in the form
+            document.getElementById('div').appendChild(inputAnswerField);
+            document.getElementById('oddEven_1').appendChild(checkbox);
 
-moreAnswerOptions.setAttribute("id", "moreAnswerOptions" + j)
-moreAnswerOptions.setAttribute("type", "checkbox")
-moreAnswerOptions.setAttribute("value", "Add more options for the answer")
-
-Your_Answer_a.setAttribute("id", " Your_Answer_c")
-Your_Answer_b.setAttribute("id", " Your_Answer_c")
-Your_Answer_c.setAttribute("id", " Your_Answer_c")
-
-Your_Answer_a.setAttribute("type", "text")
-Your_Answer_b.setAttribute("type", "text")
-Your_Answer_c.setAttribute("type", "text")
-
-document.getElementById("oddEven_" + j).appendChild(moreAnswerOptions)
-document.getElementById("oddEven_" + j).appendChild(Your_Answer_a)
-document.getElementById("oddEven_" + j).appendChild(Your_Answer_b)
-document.getElementById("oddEven_" + j).appendChild(Your_Answer_c)
-*/
-
-        // Create corresponding checkbox
-        var checkbox = document.createElement("INPUT");
-        checkbox.setAttribute("type", "checkbox");
-        checkbox.setAttribute("id", "Check_" + String.fromCharCode(97 + i)); // "Check_a", "Check_b", "Check_c"
-  
-        // Append elements to the div in the form
-        document.getElementById('div').appendChild(inputAnswerField);
-        document.getElementById('oddEven_1').appendChild(checkbox);
-
-        console.log('case1')
-      }
+        }
     } else {
-      // If checkbox is unchecked, remove the added elements
-      for (let i = 0; i < 3; i++) {
-        var answerFieldToRemove = document.getElementById("Your_Answer_" + String.fromCharCode(97 + i));
-        var checkboxToRemove = document.getElementById("Check_" + String.fromCharCode(97 + i));
-  
-        // Check if the elements exist before attempting to remove
-        if (answerFieldToRemove) {
-          answerFieldToRemove.parentNode.removeChild(answerFieldToRemove);
+        // Code to execute when the checkbox is unchecked
+
+        // Loop to remove added elements (3 times)
+        for (let i = 0; i < 3; i++) {
+            // Get the elements to remove
+            var answerFieldToRemove = document.getElementById("Your_Answer_" + String.fromCharCode(97 + i));
+            var checkboxToRemove = document.getElementById("Check_" + String.fromCharCode(97 + i));
+
+            // Check if the elements exist before attempting to remove
+            if (answerFieldToRemove) {
+                answerFieldToRemove.parentNode.removeChild(answerFieldToRemove);
+            }
+
+            if (checkboxToRemove) {
+                checkboxToRemove.parentNode.removeChild(checkboxToRemove);
+            }
         }
-  
-        if (checkboxToRemove) {
-          checkboxToRemove.parentNode.removeChild(checkboxToRemove);
-        }
-      }
     }
-  }
+}
 
 
-//function to read what is stored
+// Function to display a randomly generated question and answer
 function randQuestion(theQuestion, theAnswer) {
-
-
+    // Remove any existing "Add more answer options" checkbox
     removeMoreAnswerCheckbox();
 
+    // Arrays to store label names for question and answer
+    const inputRandNameLabel = ["QuestionsRandNumber"];
+    const inputRandNameLabelAnswer = ["AnswerRandNumber"];
 
-	const inputRandNameLabel = ["QuestionsRandNumber"]
-	const inputRandNameLabelAnswer = ["AnswerRandNumber"]
+    // Get the current count of answer labels
+    let n = countAnswerLabels2();
+    n += 1;
 
+    // Prevent the default behavior of the click event on "randQuestionGenerator" element
+    document.getElementById("randQuestionGenerator").addEventListener("click", function (event) {
+        event.preventDefault();
+    });
 
-	let n = countAnswerLabels2()
+    // Create a new div for the question and answer
+    var questionDiv = document.createElement("div");
 
-	n += 1
+    // Set attributes for the div based on whether the count is even or odd
+    if (isEven(n)) {
+        questionDiv.setAttribute("id", "oddEven_" + n);
+        questionDiv.setAttribute("class", 'even');
+    } else {
+        questionDiv.setAttribute("id", "oddEven_" + n);
+        questionDiv.setAttribute("class", 'odd');
+    }
 
+    // Append the new div to the "userQuizFormFieldset" element
+    document.getElementById("userQuizFormFieldset").appendChild(questionDiv);
 
+    // Create elements for the question label, input, answer label, and input
+    var labelRandQuestionField = document.createElement("LABEL");
+    var RandQuestionDivField = document.createElement("DIV");
+    var inputRandQuestionField = document.createElement("INPUT");
 
-	document.getElementById("randQuestionGenerator").addEventListener("click", function (event) {
-		event.preventDefault()
-	})
+    var labelRandAnswerField = document.createElement("LABEL");
+    var RandAnswerDivField = document.createElement("DIV");
+    var inputRandAnswerField = document.createElement("INPUT");
 
+    // Set label values for question and answer
+    let labelValueRandQuestion = 'Question ' + n;
+    let labelValueRandAnswer = 'Answer ' + n;
 
+    // Set attributes for question label and answer label
+    labelRandQuestionField.setAttribute("for", 'YourQuestion' + n);
+    labelRandAnswerField.setAttribute("for", 'YourAnswer' + n);
+    labelRandAnswerField.setAttribute("class", 'answerLabelClass2');
+    labelRandQuestionField.setAttribute("class", 'questionLabelClass');
 
-	var questionDiv = document.createElement("div")
+    // Set IDs for question label and answer label
+    labelRandQuestionField.setAttribute("id", 'Question' + n);
+    labelRandAnswerField.setAttribute("id", 'Answer_' + n);
 
-	if (isEven(n)) {
-		questionDiv.setAttribute("id", "oddEven_" + n)
-		questionDiv.setAttribute("class", 'even')
-	} else {
-		questionDiv.setAttribute("id", "oddEven_" + n)
-		questionDiv.setAttribute("class", 'odd')
-	}
+    // Set types for hidden input fields
+    inputRandQuestionField.setAttribute("type", "hidden");
+    inputRandAnswerField.setAttribute("type", "hidden");
 
+    // Set IDs for hidden input fields
+    inputRandQuestionField.setAttribute("id", "Your_Question" + n);
+    inputRandAnswerField.setAttribute("id", "Your_Answer" + n);
 
-	document.getElementById("userQuizFormFieldset").appendChild(questionDiv)
+    // Set IDs and classes for divs containing question and answer
+    RandQuestionDivField.setAttribute("id", "YourQuestion" + n);
+    RandQuestionDivField.setAttribute("class", "multilineinput");
+    RandQuestionDivField.setAttribute("contenteditable", "plaintext-onlye");
 
+    RandAnswerDivField.setAttribute("id", "YourAnswer" + n);
+    RandAnswerDivField.setAttribute("class", "multilineinput");
+    RandAnswerDivField.setAttribute("contenteditable", "plaintext-only");
 
+    // Set initial values for hidden input fields
+    inputRandQuestionField.setAttribute("value", theQuestion);
+    inputRandAnswerField.setAttribute("value", theAnswer);
 
+    // Append label and input elements to the form
+    document.getElementById("userQuizFormFieldset").appendChild(labelRandQuestionField);
+    document.getElementById("userQuizFormFieldset").appendChild(inputRandQuestionField);
 
+    document.getElementById("userQuizFormFieldset").appendChild(labelRandAnswerField);
+    document.getElementById("userQuizFormFieldset").appendChild(inputRandAnswerField);
 
-	//inputRandNameLabel.push("Question" + n)
-	//inputRandNameLabelAnswer.push("Answer" + n)
+    // Append elements to the div in the form
+    document.getElementById("oddEven_" + n).appendChild(labelRandQuestionField);
+    document.getElementById("oddEven_" + n).appendChild(inputRandQuestionField);
+    document.getElementById("oddEven_" + n).appendChild(RandQuestionDivField);
+    document.getElementById("oddEven_" + n).appendChild(labelRandAnswerField);
+    document.getElementById("oddEven_" + n).appendChild(inputRandAnswerField);
+    document.getElementById("oddEven_" + n).appendChild(RandAnswerDivField);
 
-	var labelRandQuestionField = document.createElement("LABEL")
-	var RandQuestionDivField = document.createElement("DIV")
-	var inputRandQuestionField = document.createElement("INPUT")
+    // Set innerHTML for question and answer labels
+    document.getElementById('Question' + n).innerHTML = 'Question ' + n;
+    document.getElementById('Answer_' + n).innerHTML = 'Answer ' + n;
 
-	var labelRandAnswerField = document.createElement("LABEL")
-	var RandAnswerDivField = document.createElement("DIV")
-	var inputRandAnswerField = document.createElement("INPUT")
+    // Set innerHTML for question and answer divs
+    document.getElementById("YourQuestion" + n).innerHTML = theQuestion;
+    document.getElementById("YourAnswer" + n).innerHTML = theAnswer;
 
-	let labelValueRandQuestion = 'Question ' + n
-	let labelValueRandAnswer = 'Answer ' + n
+    // Get label elements by ID
+    let labelElement = document.getElementById(inputRandNameLabel[n]);
+    let labelElement2 = document.getElementById(inputRandNameLabelAnswer[n]);
 
-
-
-	//let labelValueRandQuestion = inputRandNameLabel[n].substr(0, 8) + ' ' + inputRandNameLabel[n].substr(8);
-	//let labelValueRandAnswer = inputRandNameLabelAnswer[n].substr(0, 6) + ' ' + inputRandNameLabel[n].substr(8);
-
-
-	labelRandQuestionField.setAttribute("for", 'YourQuestion' + n)
-	labelRandAnswerField.setAttribute("for", 'YourAnswer' + n)
-	labelRandAnswerField.setAttribute("class", 'answerLabelClass2')
-	labelRandQuestionField.setAttribute("class", 'questionLabelClass')
-
-	labelRandQuestionField.setAttribute("id", 'Question' + n)
-	labelRandAnswerField.setAttribute("id", 'Answer_' + n)
-
-	//labelRandQuestionField.value = 'YourQuestion' + n
-	//labelRandAnswerField = 'YourAnswer' + n
-
-	inputRandQuestionField.setAttribute("type", "hidden")
-	inputRandAnswerField.setAttribute("type", "hidden")
-
-	inputRandQuestionField.setAttribute("id", "Your_Question" + n)
-	inputRandAnswerField.setAttribute("id", "Your_Answer" + n)
-
-	RandQuestionDivField.setAttribute("id", "YourQuestion" + n)
-	RandQuestionDivField.setAttribute("class", "multilineinput")
-	RandQuestionDivField.setAttribute("contenteditable", "true")
-
-
-	inputRandQuestionField.setAttribute("value", theQuestion)
-	inputRandAnswerField.setAttribute("value", theAnswer)
-
-	RandAnswerDivField.setAttribute("id", "YourAnswer" + n)
-	RandAnswerDivField.setAttribute("class", "multilineinput")
-	RandAnswerDivField.setAttribute("contenteditable", "true")
-
-
-	document.getElementById("userQuizFormFieldset").appendChild(labelRandQuestionField)
-
-	document.getElementById("userQuizFormFieldset").appendChild(inputRandQuestionField)
-
-	document.getElementById("userQuizFormFieldset").appendChild(labelRandAnswerField)
-	document.getElementById("userQuizFormFieldset").appendChild(inputRandAnswerField)
-
-	document.getElementById("oddEven_" + n).appendChild(labelRandQuestionField)
-	document.getElementById("oddEven_" + n).appendChild(inputRandQuestionField)
-	document.getElementById("oddEven_" + n).appendChild(RandQuestionDivField)
-	document.getElementById("oddEven_" + n).appendChild(labelRandAnswerField)
-	document.getElementById("oddEven_" + n).appendChild(inputRandAnswerField)
-	document.getElementById("oddEven_" + n).appendChild(RandAnswerDivField)
-
-
-	document.getElementById('Question' + n).innerHTML = 'Question ' + n
-	document.getElementById('Answer_' + n).innerHTML = 'Answer ' + n
-
-	document.getElementById("YourQuestion" + n).innerHTML = theQuestion
-	document.getElementById("YourAnswer" + n).innerHTML = theAnswer
-
-
-	let labelElement = document.getElementById(inputRandNameLabel[n]);
-	let labelElement2 = document.getElementById(inputRandNameLabelAnswer[n]);
-
-
-
-	addDeleteButton(n)
+    // Add a delete button for the generated question
+    addDeleteButton(n);
 }
 
 // Function to remove the "more answer options" checkbox and its container
@@ -1235,67 +1005,7 @@ function removeMoreAnswerCheckbox() {
     })
 }
 
-/*
-// Function to delete a question and reorganize the remaining questions and answers
-function deleteQuestion(val) {
-    // Get the total number of questions before deleting anything 
-    let totalQuestions = countAnswerLabels2();
 
-    // Add an event listener to prevent page reload when the button is pressed
-    document.getElementById("userQuizForm").addEventListener("click", function (event) {
-        // Do not reload the page when the button is pressed
-        event.preventDefault();
-    });
-
-    // Loop through all the pairs of questions and answers
-    for (let i = 1; i <= totalQuestions; i++) {
-        // Single out the ones that will come after the deleted question and therefore need new id/class
-        // 'val' is the number in the id of the button pressed
-        if (i > val) {
-            // Get the input value from the text fields
-            // Move them one step up in the pair of Q&A
-            let valToMoveQ = document.getElementById("YourQuestion" + i).innerHTML;
-            let valToMoveA = document.getElementById("YourAnswer" + i).innerHTML;
-
-            // Update the text and values for the previous pair
-            document.getElementById("YourQuestion" + (i - 1)).innerHTML = valToMoveQ;
-            document.getElementById("Your_Question" + (i - 1)).value = valToMoveQ;
-            document.getElementById("YourAnswer" + (i - 1)).innerHTML = valToMoveA;
-            document.getElementById("Your_Answer" + (i - 1)).value = valToMoveA;
-        }
-    }
-
-    // Delete all elements with the highest id number in the pairs of Q & A
-    const element = document.getElementById('Question' + totalQuestions);
-    const element2 = document.getElementById('YourQuestion' + totalQuestions);
-    const element3 = document.getElementById('Answer' + totalQuestions);
-    const element4 = document.getElementById('YourAnswer' + totalQuestions);
-    const element5 = document.getElementById('YourButton' + totalQuestions);
-    const element6 = document.getElementById('oddEven_' + totalQuestions);
-
-    // But only if there is actually something to remove
-    if (element != null) {
-        element.remove();
-    }
-    if (element2 != null) {
-        element2.remove();
-    }
-    if (element3 != null) {
-        element3.remove();
-    }
-    if (element4 != null) {
-        element4.remove();
-    }
-    if (element5 != null) {
-        element5.remove();
-    }
-    if (element6 != null) {
-        element6.remove();
-    }
-
-    // Update the total number of questions
-    totalQuestions -= 1;
-}*/
 
 // Function to delete a question and reorganize the remaining questions and answers
 function deleteQuestion(val) {
@@ -1396,8 +1106,6 @@ function userHasQuiz(formtype){
 function showStoredValue(formtype) {
     // Check if the user is registered
     
-
-
     if (isYouserRegged()) {
         // Parse the stored object from localStorage
         const storedObject = JSON.parse(localStorage.getItem(formtype));
@@ -1462,18 +1170,18 @@ function listUserQuizFormNames() {
         let formattedString = '';
         Object.entries(parsedObject).forEach(([key, value], index) => {
           formattedString += `Q${index + 1}. ${key.replace(/:/g,'<br>')} <br>A: ${value}<br><br>`
-        });
+        })
   
         quizesContainer.innerHTML = formattedString;
   
         const closeButtonX = document.getElementById("quizes");
         let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
         closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
-      });
+      })
   
       li.appendChild(link);
       ul.appendChild(li);
-    });
+    })
   
     // Append the ul to the existing div with id 'userQuizFormP'
     const userQuizFormPContainer = document.getElementById('userQuizFormP');
@@ -1502,7 +1210,7 @@ function listUserQuizFormNames() {
     // Remove localStorage items
     userQuizFormNames.forEach(key => {
       localStorage.removeItem(key)
-    });
+    })
   
     // Remove the associated ul list
     const userQuizFormPContainer = document.getElementById('userQuizFormP')
@@ -1514,11 +1222,10 @@ function listUserQuizFormNames() {
 
 // Function to read and display stored values
 function showStoredQuestions(formtype) {
-    // Check if the user is registered
  
     const userQuizFormsList = listUserQuizFormNames();
-    console.log(userQuizFormsList);
-   
+  
+     // Check if the user is registered
 
     if (isYouserRegged()) {
         // Parse the stored object from localStorage
@@ -1605,6 +1312,7 @@ function scandiQuizButton(formtype){
 	}
 }
 
+
 // Function for the userQuizButton
 function userQuizButton(formtype) {
     // Check if the user is registered and if there is a form already saved
@@ -1657,22 +1365,9 @@ function userQuizButton(formtype) {
     }
 }
 
-
-
-
-
-
-
 //Function to check if data from any of the forms are stored locally
 function thisFormInfo(formtype){
-	/*const getObject = JSON.parse(localStorage.getItem(formtype))
 	
-	//if the object exists (i.e the object is not empty) return true
-	const isObjectEmpty = (getObject) => {
-		return Object.keys(getObject).length > 0
-			
-	}*/
-
 !localStorage.getItem(formtype)
 	
 
@@ -1701,42 +1396,6 @@ function showThisForm(formtype){
 	
 }
 
-/*
-
-/// Function to check and show appropriate buttons based on stored form data
-function showFromStart() {
-    // Check if data for the registerUserForm is stored locally
-
-
-	// Check if the user is registered and if there is a form already saved
-    if (isYouserRegged() && userHasQuiz('registerUserForm')) {
- 	//show buttons for registerUserForm
- 	document.getElementById("savedregisterUserFormAnswers").style.display = "block"
- 	document.getElementById("deleteregisterUserFormAnswers").style.display = "block"
-	document.getElementById("scandiQuizButton").style.display = "block"
-	
-}
-	// Check if the user is registered and if there is a form already saved
-    if (isYouserRegged() && userHasQuiz('userScandiQuiz')) {
-		//show buttons for registerUserForm
-		// Show buttons for scandiQuizForm
-		document.getElementById("savedregisterUserFormAnswers").style.display = "block";
- 		document.getElementById("deleteregisterUserFormAnswers").style.display = "block";
-        document.getElementById("savedscandiQuizFormAnswers").style.display = "block";
-        document.getElementById("deletescandiQuizFormAnswers").style.display = "block";
-		document.getElementById("scandiQuizButton").style.display = "block";
-   }
-   if (isYouserRegged() && userHasQuiz('useQuizForm')) {
-
-   // show buttons for scandiQuizForm
-   	document.getElementById("savedregisterUserFormAnswers").style.display = "block";
-   	document.getElementById("deleteregisterUserFormAnswers").style.display = "block";
-  	document.getElementById("scandiQuizButton").style.display = "block";
-}
-
-    
-}
-*/
 
 
 /// Function to check and show appropriate buttons based on stored form data
@@ -1745,7 +1404,7 @@ function showFromStart() {
     if (isYouserRegged()) {
         // Check and show buttons for registerUserForm
         if (userHasQuiz('registerUserForm')) {
-			console.log('1')
+			
             showButtons([
                 "savedregisterUserFormAnswers",
                 "deleteregisterUserFormAnswers",
@@ -1760,7 +1419,7 @@ function showFromStart() {
                 "savedscandiQuizFormAnswers",
                 "deletescandiQuizFormAnswers"
             ])
-			console.log('2')
+		
         }else{
 
 			  // Hide other buttons
@@ -1769,7 +1428,7 @@ function showFromStart() {
 				"deletescandiQuizFormAnswers"
 				
 			])
-			console.log('3'+userHasQuiz('scandiQuizForm'))
+			
 		}
 
         // Check and show buttons for userQuizForm
@@ -1780,7 +1439,7 @@ function showFromStart() {
                 "saveduserQuizFormAnswers",
                 "deleteuserQuizFormAnswers"
             ])
-			console.log('4')
+			
         }else{
 
 			// Hide other buttons
@@ -1790,7 +1449,7 @@ function showFromStart() {
             
 			  
 		  ])
-		  console.log('5'+userHasQuiz('userQuizForm'))
+	
 	  }
 
        
@@ -1819,19 +1478,19 @@ function showFromStart() {
 function showButtons(buttonIds) {
     // Utility function to show an array of buttons
     buttonIds.forEach(buttonId => {
-        const button = document.getElementById(buttonId);
+        const button = document.getElementById(buttonId)
         if (button) {
-            button.style.display = "block";
+            button.style.display = "block"
         }
-    });
+    })
 }
 
 function hideButtons(buttonIds) {
     // Utility function to hide an array of buttons
     buttonIds.forEach(buttonId => {
-        const button = document.getElementById(buttonId);
+        const button = document.getElementById(buttonId)
         if (button) {
-            button.style.display = "none";
+            button.style.display = "none"
         }
-    });
+    })
 }

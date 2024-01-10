@@ -68,7 +68,7 @@ main {
 	/* flex-flow: row wrap; */
 	flex-direction: row;
 	flex-wrap: wrap;
-	align-content: flex-start;
+	//align-content: flex-start;
 	width: 100%;
 	justify-content: center;
 
@@ -494,63 +494,74 @@ textarea {
 }
 
 
-
+//----------------------------------
 /* The container */
 .container2 {
-
-	display: block;
-	position: relative;
-	padding: 0 0 20px 35px;
-	margin: 0 0 0 30px;
-	cursor: pointer;
-	font-size: 22px;
-
-}
-
-.container2 span {
-	font-size: 0.8em;
-     padding-bottom:10px;
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Hide the browser's default checkbox */
 .container2 input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-	height: 0;
-	width: 0;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
 
 /* Create a custom checkbox */
 .checkmark2 {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 30px;
-	width: 30px;
-	border: 1px solid grey;
-	background-color: #eee;
+ 
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
 }
 
-/* The container */
-.container {
-
-	display: block;
-	position: relative;
-	padding-left: 35px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	font-size: 22px;
-
+/* On mouse-over, add a grey background color */
+.container2:hover input ~ .checkmark2 {
+  background-color: #ccc;
 }
 
-.container span {
-	font-size: 0.8em;
+/* When the checkbox is checked, add a blue background */
+.container2 input:checked ~ .checkmark2 {
+  background-color: #2196F3;
 }
 
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark2:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
 
+/* Show the checkmark when checked */
+.container2 input:checked ~ .checkmark2:after {
+  display: block;
+}
 
----------------------------------
+/* Style the checkmark/indicator */
+.container2 .checkmark2:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+//---------------------------------
 
 .radiobuttons label:first child {
 
@@ -837,19 +848,19 @@ button:active {
 		font-size: 0.6em;
 	}
 
-#userQuizFormP ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+	#userQuizFormP ul {
+  		list-style-type: none;
+  		margin: 0;
+  		padding: 0;
+	}
 	
-#userQuizFormP li:nth-child(odd) {
-background: #f2f7d7;
+	#userQuizFormP li:nth-child(odd) {
+		background: #f2f7d7;
   		
         color: #000000;
       }
 		
-	}
+
 
 	.button_distance {
 
@@ -878,10 +889,6 @@ background: #f2f7d7;
 	.form-contact {
 		width: 100%;
 		display: block;
-
-
-
-
 	}
 
 
