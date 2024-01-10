@@ -270,7 +270,8 @@ form p {
 
 .multilineinput {
 	padding: 15px;
-	height: 100px;
+	min-height: 100px;
+    max-height:500px;
 	width: 90%;
 	background: rgba(255, 255, 255, 0.3);
 	margin: 5%;
@@ -385,11 +386,7 @@ label {
 	margin: 10px;
 }
 
-.radiobuttons label:first child {
 
-	font-weight: 400;
-	margin: 10px;
-}
 
 .form-control {
 
@@ -496,6 +493,72 @@ textarea {
 		/* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
+
+
+/* The container */
+.container2 {
+
+	display: block;
+	position: relative;
+	padding: 0 0 20px 35px;
+	margin: 0 0 0 30px;
+	cursor: pointer;
+	font-size: 22px;
+
+}
+
+.container2 span {
+	font-size: 0.8em;
+     padding-bottom:10px;
+}
+
+/* Hide the browser's default checkbox */
+.container2 input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark2 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 30px;
+	width: 30px;
+	border: 1px solid grey;
+	background-color: #eee;
+}
+
+/* The container */
+.container {
+
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 22px;
+
+}
+
+.container span {
+	font-size: 0.8em;
+}
+
+
+
+---------------------------------
+
+.radiobuttons label:first child {
+
+	font-weight: 400;
+	margin: 10px;
+}
+
+
 /*The container for radio bbuttons */
 .radiobuttons {
 
@@ -505,6 +568,22 @@ textarea {
 	margin: 25px 0;
 	cursor: pointer;
 	user-select: none;
+}
+
+#moreForm label {
+	font-family: 'Laila', serif;
+	display: inline;
+	font-size: 1em;
+	font-weight: 400;
+	margin: 10px;
+}
+
+#form_div3 label {
+	font-family: 'Laila', serif;
+	display: inline;
+	font-size: 1em;
+	font-weight: 400;
+	margin: 10px;
 }
 
 
@@ -524,92 +603,9 @@ label.radiobuttons:hover {
 	opacity: 0;
 	cursor: pointer;
 }
-
-/* The container */
-.container {
-
-	display: block;
-	position: relative;
-	padding-left: 35px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	font-size: 22px;
-
-}
-
-.container span {
-	font-size: 0.8em;
-}
-
-/* Hide the browser's default checkbox */
-.container input {
-	position: absolute;
-	opacity: 0;
-	cursor: pointer;
-	height: 0;
-	width: 0;
-}
-
-/* Create a custom checkbox */
-.checkmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 25px;
-	width: 25px;
-	border: 1px solid grey;
-	background-color: #eee;
-}
-
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-	background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark {
-	background-color: #2196F3;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
-}
-
-/* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-	display: block;
-}
-
-/* Style the checkmark/indicator */
-.container .checkmark:after {
-	left: 9px;
-	top: 5px;
-	width: 5px;
-	height: 10px;
-	border: solid white;
-	border-width: 0 3px 3px 0;
-
-}
-
-
-/* On mouse-over, add a grey background color */
-.container:hover input {
-	background-color: #ccc;
-}
-
-/* When the checkbox is checked, add a blue background */
-.container input:checked {
-	background-color: #2196F3;
-}
-
-
-
 /* Show the indicator (dot/circle) when checked */
 .radiobuttons input:checked {
-	display: block;
+	//display: block;
 }
 
 /* Style the indicator (dot/circle) */
@@ -621,6 +617,7 @@ label.radiobuttons:hover {
 	border-radius: 50%;
 	background: white;
 }
+
 
 
 
@@ -745,6 +742,25 @@ button:active {
 }
 
 
+
+#userQuizFormP a{
+	font-size: 0.6em;
+	}
+
+#userQuizFormP ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+	
+#userQuizFormP li:nth-child(odd) {
+    background: #f2f7d7;
+  		
+        color: #000000;
+      }
+		
+
+
 /* On screens that are 1200px or less, set the background color to olive */
 @media screen and (max-width: 1200px) {
 
@@ -764,18 +780,18 @@ button:active {
 	}
 	
 	#quizes {
-	position: fixed;
+	   position: fixed;
 		bottom: 0;
 		left: 0;
-	background-color: #ebf5f3;
-	border: 6px solid #d7e0df;
-	color: black;
-	padding: 10px;
+	   background-color: #ebf5f3;
+	   border: 6px solid #d7e0df;
+	   color: black;
+	   padding: 10px;
 		width: 100%;
 		margin: 0;
 		z-index: 500;
 
-}
+    }
 
 	
 
@@ -805,8 +821,19 @@ button:active {
 		margin: 5px auto;
 
 	}
+    
+    .check_box {
+		margin: 20px;
 
-#userQuizFormP a{
+	}
+     .checkbox_container {
+		width:100%;
+         text-align:center;
+         margin:0 auto;
+
+	}
+
+    #userQuizFormP a{
 		font-size: 0.6em;
 	}
 
