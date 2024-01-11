@@ -248,7 +248,8 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 		
 			if(checkbox2 =="") {
 				document.getElementById("error").style.display = "block"
-				document.getElementById("error").innerHTML = 'You must check at least one of the checkboxes.'
+				//document.getElementById("error").innerHTML = 'You must check at least one of the checkboxes.'
+                checkbox2 = "NOTHING"
 			} 
 
         } else if (i === 4) {
@@ -268,7 +269,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 			let f = document.getElementById("sqQuestion_"+ i).innerHTML
 			f = f.trim()
 
-			if (f == "") {
+			if (f == ".") {
 			    //Show error message
 			    document.getElementById("error").style.display = "block"
 			    document.getElementById("error").innerHTML = 'You must enter text in all fields..'
@@ -337,7 +338,25 @@ function useRegexValidation2(formtype, result) {
         let toTest = key
         let toTest2 = result[key]
         //(key +':'+ result[key])
+        
+        console.log('test 77'+ document.getElementById("sqAnswer2A"))
+       
+       
 
+        //Make variables for the four checkbox options on question 2 of the Sqandiquiz
+        let checkboxA = document.getElementById("sqAnswer2a");
+        let checkboxB = document.getElementById("sqAnswer2b");
+        let checkboxC = document.getElementById("sqAnswer2c");
+        let checkboxD = document.getElementById("sqAnswer2d");
+
+        //check if all of them are left unchecked
+        if ( !checkboxA.checked && !checkboxB.checked &&  !checkboxB.checked &&  !checkboxB.checked) {
+           
+           //If that is the case set the value to "nothing" so thet it passes validation
+            document.getElementById("sqAnswer2").setAttribute("value", "nothing"); 
+           } 
+
+        
         // Validate input and display appropriate error messages
         if (toTest == '' || toTest2 == '') {
             showError('You must enter text in all fields.')
@@ -345,11 +364,14 @@ function useRegexValidation2(formtype, result) {
             showError('You entered "' + toTest + '" in a field where no special characters are allowed.')
         } else if (toTest2.match(regexQandQs)) {
             showError('You entered "' + toTest2 + '" in a field where no special characters are allowed.')
+          
+        //if I want to make the select question 4 in the ScandiQuizz to be "required" this is where I do that   
         //} else if (toTest2 == "Select one") {
             //showError('You have not selected an option on one of the selectbox questions.')
         } else {
             i = ++i;
         }
+
 
 
      
@@ -413,9 +435,10 @@ function checkScandiQuiz(result) {
 
     // Calculate points by comparing user answers to correct answers
     let points = 0;
-    for (let i = 1; i < countAnswerLabels(); i++) {
+    for (let i = 1; i < countAnswerLabels()+1; i++) {
         // stringify and remove all whitespaces within both user answers and the right answers 
         // before comparing the two
+        console.log(submittedQuiz[i])
         if (JSON.stringify(submittedQuiz[i].replace(/\s/g, "")) === JSON.stringify(rightAnswers[i]).replace(/\s/g, "")) {
             points += 1;
         }
@@ -547,13 +570,15 @@ function storeDataLocally(formtype, result) {
 function updateUI(formtype) {
     if (formtype === "registerUserForm") {
         // Update UI elements for the registerUserForm
-        document.getElementById("savedregisterUserFormAnswers").style.display = "block";
+        document.getElementById("showUserFormAnswers").style.display = "block";
         document.getElementById("deleteregisterUserFormAnswers").style.display = "block";
         document.getElementById("scandiQuizFormP").innerHTML = "";
+        document.getElementById("scandiQuizFormP2").innerHTML = "";
     } else if (formtype === "scandiQuizForm") {
         // Update UI elements for the ScandiQuizForm
         document.getElementById("savedscandiQuizFormAnswers").style.display = "block";
         document.getElementById("deletescandiQuizFormAnswers").style.display = "block";
+        document.getElementById("savedscandiQuizFormAnswers").style.display = "block";
     }
 
     // might add more here....
@@ -573,6 +598,11 @@ function deleteUserStored(formtype) {
         document.getElementById(formtype + "P").innerHTML = "";
         // Display an alert indicating successful deletion
         alert('Info deleted!');
+       
+       if(formtype =="scandiQuizForm") {
+        document.getElementById(formtype + "P2").innerHTML = "";
+        //document.getElementById(formtype + "P2").innerHTML = "";
+        }
     }
     // User is registered but doesn't have anything saved
     else if (isYouserRegged()) {
@@ -1116,9 +1146,9 @@ function showStoredValue(formtype) {
         for (const key in storedObject) {
             // Concatenate key-value pairs to form the string to display
             stringToShow = stringToShow + key + ': ' + storedObject[key] + '<br>'
-            document.getElementById(formtype + 'P').innerHTML = stringToShow;
+           
         }
-
+        document.getElementById(formtype + 'P').innerHTML = stringToShow;
         // If there is nothing stored to show
         if (stringToShow === "") {
             document.getElementById("error").style.display = "block"
@@ -1136,6 +1166,53 @@ function showStoredValue(formtype) {
         closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert)
     }
 }
+
+// Function to read and display stored values
+function showStoredQuizes(formtype) {
+    // Check if the user is registered
+    if (isYouserRegged()) {
+        // Parse the stored object from localStorage
+        const storedObject = JSON.parse(localStorage.getItem(formtype));
+        document.getElementById("form_div4").style.display = 'block'
+
+        
+        // Check if there is anything stored
+        if (storedObject) {
+            // Iterate through the key-value pairs and create textboxes
+            for (const key in storedObject) {
+                // Create a new textbox
+                const textBox = document.createElement("input");
+                // Set textbox attributes
+                textBox.type = "text";
+                textBox.value = storedObject[key];
+                // Append the textbox to the specified container (formtype + 'P2')
+                document.getElementById(formtype + 'P2').appendChild(textBox);
+
+                // You may add labels or any other relevant information here
+                // For example:
+                const label = document.createElement("label");
+                label.innerHTML = key + ': ';
+                document.getElementById(formtype + 'P2').appendChild(label);
+            }
+        } else {
+            // If there is nothing stored to show
+            document.getElementById("error").style.display = "block";
+            document.getElementById("error").innerHTML = "There is nothing saved.";
+            const closeButtonX = document.getElementById("error");
+            let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
+            closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
+        }
+    } else {
+        // Display an error message if the user is not registered
+        document.getElementById("error").style.display = "block";
+        document.getElementById("error").innerHTML = "You need to register before you can use this function!";
+        const closeButtonX = document.getElementById("error");
+        let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
+        closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
+    }
+}
+
+
 
 function listUserQuizFormNames() {
     const userQuizFormNames = Object.keys(localStorage)
@@ -1417,7 +1494,8 @@ function showFromStart() {
         if (userHasQuiz('scandiQuizForm')) {
             showButtons([
                 "savedscandiQuizFormAnswers",
-                "deletescandiQuizFormAnswers"
+                "deletescandiQuizFormAnswers",
+                "editScandiQuizFormAnswers"
             ])
 		
         }else{
@@ -1425,7 +1503,8 @@ function showFromStart() {
 			  // Hide other buttons
 			  hideButtons([
 				"savedscandiQuizFormAnswers",
-				"deletescandiQuizFormAnswers"
+				"deletescandiQuizFormAnswers",
+                "editScandiQuizFormAnswers"
 				
 			])
 			
@@ -1437,7 +1516,8 @@ function showFromStart() {
                 "userQuizForm",
                 "userQuizButton",
                 "saveduserQuizFormAnswers",
-                "deleteuserQuizFormAnswers"
+                "deleteuserQuizFormAnswers",
+                "editScandiQuizFormAnswers"
             ])
 			
         }else{
@@ -1445,7 +1525,8 @@ function showFromStart() {
 			// Hide other buttons
 			hideButtons([
 			  "saveduserQuizFormAnswers",
-			  "deleteuserQuizFormAnswers"
+			  "deleteuserQuizFormAnswers",
+              "editScandiQuizFormAnswers"
             
 			  
 		  ])
