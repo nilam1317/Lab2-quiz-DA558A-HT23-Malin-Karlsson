@@ -345,8 +345,8 @@ function useRegexValidation2(formtype, result) {
             showError('You entered "' + toTest + '" in a field where no special characters are allowed.')
         } else if (toTest2.match(regexQandQs)) {
             showError('You entered "' + toTest2 + '" in a field where no special characters are allowed.')
-        } else if (toTest2 == "Select one") {
-            showError('You have not selected an option on one of the selectbox questions.')
+        //} else if (toTest2 == "Select one") {
+            //showError('You have not selected an option on one of the selectbox questions.')
         } else {
             i = ++i;
         }
