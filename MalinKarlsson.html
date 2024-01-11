@@ -191,7 +191,7 @@
 
                 <div id="form_div3" style="display: none;">
 
-                    <H3 id="headline3">Build your own quiz</H3>
+                    <H3 id="headline3">Build your own quiz - Step 1</H3>
                     <div class="form_text">
                         <p>You have two options: </p>
 
@@ -219,12 +219,21 @@
                     </div>
 
                     <div class="button_distance">
-                        <button id="saveQuiz" onclick="preValidateForm()">Save My Quiz</button>
-                    </div>
+                        <button id="saveQuiz" onclick="preValidateForm()">Save And Continue</button>
+                       
+                    </div> <div class="plaintext">You will be able to read your quiz, set the correct answers, edit and add more answer options if needed in the next step.</div>
                 </div>
                 
-                <div id="form_div4" style="display: none;"> <p id="scandiQuizFormP2"></p></div>
-
+              <div id="form_div4" style="display: none;">
+              <p id="scandiQuizFormP2">
+              <H3 id="headline3">Scandi Quiz</H3></p>
+             </div>
+            
+             <div id="form_div5" style="display: none;"> 
+             <p id="userQuizFormP2">
+             <H3 id="headline3">Build your own quiz - Step 2</H3></p>
+             
+ </div>
             </div>
             <!---col 1 ends here-->
 
@@ -264,7 +273,7 @@
 
                     <button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
                     
-                    <button  id="showscandiQuizFormAnswers" onclick="showStoredQuizes('scandiQuizForm')">Show and edit Quiz</button>
+                    <button  id="showscandiQuizFormAnswers" onclick="showStoredScandiQuizes()">Show and edit Quiz</button>
 
 
                     <button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
@@ -278,7 +287,7 @@
 
                     <p id="userQuizFormP"></p>
 
-                    <button onclick="showStoredQuizes('scandiQuizForm')">Show and edit Quiz</button>
+                    <button onclick="showStoredUserQuizes()">Show and edit Quiz</button>
                 </div>
 
                 <img src="images/rightsideimage.jpg" alt="Quiz Image" id="rightsideimage">
