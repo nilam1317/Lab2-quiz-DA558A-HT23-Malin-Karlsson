@@ -3,293 +3,302 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="description" content="quiz">
-	<meta name="author" content="Malin Karlsson">
+    <meta charset="UTF-8">
+    <meta name="description" content="quiz">
+    <meta name="author" content="Malin Karlsson">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Add  googlefonts -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
-	<link href="https://fonts.googleapis.com/css2?family=Laila:wght@500&display=swap" rel="stylesheet">
-	<!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
-	<!--[if lt IE 9]> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add  googlefonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@500&display=swap" rel="stylesheet">
+    <!--html5shiv is an HTML5 JavaScript shim for IE to recognise and style the HTML5 elements-->
+    <!--[if lt IE 9]> 
 <script src="https://raw.githubusercontent.com/aFarkas/html5shiv/master/dist/html5shiv.min.js"></script>
  <![endif]-->
 
-	<link rel="stylesheet" href="css/style.css">
-	<title></title>
+    <link rel="stylesheet" href="css/style.css">
+    <title></title>
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Execute showFromStart() when the DOM is fully loaded
-			showFromStart()
-		})
-	</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Execute showFromStart() when the DOM is fully loaded
+            showFromStart()
+        })
+    </script>
 
 </head>
 
 <body onload="thisFormInfo('registerInfoForm')">
-	<header class="hero-image">
-		<div class="hero-text">
-			<h1>Travel Quiz Generator</h1>
+    <header class="hero-image">
+        <div class="hero-text">
+            <h1>Travel Quiz Generator</h1>
 
 
-		</div>
+        </div>
 
-		<nav>
+        <nav>
 
 
-		</nav>
+        </nav>
 
-	</header>
-	<main>
-		<div class="flex-container">
-			<!---col 1 starts here-->
+    </header>
+    <main>
+        <div class="flex-container">
+            <!---col 1 starts here-->
 
-			<div class="item1">
-				<div id="form_div1">
+            <div class="item1">
+                <div id="form_div1">
 
 
 
-					<form id="registerUserForm" style="display: block;">
+                    <form id="registerUserForm" style="display: block;">
 
-						<fieldset>
+                        <fieldset>
 
-							<legend>Please register to get started</legend>
-							<p class="req">*Required Fields</p>
-							<div class="form_column">
-								<div class="form-contact">
+                            <legend>Please register to get started</legend>
+                            <p class="req">*Required Fields</p>
+                            <div class="form_column">
+                                <div class="form-contact">
 
-									<label for="firstName">First Name</label>
-									<input id="firstName" name="firstName"maxlength="25" type="text" class="form-control" required>
-									<p>* A-Ö a-ö `´ allowed</p>
-								</div>
-								<div class="form-contact">
-									<label for="lastName">Last Name</label>
-									<input id="lastName" name="lastName" maxlength="25" type="text" class="form-control" required>
-									<p>* * A-Ö a-ö `´ allowed</p>
-								</div>
-							</div>
-							<div class="form-contact">
-								<label for="phoneNumber">Phone number</label>
-								<input id="phoneNumber" name="phoneNumber" type="text" maxlength="11" class="form-control" required>
-								<p>* Please enter only digits 0-9</p>
-							</div>
-							<div class="form-contact">
-								<label for="email">Email</label>
-								<input id="email" autocomplete="on" name="email" maxlength="50" type="text" class="form-control" required>
-								<p>* Please enter a valid email address</p>
-							</div>
-							<div class="button_distance">
-								<button>Register</button>
-							</div>
+                                    <label for="firstName">First Name</label>
+                                    <input id="firstName" name="firstName" maxlength="25" type="text" class="form-control" required>
+                                    <p>* A-Ö a-ö `´ allowed</p>
+                                </div>
+                                <div class="form-contact">
+                                    <label for="lastName">Last Name</label>
+                                    <input id="lastName" name="lastName" maxlength="25" type="text" class="form-control" required>
+                                    <p>* * A-Ö a-ö `´ allowed</p>
+                                </div>
+                            </div>
+                            <div class="form-contact">
+                                <label for="phoneNumber">Phone number</label>
+                                <input id="phoneNumber" name="phoneNumber" type="text" maxlength="11" class="form-control" required>
+                                <p>* Please enter only digits 0-9</p>
+                            </div>
+                            <div class="form-contact">
+                                <label for="email">Email</label>
+                                <input id="email" autocomplete="on" name="email" maxlength="50" type="text" class="form-control" required>
+                                <p>* Please enter a valid email address</p>
+                            </div>
+                            <div class="button_distance">
+                                <button>Register</button>
+                            </div>
 
-						</fieldset>
-					</form>
-				</div>
-				<div id="form_div2" style="display: none;">
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="form_div2" style="display: none;">
 
-					<H1 id="headline1">The Scandi Quiz</H1>
+                    <H1 id="headline1">The Scandi Quiz</H1>
 
 
 
-					<form id="scandiQuizForm" style="display: none;">
+                    <form id="scandiQuizForm" style="display: none;">
 
-						<fieldset>
-							<legend>Start here</legend>
-							<p class="req">*Required Fields</p>
+                        <fieldset>
+                            <legend>Start here</legend>
+                            <p class="req">*Required Fields</p>
 
-							<div class="form-contact">
+                            <div class="form-contact">
 
-								<label for="sqAnswer1" class="answerLabelClass">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
-								<div id="sqQuestion_1" class="multilineinput" contenteditable="true"></div>
-								<input id="sqAnswer1" name="sqAnswer1" type="hidden">
-								<p>* A-Ö a-ö `´ allowed</p>
+                                <label for="sqAnswer1" class="answerLabelClass">Q1.) Which country enjoys a twice-daily coffee break called fika?</label>
+                                <div id="sqQuestion_1" class="multilineinput" contenteditable="true"></div>
+                                <input id="sqAnswer1" name="sqAnswer1" type="hidden">
+                                <p>* A-Ö a-ö `´ allowed</p>
 
-							</div>
+                            </div>
 
-							<div class="form-contact">
-								<label class="answerLabelClass" for="sqAnswer2" id="sqQuestion_2"> Q2.)The Danish word hygge is a word that can be used for: </label>
-								<input id="sqAnswer2" name="sqAnswer2" type="hidden">
+                            <div class="form-contact">
+                                <label class="answerLabelClass" for="sqAnswer2" id="sqQuestion_2"> Q2.)The Danish word hygge is a word that can be used for: </label>
+                                <input id="sqAnswer2" name="sqAnswer2" type="hidden">
 
-								<label class="container1" for="sqAnswer2a">
-									<input type="checkbox" id="sqAnswer2a" value="A quality of cosiness.">
-									<span class="checkmark">A quality of cosiness.</span>
-								</label>
+                                <label class="container1" for="sqAnswer2a">
+                                    <input type="checkbox" id="sqAnswer2a" value="A quality of cosiness.">
+                                    <span class="checkmark">A quality of cosiness.</span>
+                                </label>
 
-								<label class="container1" for="sqAnswer2b">
-									<input id="sqAnswer2b" type="checkbox" value="Smiling and laughing uncontrollably.">
-									<span class="checkmark">Smiling and laughing uncontrollably.</span>
-								</label>
+                                <label class="container1" for="sqAnswer2b">
+                                    <input id="sqAnswer2b" type="checkbox" value="Smiling and laughing uncontrollably.">
+                                    <span class="checkmark">Smiling and laughing uncontrollably.</span>
+                                </label>
 
-								<label class="container1" for="sqAnswer2c"><span></span>
-									<input id="sqAnswer2c" type="checkbox" value="Enjoying the silence.">
-									<span class="checkmark">Enjoying the silence.</span>
-								</label>
+                                <label class="container1" for="sqAnswer2c"><span></span>
+                                    <input id="sqAnswer2c" type="checkbox" value="Enjoying the silence.">
+                                    <span class="checkmark">Enjoying the silence.</span>
+                                </label>
 
-								<label class="container1" for="sqAnswer2d"><span></span>
-									<input id="sqAnswer2d" type="checkbox" value="A kind of atmosphere that evokes feelings of contentment and wellbeing.">
-									<span class="checkmark">A kind of atmosphere that evokes feelings of contentment and wellbeing.</span>
-								</label>
 
-							</div>
+                                <label class="container1" for="sqAnswer2d"><span></span>
+                                    <input id="sqAnswer2d" type="checkbox" value="A kind of atmosphere that evokes feelings of contentment and wellbeing.">
+                                    <span class="checkmark">A kind of atmosphere that evokes feelings of contentment and wellbeing.</span>
+                                </label>
+                                <p class="notreq">Not required allowed</p>
+                            </div>
 
-							<div class="form-contact form_distance">
+                            <div class="form-contact form_distance">
 
-								<label for="sqAnswer3" class="answerLabelClass">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
-								<div id="sqQuestion_3" class="multilineinput" contenteditable="true"></div>
-								<input id="sqAnswer3" name="sqAnswer3" type="hidden">
-								<p>* A-Ö a-ö `´ allowed</p>
-							</div>
+                                <label for="sqAnswer3" class="answerLabelClass">Q3.) Which was the common term for Vikings in the British Isles back in the dayes?</label>
+                                <div id="sqQuestion_3" class="multilineinput" contenteditable="true"></div>
+                                <input id="sqAnswer3" name="sqAnswer3" type="hidden">
+                                <p>* A-Ö a-ö `´ allowed</p>
+                            </div>
 
 
 
 
-							<div class="custom_select ">
+                            <div class="custom_select ">
 
-								<label class="answerLabelClass" for="sqAnswer4" id="sqQuestion_4"> Q4.) Which Kingdom was Iceland part of until 1944? </label>
-								<input id="sqAnswer4" name="sqAnswer4" type="hidden">
+                                <label class="answerLabelClass" for="sqAnswer4" id="sqQuestion_4"> Q4.) Which Kingdom was Iceland part of until 1944? </label>
+                                <input id="sqAnswer4" name="sqAnswer4" type="hidden">
 
-								<select id="sqAnswer4select">
-									<option value="Select one">Select an option</option>
-									<option value="Sweden">Sweden</option>
-									<option value="Danmark">Danmark</option>
-									<option value="Norway">Norway</option>
-									<option value="None">none of the above</option>
-								</select>
-							</div>
+                                <select id="sqAnswer4select">
+                                    <option value="Select one">Select an option</option>
+                                    <option value="Sweden">Sweden</option>
+                                    <option value="Danmark">Danmark</option>
+                                    <option value="Norway">Norway</option>
+                                    <option value="None">none of the above</option>
+                                </select>
+                                <p class="notreq">Not required allowed</p>
+                            </div>
 
 
 
-							<div class="form-contact form_distance">
+                            <div class="form-contact form_distance">
 
 
-								<label for="sqAnswer5" class="answerLabelClass">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
-								<div id="sqQuestion_5" class="multilineinput" contenteditable="true"></div>
-								<input id="sqAnswer5" name="sqAnswer5" type="hidden">
-								<p>* A-Ö a-ö `´ allowed</p>
+                                <label for="sqAnswer5" class="answerLabelClass">Q5.) What pop group has its own museum in Stockholm Sweden?"</label>
+                                <div id="sqQuestion_5" class="multilineinput" contenteditable="true"></div>
+                                <input id="sqAnswer5" name="sqAnswer5" type="hidden">
+                                <p>* A-Ö a-ö `´ allowed</p>
 
-							</div>
+                            </div>
 
-							<div class="button_distance">
-								<button>Submit</button>
-							</div>
+                            <div class="button_distance">
+                                <button>Submit</button>
+                            </div>
 
-						</fieldset>
-					</form>
-				</div>
+                        </fieldset>
+                    </form>
+                   
+                </div>
 
-				<div>
-					<span id="error" style="display:none;"></span>
-					<span id="points" style="display:none;"></span>
-					<span id="quizes" style="display:none;"></span>
-				</div>
+                <div>
+                    <span id="error" style="display:none;"></span>
+                    <span id="points" style="display:none;"></span>
+                    <span id="quizes" style="display:none;"></span>
+                </div>
 
-				<div id="form_div3" style="display: none;">
+                <div id="form_div3" style="display: none;">
 
-					<H3 id="headline3">Build your own quiz</H3>
-					<div class="form_text">
-						<p>You have two options: </p>
+                    <H3 id="headline3">Build your own quiz</H3>
+                    <div class="form_text">
+                        <p>You have two options: </p>
 
-						<ul class="a">
-							<li>You can start from scratch by pressing the <strong>"Add a blank question"</strong> and create a completely uniq quiz.</li>
-							<li>Or you can get use the <strong>"Add random question"</strong> button below to get started.</li>
-						</ul>
+                        <ul class="a">
+                            <li>You can start from scratch by pressing the <strong>"Add a blank question"</strong> and create a completely uniq quiz.</li>
+                            <li>Or you can get use the <strong>"Add random question"</strong> button below to get started.</li>
+                        </ul>
 
 
-						<span class="ps"><strong>Please note:</strong> Any Question you generate or write can be edited and/or deleted. When you've done creating a quiz, you can save it with the "Save Quiz" button.</span>
-					</div>
-					<form id="userQuizForm" style="display: none;">
-						<fieldset id="userQuizFormFieldset">
-							<legend>Start here to build a quiz</legend>
-							<p>*Required Fields</p>
+                        <span class="ps"><strong>Please note:</strong> Any Question you generate or write can be edited and/or deleted. When you've done creating a quiz, you can save it with the "Save Quiz" button.</span>
+                    </div>
+                    <form id="userQuizForm" style="display: none;">
+                        <fieldset id="userQuizFormFieldset">
+                            <legend>Start here to build a quiz</legend>
+                            <p>*Required Fields</p>
 
 
 
-						</fieldset>
-						
-					</form>
-						<div class="button_distance_quiz">
-							<button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button>
-							<button onclick="addQuestion()"> Add Blank Question</button>
-						</div>	
+                        </fieldset>
 
-						<div class="button_distance">
-							<button id="saveQuiz" onclick="preValidateForm()">Save My Quiz</button>
-						</div>
-				</div>
+                    </form>
+                    <div class="button_distance_quiz">
+                        <button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button>
+                        <button onclick="addQuestion()"> Add Blank Question</button>
+                    </div>
 
-			</div>
-			<!---col 1 ends here-->
+                    <div class="button_distance">
+                        <button id="saveQuiz" onclick="preValidateForm()">Save My Quiz</button>
+                    </div>
+                </div>
+                
+                <div id="form_div4" style="display: none;"> <p id="scandiQuizFormP2"></p></div>
 
-			<!---col 2 startss here-->
-			<div class="item2">
+            </div>
+            <!---col 1 ends here-->
 
-				<!--read what is stoared in localStorage-->
+            <!---col 2 startss here-->
+            <div class="item2">
 
-				<script>
-					function getJsonFunction() {
+                <!--read what is stoared in localStorage-->
 
-						getJson("Questions.json");
+                <script>
+                    function getJsonFunction() {
 
+                        getJson("Questions.json");
 
-						//The response is always decoded using UTF-8
-						async function getJson(file) {
-							let myObject = await fetch(file)
-							let myFetchedQuestions = await myObject.text()
-							const ObjectFromFile = JSON.parse(myFetchedQuestions)
 
-							pickRandom(ObjectFromFile)
+                        //The response is always decoded using UTF-8
+                        async function getJson(file) {
+                            let myObject = await fetch(file)
+                            let myFetchedQuestions = await myObject.text()
+                            const ObjectFromFile = JSON.parse(myFetchedQuestions)
 
-						}
+                            pickRandom(ObjectFromFile)
 
-					}
-				</script>
-				<div class="button_distance">
+                        }
 
-					<button style="display:block;" id="savedregisterUserFormAnswers" onclick="showStoredValue('registerUserForm')">Show my user info</button>
+                    }
+                </script>
+                <div class="button_distance">
 
+                    <button style="display:block;" id="savedregisterUserFormAnswers" onclick="showStoredValue('registerUserForm')">Show my user info</button>
 
-					<button id="deleteregisterUserFormAnswers" style="display:block;" onclick="deleteUserStored('registerUserForm')">Delete user info</button>
-					<p id="registerUserFormP"></p>
 
+                    <button id="deleteregisterUserFormAnswers" style="display:block;" onclick="deleteUserStored('registerUserForm')">Delete user info</button>
+                    <p id="registerUserFormP"></p>
 
-					<button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('scandiQuizForm')">Take the Scandi Quiz</button>
 
-					<button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
+                    <button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('scandiQuizForm')">Take the Scandi Quiz</button>
 
+                    <button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
+                    
+                    <button  id="showscandiQuizFormAnswers" onclick="showStoredQuizes('scandiQuizForm')">Show and edit Quiz</button>
 
-					<button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
-					<p id="scandiQuizFormP"></p>
 
-					<button id="userQuizButton" style="display:block;" onclick="userQuizButton('userQuizForm')">Make your own Quiz</button>
+                    <button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
+                    <p id="scandiQuizFormP"></p>
 
-					<button id="saveduserQuizFormAnswers" style="display:block;" onclick="listUserQuizFormNames()">Your saved questions</button>
+                    <button id="userQuizButton" style="display:block;" onclick="userQuizButton('userQuizForm')">Make your own Quiz</button>
 
-					<button id="deleteuserQuizFormAnswers" style="display:block;" onclick="clearUserQuizForms()">Delete all my saved questions</button>
+                    <button id="saveduserQuizFormAnswers" style="display:block;" onclick="listUserQuizFormNames()">Your saved questions</button>
 
-					<p id="userQuizFormP"></p>
-				</div>
+                    <button id="deleteuserQuizFormAnswers" style="display:block;" onclick="clearUserQuizForms()">Delete all my saved questions</button>
 
-				<img src="images/rightsideimage.jpg" alt="Quiz Image" id="rightsideimage">
+                    <p id="userQuizFormP"></p>
 
-			</div>
+                    <button onclick="showStoredQuizes('scandiQuizForm')">Show and edit Quiz</button>
+                </div>
 
+                <img src="images/rightsideimage.jpg" alt="Quiz Image" id="rightsideimage">
 
-			<!---col 2 ends here-->
+            </div>
 
-		</div>
 
-	</main>
+            <!---col 2 ends here-->
 
-	<footer>
+        </div>
 
+    </main>
 
-	</footer>
-	<script src="MalinKarlsson.js">
+    <footer>
 
-	</script>
+
+    </footer>
+    <script src="MalinKarlsson.js">
+
+    </script>
 
 
 
