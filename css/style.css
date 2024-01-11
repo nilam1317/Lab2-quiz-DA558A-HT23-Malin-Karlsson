@@ -190,6 +190,21 @@ main {
 }
 
 
+#headline1,
+#headline2,
+#headline3,
+H1,
+H2,
+h3{
+	color: darkslateblue;
+	text-transform: uppercase;
+	text-align: center;
+	margin-right: 2%;
+	font-size: 1.5em;
+}
+
+
+
 
 .odd {
 	background-color: #f5e0b3;
@@ -234,10 +249,15 @@ ul.a {
 {
 	padding: 10px 0 100px 0;
 
+}
+
+
+ .plaintext{
+	padding: 10px 40px 10px 40px;
 
 }
 
-#form_div4
+#form_div4,
 {
 	margin: 0 20px;
 
@@ -929,12 +949,3 @@ background: #f2f7d7;
 
 }
 
-#headline1,
-#headline2,
-#headline3 {
-	color: darkslateblue;
-	text-transform: uppercase;
-	text-align: center;
-	margin-right: 2%;
-	font-size: 1.5em;
-}
