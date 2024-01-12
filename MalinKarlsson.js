@@ -39,7 +39,8 @@ registerFormData.addEventListener('submit', (e) => {
 function preValidateForm() {
 	// Initialize an object to store numbers and corresponding values
 	let resultObject = {}
-    console.log(countAnswerLabels2())
+  
+   
 
 	// Loop through input fields with ids like "moreAnswerOptions2a", "moreAnswerOptions2b", etc.
 	for (let i = 1; i <= countAnswerLabels2(); i++) {
@@ -106,6 +107,7 @@ function validateQandAs(resultObject) {
         // Get the answer element by ID
         const myTest = document.getElementById("YourAnswer" + i);
 
+        
         // Check if the answer is not editable
         if (myTest.getAttribute("contenteditable") === 'false') {
             // If not editable, store the question from the form
@@ -119,9 +121,16 @@ function validateQandAs(resultObject) {
                 }
             }
         } else {
-            // If answer is editable, store both question and answer
+          
+         
+
+                
+
+                  // If answer is editable, store both question and answer
             QandAsToPass['question ' + i] = document.getElementById("YourQuestion" + i).innerHTML;
             QandAsToPass['answer ' + i] = document.getElementById("YourAnswer" + i).innerHTML;
+            
+    
         }
     }
 
@@ -157,13 +166,13 @@ function useRegexValidation(formtype, objectToPass) {
 	  	// Validate against regex and display appropriate error messages
 	  	if (key !== 'phoneNumber' && key !== 'email' && toTest.match(regex2)) {
 			document.getElementById("error").style.display = "block"
-			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed';
+			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where no special characters or numbers are allowed..';
 	  	} else if (key === 'phoneNumber' && !toTest.match(regex1)) {
 			document.getElementById("error").style.display = "block"
-			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where only numbers are allowed';
+			document.getElementById("error").innerHTML = 'You entered "' + toTest + '" in a field where only numbers are allowed!!!';
 	  	} else if (key === 'email' && !toTest.match(regex3)) {
 			document.getElementById("error").style.display = "block"
-			document.getElementById("error").innerHTML = '" ' + toTest + '" is not a valid email'
+			document.getElementById("error").innerHTML = '" ' + toTest + '" is not a valid email....'
 	  	} else {
 			i = ++i;
 	  	}
@@ -227,7 +236,7 @@ scandiQuizFormData.addEventListener('submit', (e) => {
         let plainInput =""
 
         if (i === 2) {
-            console.log(i)
+           
 			if(document.getElementById("sqAnswer2a").checked){
 				//checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value
 				checkbox2 = checkbox2 + document.getElementById('sqAnswer2a').value + ' '
@@ -289,18 +298,19 @@ scandiQuizFormData.addEventListener('submit', (e) => {
 		
             const collectAnswers = document.getElementById("sqAnswer"+i)
     
-        
+            console.log("test "+ "sqAnswer"+i)
 
 			if (collectAnswers.getAttribute("value") == "") {
 			    //Show error message
+                console.log('triggered1')
 			    document.getElementById("error").style.display = "block"
-			    document.getElementById("error").innerHTML = 'You must enter text in all fields..'
+			    document.getElementById("error").innerHTML = 'You must enter text in all fields.....'
 		    } 
 			
 			
 		}
 		
-    }
+    } 
 			
 
     // Create two arrays needed for the next step
@@ -350,27 +360,31 @@ function useRegexValidation2(formtype, result) {
     let regexQandQs = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g
     var i = 0
     var formLength = Object.keys(result).length
-   
+    
     
     // Loop through the properties in the result object
     for (let key in result) {
         let toTest = key
         let toTest2 = result[key]
-        //(key +':'+ result[key])
+    
         
       
        
        
 
-        
+       
        
         // Validate input and display appropriate error messages
         if (toTest == '' || toTest2 == '') {
-            showError('You must enter text in all fields.')
+            document.getElementById("error2").style.display = "block"
+          showError('You must enter text in all fields.-')
+            //document.getElementById("error2").innerHTML = "You must enter text in all fields"
         } else if (toTest.match(regexQandQs)) {
-            showError('You entered "' + toTest + '" in a field where no special characters are allowed.')
+            document.getElementById("error2").style.display = "block"
+            ocument.getElementById("error2").innerHTML = 'You entered "' + toTest + '" in a field where no special characters are allowed..'
         } else if (toTest2.match(regexQandQs)) {
-            showError('You entered "' + toTest2 + '" in a field where no special characters are allowed.')
+            document.getElementById("error2").style.display = "block"
+           document.getElementById("error2").innerHTML = 'You entered "' + toTest2 + '" in a field where no special characters are allowed..'
         }
        
             
@@ -381,14 +395,15 @@ function useRegexValidation2(formtype, result) {
 
      
 
-
-    const submittedQuiz = result;
+   // const submittedQuiz = result;
 
     // When the loop is complete
     if (i === formLength) {
-        hideError()
-        storeDataLocally(formtype, result)
-        toggleFormDiv();
+        document.getElementById("error").style.display = "none";
+        document.getElementById("error2").style.display = "none";
+       storeDataLocally(formtype, result)
+
+     
     }
     
 }
@@ -580,8 +595,8 @@ function storeDataLocally(formtype, result) {
 function updateUI(formtype) {
     if (formtype === "registerUserForm") {
         // Update UI elements for the registerUserForm
-        document.getElementById("showUserFormAnswers").style.display = "block";
-        document.getElementById("deleteregisterUserFormAnswers").style.display = "block";
+        //ocument.getElementById("showUserFormAnswers").style.display = "block";
+        //document.getElementById("deleteregisterUserFormAnswers").style.display = "block";
         document.getElementById("scandiQuizFormP").innerHTML = "";
         document.getElementById("scandiQuizFormP2").innerHTML = "";
         document.getElementById("form_div1").style.display = "none";
@@ -729,7 +744,7 @@ function addQuestion() {
 
     AnswerDivField.setAttribute("id", "YourAnswer" + j);
     AnswerDivField.setAttribute("class", "multilineinput");
-    AnswerDivField.setAttribute("contenteditable", "plaintext-only");
+    AnswerDivField.setAttribute("contenteditable", "true");
 
     inputQuestionField.setAttribute("type", "hidden");
     inputAnswerField.setAttribute("type", "hidden");
@@ -1021,11 +1036,11 @@ function randQuestion(theQuestion, theAnswer) {
     // Set IDs and classes for divs containing question and answer
     RandQuestionDivField.setAttribute("id", "YourQuestion" + n);
     RandQuestionDivField.setAttribute("class", "multilineinput");
-    RandQuestionDivField.setAttribute("contenteditable", "plaintext-onlye");
+    RandQuestionDivField.setAttribute("contenteditable", "true");
 
     RandAnswerDivField.setAttribute("id", "YourAnswer" + n);
     RandAnswerDivField.setAttribute("class", "multilineinput");
-    RandAnswerDivField.setAttribute("contenteditable", "plaintext-only");
+    RandAnswerDivField.setAttribute("contenteditable", "true");
 
     // Set initial values for hidden input fields
     inputRandQuestionField.setAttribute("value", theQuestion);
@@ -1222,7 +1237,7 @@ function showStoredUserQuizes() {
             const storedObject = JSON.parse(localStorage.getItem(storedObjectKey));
             document.getElementById("form_div1").style.display = 'none';
             document.getElementById("form_div2").style.display = 'none';
-            document.getElementById("userQuizFormP2").style.display = 'none';
+            document.getElementById("userQuizFormP2").style.display = 'block';
             document.getElementById("form_div3").style.display = 'none';
             document.getElementById("form_div4").style.display = 'none';
             document.getElementById("form_div5").style.display = 'block';
@@ -1242,7 +1257,7 @@ function showStoredUserQuizes() {
                     document.getElementById(formtypePrefix + 'FormP2').appendChild(textBox)
 
                    
-                    
+                    console.log('key: ' + key+ ' och värde: ' +storedObject[key])
 
                     const labelParent = document.getElementById(key)
                     let labelToInsert = '<label for="'+key+'">'+key+'</label>';
