@@ -180,14 +180,10 @@
 
                         </fieldset>
                     </form>
-                   
+
                 </div>
 
-                <div>
-                    <span id="error" style="display:none;"></span>
-                    <span id="points" style="display:none;"></span>
-                    <span id="quizes" style="display:none;"></span>
-                </div>
+
 
                 <div id="form_div3" style="display: none;">
 
@@ -206,34 +202,45 @@
                     <form id="userQuizForm" style="display: none;">
                         <fieldset id="userQuizFormFieldset">
                             <legend>Start here to build a quiz</legend>
-                            <p>*Required Fields</p>
+                            <p>Step 1 of 2</p>
 
 
 
                         </fieldset>
+
 
                     </form>
                     <div class="button_distance_quiz">
                         <button onclick="getJsonFunction()" id="randQuestionGenerator"> Add Random Question </button>
                         <button onclick="addQuestion()"> Add Blank Question</button>
                     </div>
+                    <div class="plaintext">Step 1.) Add the amount of questions you wan't and write down the Questions and Answers you wish to use. Onced you've completed step one you can continue to step 2.</div>
 
                     <div class="button_distance">
-                        <button id="saveQuiz" onclick="preValidateForm()">Save And Continue</button>
-                       
-                    </div> <div class="plaintext">You will be able to read your quiz, set the correct answers, edit and add more answer options if needed in the next step.</div>
+                        <button id="saveQuiz" onclick="preValidateForm()">Save & continue</button>
+
+                    </div>
+                    <div class="plaintext">Step.) You will be able to read your quiz, set the correct answers, edit and add more answer options if needed in the next step. YOu can also come back on a leter date and make changes to your quiz</div>
                 </div>
-                
-              <div id="form_div4" style="display: none;">
-              <p id="scandiQuizFormP2">
-              <H3 id="headline3">Scandi Quiz</H3></p>
-             </div>
-            
-             <div id="form_div5" style="display: none;"> 
-             <p id="userQuizFormP2">
-             <H3 id="headline3">Build your own quiz - Step 2</H3></p>
-             
- </div>
+
+                <div id="form_div4" style="display: none;">
+                    <p id="scandiQuizFormP2">
+                    <H3 id="headline3">Scandi Quiz</H3>
+                    </p>
+                </div>
+
+                <div id="form_div5" style="display: none;">
+                    <p id="userQuizFormP2">
+                    <H3 id="headline3">Build your own quiz - Step 2</H3>
+                    </p>
+
+                </div>
+                <div>
+                    <span id="error2" style="display:none;"></span>
+                    <span id="error" style="display:none;"></span>
+                    <span id="points" style="display:none;"></span>
+                    <span id="quizes" style="display:none;"></span>
+                </div>
             </div>
             <!---col 1 ends here-->
 
@@ -272,8 +279,8 @@
                     <button style="display:block;" id="scandiQuizButton" onclick="scandiQuizButton('scandiQuizForm')">Take the Scandi Quiz</button>
 
                     <button id="savedscandiQuizFormAnswers" style="display:block;" onclick="showStoredValue('scandiQuizForm')">Show my latest Scandi Quiz answers</button>
-                    
-                    <button  id="showscandiQuizFormAnswers" onclick="showStoredScandiQuizes()">Show and edit Quiz</button>
+
+                    <button id="showscandiQuizFormAnswers" onclick="showStoredScandiQuizes()">Show and edit Quiz</button>
 
 
                     <button id="deletescandiQuizFormAnswers" style="display:block;" onclick="deleteUserStored('scandiQuizForm')">Delete Scandi Quiz answers</button>
