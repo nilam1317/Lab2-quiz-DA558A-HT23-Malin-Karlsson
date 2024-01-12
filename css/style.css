@@ -437,7 +437,6 @@ label {
 
 
 
-
 input[type=text],
 textarea,
 .multilineinput {
@@ -455,6 +454,20 @@ textarea,
 }
 
 
+#form_div5 input[type=text],
+textarea {
+
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    resize: vertical;
+    cursor: pointer;
+    color: #333;
+    width: 80%
+
+
+}
 
 
 
@@ -748,7 +761,7 @@ button:active {
 
 
 
-#error, #error2 {
+#error, #error2, #error3 {
     position: fixed;
     text-align: center;
     bottom: 0;
@@ -759,7 +772,7 @@ button:active {
     width: 660px;
     margin: 0 50px;
     z-index: 500;
-
+	display: none;
 }
 
 
