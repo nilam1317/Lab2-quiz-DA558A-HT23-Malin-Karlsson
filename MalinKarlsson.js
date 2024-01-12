@@ -1237,57 +1237,56 @@ function showStoredUserQuizes() {
             const storedObject = JSON.parse(localStorage.getItem(storedObjectKey));
             document.getElementById("form_div1").style.display = 'none';
             document.getElementById("form_div2").style.display = 'none';
-            document.getElementById("userQuizFormP2").style.display = 'block';
+            document.getElementById("userQuizFormP2").style.display = 'none';
             document.getElementById("form_div3").style.display = 'none';
             document.getElementById("form_div4").style.display = 'none';
             document.getElementById("form_div5").style.display = 'block';
 
-            // Check if there is anything stored
-            if (storedObject) {
-                // Iterate through the key-value pairs and create textboxes
+         
+            displayQuizForm(storedObject)
+
+
+                /*// Iterate through the key-value pairs and create textboxes
                 for (const key in storedObject) {
+                    
+                   
+                        console.log(`${key}: ${storedObject[key]}`)
+               
+
                     // Create a new textbox
                     const textBox = document.createElement("input")
                     // Set textbox attributes
                     textBox.type = "text"
                     textBox.id = key
                     textBox.value = storedObject[key]
-                    console.log(key +'vs' +storedObject[key])
+                   
                     // Append the textbox to the specified container (formtypePrefix + 'P2')
                     document.getElementById(formtypePrefix + 'FormP2').appendChild(textBox)
 
                    
-                    console.log('key: ' + key+ ' och värde: ' +storedObject[key])
-
+               
                     const labelParent = document.getElementById(key)
                     let labelToInsert = '<label for="'+key+'">'+key+'</label>';
                     labelParent.insertAdjacentHTML("beforebegin", labelToInsert);
 
-                }
-            } else {
-                // If there is nothing stored to show
-                document.getElementById("error").style.display = "block";
-                document.getElementById("error").innerHTML = "There is nothing saved.";
-                const closeButtonX = document.getElementById("error");
-                let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
-                closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
-            }
-        } else {
-            // If there is no key starting with "userQuiz"
-            document.getElementById("error").style.display = "block";
+                }*/
+         } else {
+             // If there is nothing stored to show
+             document.getElementById("error").style.display = "block";
             document.getElementById("error").innerHTML = "There is nothing saved.";
+            const closeButtonX = document.getElementById("error");
+             let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
+            closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
+         } 
+            
+         if(!isUserRegged()){
+            // Display an error message if the user is not registered
+            document.getElementById("error").style.display = "block";
+            document.getElementById("error").innerHTML = "You need to register before you can use this function!";
             const closeButtonX = document.getElementById("error");
             let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
             closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
-        }
-    } else {
-        // Display an error message if the user is not registered
-        document.getElementById("error").style.display = "block";
-        document.getElementById("error").innerHTML = "You need to register before you can use this function!";
-        const closeButtonX = document.getElementById("error");
-        let htmlToInsert = '<p class="button_distance"><button id="close" onclick="myCloseFunction()">Close</button></p>';
-        closeButtonX.insertAdjacentHTML("beforeend", htmlToInsert);
-    }
+        }    }
 }
 
 
@@ -1718,4 +1717,256 @@ function hideButtons(buttonIds) {
             button.style.display = "none"
         }
     })
+}
+// Function to delete a question-answer pair from the object and update the UI
+function deleteQuestionAnswerPair(objectName, question, answerIndex) {
+    // Sanitize the question by replacing special characters with underscores
+    const sanitizedQuestion = question.replace(/[^a-zA-Z0-9]/g, '_');
+    
+    // Generate keys and IDs based on the sanitized question and answer index
+    const answerKey = answerIndex !== undefined ? `my${sanitizedQuestion}${String.fromCharCode(97 + answerIndex)}` : question;
+    const deleteButtonId = `deleteButton_${sanitizedQuestion}_${answerIndex}`;
+    const checkboxId = `checkbox_${sanitizedQuestion}_${answerIndex}`;
+
+    // Check if it's the last answer for the question
+    if (objectName[question].split("|").length > 1) {
+        // Remove the answer from the array
+        const updatedAnswers = objectName[question].split("|").filter((_, index) => index !== answerIndex);
+        objectName[question] = updatedAnswers.join("|");
+
+        // Remove the corresponding input field
+        const inputElement = document.getElementById(answerKey);
+        if (inputElement) {
+            inputElement.parentNode.removeChild(inputElement);
+        }
+
+        // Remove the corresponding checkbox
+        const checkboxElement = document.getElementById(checkboxId);
+        if (checkboxElement) {
+            checkboxElement.parentNode.removeChild(checkboxElement);
+        }
+
+        // Remove the corresponding delete button
+        const deleteButton = document.getElementById(deleteButtonId);
+        if (deleteButton) {
+            deleteButton.parentNode.removeChild(deleteButton);
+        }
+
+        // Log the updated object (for demonstration purposes)
+        console.log(objectName);
+    } else {
+        // If it's the last answer, remove the entire question
+        delete objectName[question];
+
+        // Remove the entire question input field
+        const questionDiv = document.getElementById(`div_${sanitizedQuestion}`);
+        if (questionDiv) {
+            questionDiv.parentNode.removeChild(questionDiv);
+        }
+
+        // Log the updated object (for demonstration purposes)
+        console.log(objectName);
+    }
+}
+
+// Function to display the quiz form based on the provided object
+function displayQuizForm(objectName) {
+    // Retrieve the form div element
+    const formDiv = document.getElementById("form_div5");
+    // Create a new form element
+    const form = document.createElement("form");
+    form.setAttribute("id", "myQuizForm");
+    form.setAttribute("style", "display: block;");
+
+    // Create a fieldset and legend for the form
+    const fieldset = document.createElement("fieldset");
+    const legend = document.createElement("legend");
+    legend.textContent = "Edit and save your quiz";
+    fieldset.appendChild(legend);
+
+    // Add a paragraph with additional information
+    const additionalInfo = document.createElement("p");
+    additionalInfo.textContent = "* Use the checkboxes to indicate which answer is the correct one (multiple ones are allowed).";
+    fieldset.appendChild(additionalInfo);
+
+    // Iterate through the object and create form elements for each question and answer
+    for (const [question, answer] of Object.entries(objectName)) {
+        // Sanitize the question by replacing special characters with underscores
+        const sanitizedQuestion = question.replace(/[^a-zA-Z0-9]/g, '_');
+        // Create a div element for the question
+        const questionDiv = document.createElement("div");
+        questionDiv.classList.add("form-contact");
+        questionDiv.setAttribute("id", `div_${sanitizedQuestion}`); // Add an ID to the questionDiv
+
+        // Create a label for the question
+        const questionLabel = document.createElement("label");
+        questionLabel.setAttribute("for", `my${sanitizedQuestion}`);
+        questionLabel.textContent = question;
+        questionDiv.appendChild(questionLabel);
+
+        // Split the answers using "|" delimiter and create input fields, checkboxes, and delete buttons
+        const answerArray = answer.split("|");
+        for (let i = 0; i < answerArray.length; i++) {
+            // Add answer input
+            const answerInput = document.createElement("input");
+            answerInput.setAttribute("id", `my${question}${String.fromCharCode(97 + i)}`);
+            answerInput.setAttribute("maxlength", "200");
+            answerInput.setAttribute("type", "text");
+            answerInput.classList.add("form-control2");
+            answerInput.setAttribute("required", "");
+            answerInput.value = answerArray[i];
+
+            questionDiv.appendChild(answerInput);
+
+            // Add checkbox
+            const checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", `checkbox_${question}_${i}`);
+            questionDiv.appendChild(checkbox);
+
+            // Add delete button with closure to handle deletion
+            const deleteButton = document.createElement("button");
+            deleteButton.setAttribute("type", "button");
+            deleteButton.setAttribute("class", "delete-button");
+            deleteButton.textContent = "Delete";
+            deleteButton.setAttribute("id", `deleteButton_${sanitizedQuestion}_${i}`); // Add a unique ID to the delete button
+
+            // Create a closure to capture the current values of question and i
+            (function(currentQuestion, currentIndex) {
+                deleteButton.addEventListener("click", function() {
+                    deleteQuestionAnswerPair(objectName, currentQuestion, currentIndex);
+                });
+            })(question, i);
+
+            questionDiv.appendChild(deleteButton);
+        }
+
+        // Append the questionDiv to the fieldset
+        fieldset.appendChild(questionDiv);
+    }
+
+    // Add "Save" button event handler
+    const saveButton = document.createElement("button");
+    saveButton.setAttribute("id", "mySaveFormButton");
+    saveButton.textContent = "Save";
+    saveButton.addEventListener("click", function(e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        saveQuiz(objectName);
+    });
+
+    // Append the fieldset and saveButton to the form
+    form.appendChild(fieldset);
+    form.appendChild(saveButton);
+
+    // Append the form to the formDiv
+    formDiv.appendChild(form);
+}
+// Function to save the quiz data to localStorage
+function saveQuiz(originalObject) {
+    // Create an empty object to store the updated values
+    const updatedObject = {};
+    // Object to store the checked status of each answer
+    const answerStatus = {};
+
+    // Regular expression for disallowed characters
+    const Regex4Dissallowed = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\<|\>|\/|\""|\;|\:/g;
+
+    // Get the error span elements for displaying validation errors
+    const error_userQuissForm = document.getElementById("error3");
+    const error_answerLength = document.getElementById("error2");
+
+    // Set error elements to initially hidden
+    document.getElementById("error3").style.display = "none";
+    document.getElementById("error3").display = "none";
+
+    // Iterate through the form elements and update the original object
+    const formElements = document.querySelectorAll("form#myQuizForm .form-contact input[type=text]");
+    formElements.forEach((input) => {
+        // Extract question from the input ID
+        const question = input.id.replace(/^my/, '');
+        // Trim and get the updated value from the input
+        const updatedValue = input.value.trim();
+        let isCorrectAnswer = false;
+
+        // Check if any checkbox is checked for the current question
+        const checkboxElements = document.querySelectorAll(`form#myQuizForm .form-contact input[type=checkbox][id^="checkbox_${question}_"]`);
+
+        checkboxElements.forEach((checkbox, index) => {
+            // Use a unique key based on the question and index for answerStatus
+            const answerId = `${question}_${index}`;
+            // Store the checked status for each answer
+            answerStatus[answerId] = checkbox.checked;
+
+            // Update isCorrectAnswer flag if checkbox is checked
+            if (checkbox.checked) {
+                isCorrectAnswer = true;
+            }
+        });
+
+        // If "correct_answer" checkbox is checked, append " isCorrectAnswer" to the value
+        const finalValue = isCorrectAnswer ? `${updatedValue} isCorrectAnswer` : updatedValue;
+
+        // Check for disallowed characters
+        if (finalValue.match(Regex4Dissallowed)) {
+            console.log('nnn*');
+            // Display error message if disallowed characters are detected
+            document.getElementById("error3").style.display = "block";
+            document.getElementById("error3").innerHTML = 'No special characters are allowed..';
+            return; // Exit function if disallowed characters are detected
+        }
+
+        // Validate the value against disallowed characters and maximum length
+        const sanitizedValue = finalValue.replace(Regex4Dissallowed, '');
+        const maxLenghtVal = sanitizedValue.substring(0, 200);
+
+        if (!maxLenghtVal) {
+            console.log('2');
+            // Display error message if the value is empty after validation
+            error_userQuissForm.textContent = "Error: Answer cannot be empty.";
+            error_userQuissForm.style.display = "block"; // Set display to inline to make it visible
+            return; // Exit function if the value is empty after validation
+        }
+
+        // Update the updatedObject with the sanitized and truncated value
+        if (!updatedObject[question]) {
+            updatedObject[question] = maxLenghtVal;
+        } else {
+            updatedObject[question] += `|${maxLenghtVal}`;
+        }
+    });
+
+    // Check if the user is registered (example condition, adjust as needed)
+    if (isUserRegged()) {
+        // Generate a unique timestamp for userQuizForm submissions
+        const userQuizFormNames = Object.keys(localStorage)
+            .filter(key => key.startsWith('userQuizForm'));
+        let formtype22 = "";
+        const timestamp = (formtype22 === "userQuizForm") ? new Date().getTime() : "";
+        
+        // Construct a unique formtype using a timestamp
+        formtype = "userQuizForm" + timestamp;
+
+        // Stringify the updatedObject
+        const myJSON = JSON.stringify(updatedObject);
+
+        // Save the string to localStorage with the unique formtype key
+        localStorage.setItem(formtype, myJSON);
+
+        // Alert user that data has been successfully stored
+        alert("All data has been successfully submitted!");
+        document.getElementById("form_div1").style.display = "none";
+        document.getElementById("form_div2").style.display = "none";
+        document.getElementById("form_div3").style.display = "block";
+
+        // Log the answer status (for demonstration purposes)
+        console.log('Answer Status:', answerStatus);
+
+        // Log the updated object (for demonstration purposes)
+        console.log('Updated Object:', updatedObject);
+
+        // Update the properties of the original object
+        for (const [key, value] of Object.entries(updatedObject)) {
+            originalObject[key] = value;
+        }
+    }
 }
