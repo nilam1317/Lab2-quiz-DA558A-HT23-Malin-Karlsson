@@ -66,7 +66,7 @@ function preValidateForm() {
 			// Check if the input element exists
 			if (inputElement1 || inputElement2 ||inputElement3   ) {
 				// Concatenate the value to the currentValuesString
-				currentValuesString = currentValuesString+inputElement1.value+inputElement2.value+inputElement3.value
+				currentValuesString = currentValuesString+inputElement1.value+'|'+inputElement2.value+'|'+inputElement3.value
 
 				// Set contenteditable attribute to "false" for corresponding YourAnswer element
 				document.getElementById("YourAnswer" + i).setAttribute("contenteditable", "false")
@@ -1252,7 +1252,7 @@ function showStoredUserQuizes() {
                     textBox.type = "text"
                     textBox.id = key
                     textBox.value = storedObject[key]
-                    
+                    console.log(key +'vs' +storedObject[key])
                     // Append the textbox to the specified container (formtypePrefix + 'P2')
                     document.getElementById(formtypePrefix + 'FormP2').appendChild(textBox)
 
